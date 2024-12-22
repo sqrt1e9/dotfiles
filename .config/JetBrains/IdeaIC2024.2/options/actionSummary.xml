@@ -1,0 +1,94 @@
+<application>
+  <component name="ActionsLocalSummary">
+    <e n="$Undo">
+      <i c="8" l="1729183642450" />
+    </e>
+    <e n="ChangeLaf">
+      <i c="2" l="1724893181616" />
+    </e>
+    <e n="CheckForUpdate">
+      <i c="1" l="1729029402162" />
+    </e>
+    <e n="EditorBackSpace">
+      <i c="48" l="1729369528297" />
+    </e>
+    <e n="EditorChooseLookupItem">
+      <i c="3" l="1729192686023" />
+    </e>
+    <e n="EditorDelete">
+      <i c="1" l="1729177711090" />
+    </e>
+    <e n="EditorEnter">
+      <i c="4" l="1729192684736" />
+    </e>
+    <e n="EditorEscape">
+      <i c="1" l="1729183670523" />
+    </e>
+    <e n="EditorLineEnd">
+      <i c="1" l="1724889590888" />
+    </e>
+    <e n="EditorLineStartWithSelection">
+      <i c="2" l="1729192690353" />
+    </e>
+    <e n="EditorPasteFromX11">
+      <i c="3" l="1729183637701" />
+    </e>
+    <e n="HideAllWindows">
+      <i c="31" l="1729369489841" />
+    </e>
+    <e n="Maven.ReimportProject">
+      <i c="2" l="1729177691997" />
+    </e>
+    <e n="OpenFile">
+      <i c="1" l="1726267564732" />
+    </e>
+    <e n="RunClass">
+      <i c="1" l="1724890414405" />
+    </e>
+    <e n="RunInspection">
+      <i c="1" l="1729183679876" />
+    </e>
+    <e n="SettingsEntryPoint">
+      <i c="7" l="1726267644008" />
+    </e>
+    <e n="ShowSettings">
+      <i c="34" l="1729191905004" />
+    </e>
+    <e n="WelcomeScreen.CreateNewProject">
+      <i c="1" l="1724886929440" />
+    </e>
+    <e n="WelcomeScreen.OpenProject">
+      <i c="1" l="1724886934003" />
+    </e>
+    <e n="com.intellij.execution.lineMarker.LineMarkerActionWrapper">
+      <i c="1" l="1729369498984" />
+    </e>
+    <e n="com.intellij.ide.actions.QuickChangeLookAndFeel$LafChangeAction">
+      <i c="2" l="1724893182726" />
+    </e>
+    <e n="com.intellij.notification.NotificationAction$Simple">
+      <i c="3" l="1729029408808" />
+    </e>
+    <e n="com.intellij.openapi.fileEditor.impl.tabActions.CloseTab">
+      <i c="3" l="1727278190215" />
+    </e>
+    <e n="com.intellij.openapi.ui.DialogWrapper$5">
+      <i c="9" l="1729371744638" />
+    </e>
+    <e n="com.intellij.openapi.updateSettings.impl.UpdateSettingsEntryPointActionProvider$IdeUpdateAction">
+      <i c="1" l="1726267644598" />
+    </e>
+    <e n="com.intellij.openapi.wm.impl.SquareAnActionButton">
+      <i c="38" l="1729369450616" />
+    </e>
+    <e n="com.intellij.openapi.wm.impl.customFrameDecorations.header.toolbar.MainMenuButton$ShowMenuAction">
+      <i c="45" l="1729369448369" />
+    </e>
+    <e n="com.intellij.toolWindow.ToolWindowHeader$HideAction">
+      <i c="8" l="1729369518524" />
+    </e>
+    <e n="de.plushnikov.intellij.plugin.activity.LombokBuildManagerListener$1">
+      <i c="1" l="1729369512635" />
+    </e>
+  </component>
+</application>

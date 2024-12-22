@@ -1,0 +1,3 @@
+-Xmx4G
+-Xms2G
+-XX:NewRatio=4

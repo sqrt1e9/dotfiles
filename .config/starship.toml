@@ -1,0 +1,27 @@
+add_newline=true
+
+format="""$git_branch$git_status$directory$character"""
+
+[directory]
+truncation_length=255
+style="cyan bold dimmed"
+format="[$read_only]($read_only_style)[$path]($style) "
+repo_root_format="[$read_only]($read_only_style)[$before_root_path]($style)[$repo_root]($repo_root_style)[$path]($style) "
+
+[character]
+success_symbol="[❯](bold green)"
+error_symbol="[❯](bold red)"
+
+[package]
+disabled=true
+
+[battery]
+full_symbol=" "
+charging_symbol=" "
+discharging_symbol=" "
+unknown_symbol=" "
+empty_symbol=" "
+
+[[battery.display]]
+threshold=100
+style="bold red"

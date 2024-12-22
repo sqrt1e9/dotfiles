@@ -1,0 +1,16 @@
+0 verbose cli /usr/bin/node /usr/bin/npm
+1 info using npm@10.9.0
+2 info using node@v23.1.0
+3 silly config load:file:/usr/lib/node_modules/npm/npmrc
+4 silly config load:file:/home/barvind/.npmrc
+5 silly config load:file:/etc/npmrc
+6 verbose title npm root
+7 verbose argv "--loglevel" "silent" "root" "--global"
+8 verbose logfile logs-max:10 dir:/home/barvind/.npm/_logs/2024-11-09T04_44_22_363Z-
+9 verbose logfile /home/barvind/.npm/_logs/2024-11-09T04_44_22_363Z-debug-0.log
+10 verbose cwd /home/barvind/.config/nvim/lua/plugins
+11 verbose os Linux 6.6.59-1-lts
+12 verbose node v23.1.0
+13 verbose npm  v10.9.0
+14 verbose exit 0
+15 info ok

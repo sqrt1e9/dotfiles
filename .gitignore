@@ -1,0 +1,92 @@
+# User default directories
+Desktop/
+Documents/
+Downloads/
+Music/
+Pictures/
+Public/
+snap/
+Templates/
+Videos/
+Devworx/
+
+# Program Home Directories
+.cache/
+.java/
+.lesshst
+.local/
+.m2/
+.mozilla/
+.pki/
+.python_history
+.redhat/
+.ssh/
+.viminfo
+.vscode-oss/
+.vscode/
+.wget-hsts
+
+# Backup files
+*.bak
+*.bkp
+*-bkp
+*-bak
+*bk
+.*bak
+.*bk
+.*history
+.attach_*
+*.tmp
+.bash_profile
+.bash_logout
+
+# Electron Apps
+.config/**/Backups/
+.config/**/**Cache**/
+.config/**/**CachedData**/
+.config/**/**CachedExtensionVSIXs**/
+.config/**/**CachedExtensions**/
+.config/**/**Database**/
+.config/**/Code Cache/
+.config/**/Cookies
+.config/**/**Storage**/
+.config/**/**History**/
+.config/**/**cache**/
+.config/**/Cookies-journal
+.config/**/Crash Reports/
+.config/**/Dictionaries/
+.config/**/Shared Dictionary/
+.config/**/Databases/
+.config/**/*.db
+.config/**/*.db-journal
+.config/**/SharedStorage
+.config/**/Trust Tokens
+.config/**/Trust Tokens-journal
+.config/**/GPUCache/
+.config/**/Local Storage/
+.config/**/Network Persistent State
+.config/**/Preferences
+.config/**/Session Storage/
+.config/**/TransportSecurity
+.config/**/User/globalStorage/
+.config/**/User/workspaceStorage/
+.config/**/exthost Crash Reports/
+.config/**/languagepacks.json
+.config/**/logs/
+.config/**/machineid
+.config/**/rapid_render.json
+.config/**/storage.json
+.config/**/blob_storage/
+.config/**/Application Cache/
+.config/**/Service Worker/CacheStorage/
+.config/**/*.count
+.config/**/Crashpad/**
+.config/Electron/Trust Tokens
+.config/Electron/Trust Tokens-journal
+.config/JetBrains/**/tasks/**
+.config/JetBrains/**/workspace/**
+.config/**/IndexedDB/**
+.config/**/QuotaManager
+.config/**/QuotaManager-journal
+.config/**/*.tdb
+.config/pulse/
