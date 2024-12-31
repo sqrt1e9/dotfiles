@@ -1,6 +1,4 @@
-#
 # ~/.bashrc
-#
 
 [[ $- != *i* ]] && return
 eval "$(starship init bash)"
