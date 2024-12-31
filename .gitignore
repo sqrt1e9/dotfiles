@@ -25,6 +25,7 @@ Devworx/
 .vscode-oss/
 .vscode/
 .wget-hsts
+.openai-api-key.key
 
 # Backup files
 *.bak
