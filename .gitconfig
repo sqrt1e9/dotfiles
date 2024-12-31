@@ -1,3 +1,5 @@
 [user]
 	email = barvind.dev@outlook.com
 	name = Arvind Badri
+[core]
+	editor = /usr/bin/nvim
