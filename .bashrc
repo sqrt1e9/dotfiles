@@ -22,6 +22,11 @@ jexec() {
 }
 
 gpt() {
-    local openai_api_key=$(cat "$HOME/.openai-api-key.key")
+    local openai_api_key=$(bitwarden get item openai.com | jq -r .fields[0].value)
     chatblade --openai-api-key "$openai_api_key" "$@"
+}
+
+bitwarden() {
+    local bw_session_key=$(cat "$HOME/.bitwarden-session-key.key")
+    bw --session "$bw_session_key" "$@"
 }
