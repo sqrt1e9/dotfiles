@@ -1,8 +1,8 @@
 return {
-    "Mofiqul/dracula.nvim",
+    "rebelot/kanagawa.nvim",
     lazy = false,
-    priority = 1000,
+    priorty = 1000,
     config = function()
-        vim.cmd.colorscheme "dracula"
+        vim.cmd.colorscheme "kanagawa-dragon"
     end
 }

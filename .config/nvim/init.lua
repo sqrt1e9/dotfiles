@@ -22,7 +22,7 @@ local options = {
         lazy = true
     },
     install = {
-        colorSchemes = "dracula"
+        colorSchemes = "kanagawa"
     },
     rtp = {
         dislabled_plugins = {

@@ -1,0 +1,13 @@
+[Desktop Entry]
+FullScreen=false
+
+[General]
+LockSidebar=true
+ShowSidebar=true
+
+[MainWindow]
+ToolBarsMovable=Disabled
+
+[Recent Files]
+File1[$e]=$HOME/Notes/DSA-BOOT/out/Notes.pdf
+Name1[$e]=Notes.pdf

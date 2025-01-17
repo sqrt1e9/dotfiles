@@ -17,6 +17,7 @@ return {
             { "<leader>g", group = "git" },
             { "<leader>J", group = "java" },
             { "<leader>w", group = "window" },
+            { "<leader>l", group = "latex" }
         })
     end
 }
