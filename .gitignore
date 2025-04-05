@@ -27,6 +27,7 @@ Notes/
 .vscode/
 .wget-hsts
 .bitwarden-session-key.key
+.var/
 
 # Backup files
 *.bak

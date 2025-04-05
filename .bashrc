@@ -14,9 +14,9 @@ alias vim="/usr/bin/nvim"
 alias tlp-stat="sudo tlp-stat"
 alias matrix="cmatrix"
 alias train="sl"
-alias hi="cowsay Hi Arthana"
-alias arthana="toilet ARTHANA"
+alias Hi="cowsay Hi Arthana"
 alias ocean="asciiquarium"
+alias yt="yt-dlp"
 fastfetch
 
 export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
@@ -27,11 +27,11 @@ jexec() {
 }
 
 gpt() {
-    local openai_api_key=$(bit get item openai.com | jq -r .fields[0].value)
+    local openai_api_key=$(bitwarden get item openai.com | jq -r .fields[0].value)
     chatblade --openai-api-key "$openai_api_key" "$@"
 }
 
-bit() {
+bitwarden() {
     local bw_session_key=$(cat "$HOME/.bitwarden-session-key.key")
-    bw --session "$bw_session_key" "$@"
+    bw "$@" --session "$bw_session_key"
 }

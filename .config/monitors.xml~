@@ -157,6 +157,24 @@
       <primary>yes</primary>
       <monitor>
         <monitorspec>
+          <connector>DP-2</connector>
+          <vendor>PHL</vendor>
+          <product>24E2N1100</product>
+          <serial>UK02419051096</serial>
+        </monitorspec>
+        <mode>
+          <width>1920</width>
+          <height>1080</height>
+          <rate>60.000</rate>
+        </mode>
+      </monitor>
+    </logicalmonitor>
+    <logicalmonitor>
+      <x>1920</x>
+      <y>0</y>
+      <scale>1</scale>
+      <monitor>
+        <monitorspec>
           <connector>eDP-1</connector>
           <vendor>LGD</vendor>
           <product>0x04a7</product>
@@ -166,19 +184,6 @@
           <width>1920</width>
           <height>1080</height>
           <rate>60.020</rate>
-        </mode>
-      </monitor>
-      <monitor>
-        <monitorspec>
-          <connector>DP-2</connector>
-          <vendor>PHL</vendor>
-          <product>24E2N1100</product>
-          <serial>UK02419051096</serial>
-        </monitorspec>
-        <mode>
-          <width>1920</width>
-          <height>1080</height>
-          <rate>100.000</rate>
         </mode>
       </monitor>
     </logicalmonitor>
