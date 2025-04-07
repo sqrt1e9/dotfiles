@@ -9,6 +9,18 @@ return {
         require("nvim-tree").setup({
             hijack_netrw = true,
             auto_reload_on_write = true,
+            renderer = {
+                highlight_git = true,
+                icons = {
+                    git_placement = "before",
+                    show = {
+                        git = false
+                    }
+                }
+            },
+            git = {
+                enable = true
+            }
         })
     end
 }

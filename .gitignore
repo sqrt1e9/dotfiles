@@ -88,6 +88,7 @@ Notes/
 .config/Electron/Trust Tokens-journal
 .config/JetBrains/**/tasks/**
 .config/JetBrains/**/workspace/**
+.config/JetBrains/**
 .config/**/IndexedDB/**
 .config/**/QuotaManager
 .config/**/QuotaManager-journal
