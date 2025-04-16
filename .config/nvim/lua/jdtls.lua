@@ -11,16 +11,23 @@ end
 
 local function get_bundles()
     local mason_registry = require("mason-registry")
-    local java_debug = mason_registry.get_package("java-debug-adapter")
-    local java_debug_path = java_debug:get_install_path()
+    local bundles = {}
 
-    local bundles = {
-        vim.fn.glob(java_debug_path .. "/extension/server/com.microsoft.java.debug.plugin-*.jar", 1)
-    }
+    if mason_registry.has_package("java-debug-adapter") then
+        local java_debug = mason_registry.get_package("java-debug-adapter")
+        local debug_path = java_debug:get_install_path()
+        local main_jar = vim.fn.glob(debug_path .. "/extension/server/com.microsoft.java.debug.plugin-*.jar", 1)
+        if main_jar ~= "" then
+            table.insert(bundles, main_jar)
+        end
+    end
 
-    local java_test = mason_registry.get_package("java-test")
-    local java_test_path = java_test:get_install_path()
-    vim.list_extend(bundles, vim.split(vim.fn.glob(java_test_path .. "/extension/server/*.jar", 1), "\n"))
+    if mason_registry.has_package("java-test") then
+        local java_test = mason_registry.get_package("java-test")
+        local test_path = java_test:get_install_path()
+        local test_jars = vim.split(vim.fn.glob(test_path .. "/extension/server/*.jar", 1), "\n")
+        vim.list_extend(bundles, test_jars)
+    end
     return bundles
 end
 
@@ -54,7 +61,7 @@ local function setup_jdtls()
     local launcher, os_config, lombok = get_jdtls()
     local workspace_dir = get_workspace()
     local bundles = get_bundles()
-    local root_dir = vim.fs.root(0, { '.git', 'mvnw', 'gradlew', 'pom.xml', 'build.gradle' })
+    local root_dir = vim.fs.root(0, { '.git', 'mvnw', 'gradlew', 'pom.xml', 'build.gradle' }) or vim.fn.getcwd()
     local capabilities = {
         workspace = {
             configuration = true
@@ -180,12 +187,13 @@ local function setup_jdtls()
         extendedClientCapabilities = extendedClientCapabilities
     }
 
-    local on_attach = function(_, bufnr)
+    local on_attach = function(client, bufnr)
         java_keymaps()
         require('jdtls.dap').setup_dap()
         require('jdtls.dap').setup_dap_main_class_configs()
         require 'jdtls.setup'.add_commands()
         vim.lsp.codelens.refresh()
+        client.server_capabilities.semanticTokensProvider = nil
         vim.api.nvim_create_autocmd("BufWritePost", {
             pattern = { "*.java" },
             callback = function()

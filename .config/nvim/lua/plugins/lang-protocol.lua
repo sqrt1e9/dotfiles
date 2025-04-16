@@ -51,5 +51,19 @@ return {
             vim.keymap.set("n", "<leader>cR", vim.lsp.buf.rename, { desc = "rename" })
             vim.keymap.set("n", "<leader>cD", vim.lsp.buf.declaration, { desc = "declaration" })
         end
+    },
+    {
+        "simrat39/rust-tools.nvim",
+        lazy = false,
+        ft = "rust",
+        config = function()
+            local rt = require("rust-tools")
+            rt.setup({
+                server = {
+                    on_attach = function(_, bufnr)
+                    end
+                }
+            })
+        end
     }
 }

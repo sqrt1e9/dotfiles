@@ -28,6 +28,8 @@ Notes/
 .wget-hsts
 .bitwarden-session-key.key
 .var/
+.rustup/
+.cargo/
 
 # Backup files
 *.bak
