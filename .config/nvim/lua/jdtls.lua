@@ -194,6 +194,16 @@ local function setup_jdtls()
         require 'jdtls.setup'.add_commands()
         vim.lsp.codelens.refresh()
         client.server_capabilities.semanticTokensProvider = nil
+        vim.api.nvim_create_autocmd("BufWritePre", {
+	        pattern = "*.java",
+	        callback = function()
+		        local params = {
+			        command = "java.edit.organizeImports",
+			        arguments = { vim.api.nvim_buf_get_name(0) },
+		        }
+		        vim.lsp.buf.execute_command(params)
+	        end
+        })
         vim.api.nvim_create_autocmd("BufWritePost", {
             pattern = { "*.java" },
             callback = function()

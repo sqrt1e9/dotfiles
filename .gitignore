@@ -30,6 +30,7 @@ Notes/
 .var/
 .rustup/
 .cargo/
+.npm/
 
 # Backup files
 *.bak
