@@ -9,7 +9,23 @@ return {
         config = function()
             local ts_config = require("nvim-treesitter.configs")
             ts_config.setup({
-                ensure_installed = {"vim", "vimdoc", "lua", "java", "javascript", "typescript", "xml", "html", "css", "json", "tsx", "markdown", "markdown_inline", "gitignore", "rust"},
+                ensure_installed = {
+                    "vim",
+                    "vimdoc",
+                    "lua",
+                    "java",
+                    "javascript",
+                    "typescript",
+                    "xml",
+                    "html",
+                    "css",
+                    "json",
+                    "tsx",
+                    "markdown",
+                    "markdown_inline",
+                    "gitignore",
+                    "rust"
+                },
                 highlight = { enable = true },
                 autotag = {
                     enable = true
