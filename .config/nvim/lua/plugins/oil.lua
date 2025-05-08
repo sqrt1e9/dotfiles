@@ -5,7 +5,7 @@ return {
 	opts = {
 		default_file_explorer = true,
 		view_options = {
-			show_hidden = true,
+			show_hidden = false,
 			is_always_hidden = function(name, _)
 				local ignore_patterns = {
 					"^target$", "^build$", "%.class$", "%.jar$", "%.iml$", "%.rs.bk$",
@@ -18,10 +18,6 @@ return {
 				end
 				return false
 			end,
-		},
-        keymaps = {
-            ["<BS>"] = "actions.parent",
-            ["q"] = "actions.close"
-        }
+		}
 	},
 }

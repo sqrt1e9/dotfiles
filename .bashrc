@@ -17,6 +17,7 @@ alias train="sl"
 alias Hi="cowsay Hi Arthana"
 alias ocean="asciiquarium"
 alias yt="yt-dlp"
+alias hostname="cat /etc/hostname"
 fastfetch
 
 export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
