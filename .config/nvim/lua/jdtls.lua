@@ -20,7 +20,7 @@ local function get_bundles()
     end
 
     if mason_registry.has_package("java-test") then
-        local test_path = vim.fn.stdpath("data") .. "mason/packages/java-test"
+        local test_path = vim.fn.stdpath("data") .. "/mason/packages/java-test"
         local test_jars = vim.split(vim.fn.glob(test_path .. "/extension/server/*.jar", 1), "\n")
         vim.list_extend(bundles, test_jars)
     end
@@ -50,6 +50,26 @@ local function java_keymaps()
     vim.keymap.set('v', '<leader>Jt', "<Esc><Cmd> lua require('jdtls').test_nearest_method(true)<CR>", { desc = "test_nearest_method" })
     vim.keymap.set('n', '<leader>JT', "<Cmd> lua require('jdtls').test_class()<CR>", { desc = "test_class" })
     vim.keymap.set('n', '<leader>Ju', "<Cmd> JdtUpdateConfig<CR>", { desc = "jdt_update_config" })
+    vim.keymap.set("n", "<leader>Jr",
+    function()
+        local file_path = vim.fn.expand("%:p")
+        local project_root = vim.fs.root(file_path, { ".git", "pom.xml" }) or vim.fn.getcwd()
+
+        local lines = vim.api.nvim_buf_get_lines(0, 0, 10, false)
+        local package = ""
+        for _, line in ipairs(lines) do
+            local pkg = line:match("^%s*package%s+([%w%.]+)%s*;")
+            if pkg then
+                package = pkg
+                break
+            end
+        end
+
+        local class_name = vim.fn.expand("%:t:r")
+        local full_class = package ~= "" and (package .. "." .. class_name) or class_name
+        vim.cmd("split | terminal cd " .. project_root .. " && mvn exec:java -Dexec.mainClass=" .. full_class)
+    end, { noremap = true, silent = true, desc = "run" })
+
 end
 
 local function setup_jdtls()
@@ -70,10 +90,11 @@ local function setup_jdtls()
     }
 
     local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
+    for k, v in pairs(lsp_capabilities) do capabilities[k] = v end
 
-    for k,v in pairs(lsp_capabilities) do capabilities[k] = v end
     local extendedClientCapabilities = jdtls.extendedClientCapabilities
     extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
+
     local cmd = {
         'java',
         '-Declipse.application=org.eclipse.jdt.ls.core.id1',
@@ -86,12 +107,9 @@ local function setup_jdtls()
         '--add-opens', 'java.base/java.util=ALL-UNNAMED',
         '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
         '-javaagent:' .. lombok,
-        '-jar',
-        launcher,
-        '-configuration',
-        os_config,
-        '-data',
-        workspace_dir
+        '-jar', launcher,
+        '-configuration', os_config,
+        '-data', workspace_dir
     }
 
     local settings = {
@@ -184,28 +202,39 @@ local function setup_jdtls()
     }
 
     local on_attach = function(client, bufnr)
-        java_keymaps()
-        require('jdtls.dap').setup_dap()
-        require('jdtls.dap').setup_dap_main_class_configs()
-        require 'jdtls.setup'.add_commands()
-        vim.lsp.codelens.refresh()
-        client.server_capabilities.semanticTokensProvider = nil
-        vim.api.nvim_create_autocmd("BufWritePre", {
-	        pattern = "*.java",
-	        callback = function()
-		        local params = {
-			        command = "java.edit.organizeImports",
-			        arguments = { vim.api.nvim_buf_get_name(0) },
-		        }
-		        vim.lsp.buf.execute_command(params)
-	        end
-        })
-        vim.api.nvim_create_autocmd("BufWritePost", {
-            pattern = { "*.java" },
-            callback = function()
-                local _, _ = pcall(vim.lsp.codelens.refresh)
-            end
-        })
+        print("JDTLS: on_attach start")
+        local ok, err = pcall(function()
+            java_keymaps()
+            -- Uncomment these when needed and working
+            -- require('jdtls.dap').setup_dap()
+            -- require('jdtls.dap').setup_dap_main_class_configs()
+            require('jdtls.setup').add_commands()
+            vim.lsp.codelens.refresh()
+            client.server_capabilities.semanticTokensProvider = nil
+
+            vim.api.nvim_create_autocmd("BufWritePre", {
+                pattern = "*.java",
+                callback = function()
+                    local params = {
+                        command = "java.edit.organizeImports",
+                        arguments = { vim.api.nvim_buf_get_name(0) },
+                    }
+                    vim.lsp.buf.execute_command(params)
+                end
+            })
+
+            vim.api.nvim_create_autocmd("BufWritePost", {
+                pattern = "*.java",
+                callback = function()
+                    local _, _ = pcall(vim.lsp.codelens.refresh)
+                end
+            })
+        end)
+        if not ok then
+            print("JDTLS on_attach error: " .. tostring(err))
+        else
+            print("JDTLS: on_attach success")
+        end
     end
 
     local config = {
