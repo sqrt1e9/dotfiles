@@ -96,6 +96,22 @@ return {
 				}
 			})
 		end
-	}
+	},
+    {
+		"preservim/vim-markdown",
+        lazy = false,
+		ft = "markdown",
+	},
+    {
+        'MeanderingProgrammer/render-markdown.nvim',
+        lazy = false,
+        dependencies = {
+            'nvim-treesitter/nvim-treesitter',
+            'nvim-tree/nvim-web-devicons',
+        },
+        ft = { 'markdown' },
+        config = function()
+            require('render-markdown').setup({})
+        end
+    }
 }
-

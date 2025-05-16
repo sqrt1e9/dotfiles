@@ -1,9 +1,12 @@
 vim.cmd [[
 	augroup lsp_setup
 		autocmd!
-		autocmd FileType java lua require("jdtls").setup_jdtls()
-		autocmd FileType rust lua require("rust")
-	augroup END
+		autocmd FileType java     lua require("jdtls").setup_jdtls()
+		autocmd FileType rust     lua require("rust")
+		autocmd FileType markdown lua require("md")
+		autocmd FileType markdown setlocal foldmethod=expr
+		autocmd FileType markdown setlocal foldexpr=nvim_treesitter#foldexpr()
+	augroup end
 ]]
 
 vim.api.nvim_create_autocmd("VimEnter", {
@@ -14,63 +17,98 @@ vim.api.nvim_create_autocmd("VimEnter", {
 	end,
 })
 
-local function apply_global_no_italics()
-	for _, group in ipairs(vim.fn.getcompletion("@", "highlight")) do
-		local ok, hl = pcall(vim.api.nvim_get_hl, 0, { name = group })
-		if ok and hl and hl.italic then
-			hl.italic = false
-			vim.api.nvim_set_hl(0, group, hl)
-		end
-	end
-end
-
-local function apply_rust_colors()
+local function apply_highlights()
 	local palette = require("kanagawa.colors").setup({ theme = "wave" }).palette
+	local theme = require("kanagawa.colors").setup({ theme = "wave" }).theme
 
-	local rust_hls = {
-		["@variable"]                        = { fg = palette.autumnYellow },
-		["@variable.parameter"]              = { fg = palette.fujiWhite },
-		["@lsp.typemod.variable.definition"] = { fg = palette.fujiWhite },
-		["@function"]                        = { fg = palette.crystalBlue },
-		["@method"]                          = { fg = palette.crystalBlue },
-		["@field"]                           = { fg = palette.autumnYellow },
-		["@property"]                        = { fg = palette.autumnYellow },
-		["@variable.member"]                 = { fg = palette.autumnYellow },
-		["@variable.builtin"]                = { fg = palette.peachRed },
+    local groups = {
+
+        ["@variable"]                            = { fg = palette.fujiWhite },
+		["@variable.parameter"]                  = { fg = palette.fujiWhite },
+		["@lsp.typemod.variable.definition"]     = { fg = palette.fujiWhite },
+		["@lsp.typemod.variable.readonly"]       = { fg = palette.fujiWhite },
+		["@variable.builtin"]                    = { fg = palette.peachRed },
+		["@variable.member"]                     = { fg = palette.autumnYellow },
+		["@variable.global"]                     = { fg = palette.autumnYellow },
+
+		["@function"]                            = { fg = palette.crystalBlue },
+		["@function.call"]                       = { fg = palette.crystalBlue },
+		["@method"]                              = { fg = palette.crystalBlue },
+		["@method.call"]                         = { fg = palette.crystalBlue },
+
+		["@field"]                               = { fg = palette.autumnYellow },
+		["@property"]                            = { fg = palette.autumnYellow },
+
+		["@markup.heading.1.markdown"]           = { fg = palette.crystalBlue,    bold = true },
+		["@markup.heading.2.markdown"]           = { fg = palette.sakuraPink,     bold = true },
+		["@markup.heading.3.markdown"]           = { fg = palette.boatYellow2,    bold = true, bg = "NONE" },
+		["@markup.heading.4.markdown"]           = { fg = palette.springGreen,    bold = true },
+    	["@markup.heading.5.markdown"]           = { fg = palette.waveAqua2,      bold = true },
+		["@markup.heading.6.markdown"]           = { fg = palette.fujiGray,       bold = true },
+
+		["@markup.italic.markdown"]              = { fg = palette.crystalBlue },
+		["@markup.list.markdown"]                = { fg = palette.peachRed },
+		["@markup.link.markdown"]                = { fg = palette.springBlue,     underline = true },
+		["@markup.quote.markdown"]               = { fg = palette.boatYellow2 },
+		["@markup.raw.markdown_inline"]          = { fg = palette.surimiOrange },
+		["@markup.math"]                         = { fg = palette.fujiWhite },
+		["@text.markdown"]                       = { fg = palette.fujiPurple },
+		["@markup.markdown"]                     = { fg = palette.fujiWhite },
+
+		["@comment"]                             = { fg = theme.syn.comment },
+		["@keyword"]                             = { fg = theme.syn.keyword },
+		["@keyword.function"]                    = { fg = theme.syn.keyword },
+		["@keyword.operator"]                    = { fg = theme.syn.operator },
+		["@keyword.return"]                      = { fg = theme.syn.keyword },
 	}
 
-	for group, opts in pairs(rust_hls) do
+	for group, opts in pairs(groups) do
 		vim.api.nvim_set_hl(0, group, opts)
 	end
 end
 
-local function rust_only_setup()
-	apply_global_no_italics()
-	apply_rust_colors()
-end
-
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = "rust",
-	callback = function()
-		vim.defer_fn(rust_only_setup, 50)
-	end,
-})
-
-vim.api.nvim_create_autocmd("LspAttach", {
+	pattern = { "rust", "markdown" },
 	callback = function(args)
-		local client = vim.lsp.get_client_by_id(args.data.client_id)
-		local buf = args.buf
-		local ft = vim.api.nvim_buf_get_option(buf, "filetype")
-		if client and client.name == "rust_analyzer" and ft == "rust" then
-			vim.defer_fn(rust_only_setup, 50)
+		local ft = vim.api.nvim_buf_get_option(args.buf, "filetype")
+		if ft == "markdown" then
+			vim.diagnostic.disable(args.buf)
+			vim.schedule(function()
+				vim.diagnostic.reset(nil, args.buf)
+			end)
+			vim.defer_fn(function()
+				local ok, renderer = pcall(require, "render-markdown")
+				if ok then renderer.toggle() end
+				apply_highlights()
+			end, 100)
+		elseif ft == "rust" or ft == "java" then
+			vim.defer_fn(apply_highlights, 100)
 		end
 	end,
 })
 
-vim.api.nvim_create_autocmd("ColorScheme", {
-	pattern = "*",
-	callback = function()
-		apply_global_no_italics()
-	end,
+vim.api.nvim_create_autocmd("LspAttach", {
+    callback = function(args)
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        if client then
+            client.server_capabilities.semanticTokensProvider = nil
+        end
+    end,
 })
 
+local function reapply_highlights()
+	local count = 0
+	local timer = vim.loop.new_timer()
+	timer:start(0, 250, vim.schedule_wrap(function()
+		apply_highlights()
+		count = count + 1
+		if count >= 8 then
+			timer:stop()
+			timer:close()
+		end
+	end))
+end
+
+vim.api.nvim_create_autocmd({ "BufEnter", "LspAttach", "ColorScheme" }, {
+	callback = reapply_highlights,
+})

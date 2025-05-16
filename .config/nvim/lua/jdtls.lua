@@ -1,7 +1,5 @@
 local function get_jdtls()
-    local mason_registry = require("mason-registry")
-    local jdtls = mason_registry.get_package("jdtls")
-    local jdtls_path = jdtls:get_install_path()
+    local jdtls_path = vim.fn.stdpath("data") .. "/mason/share/jdtls"
     local launcher = vim.fn.glob(jdtls_path .. "/plugins/org.eclipse.equinox.launcher_*.jar")
     local SYSTEM = "linux"
     local os_config = jdtls_path .. "/config_" .. SYSTEM
@@ -14,8 +12,7 @@ local function get_bundles()
     local bundles = {}
 
     if mason_registry.has_package("java-debug-adapter") then
-        local java_debug = mason_registry.get_package("java-debug-adapter")
-        local debug_path = java_debug:get_install_path()
+        local debug_path = vim.fn.stdpath("data") .. "/mason/packages/java-debug-adapter"
         local main_jar = vim.fn.glob(debug_path .. "/extension/server/com.microsoft.java.debug.plugin-*.jar", 1)
         if main_jar ~= "" then
             table.insert(bundles, main_jar)
@@ -23,8 +20,7 @@ local function get_bundles()
     end
 
     if mason_registry.has_package("java-test") then
-        local java_test = mason_registry.get_package("java-test")
-        local test_path = java_test:get_install_path()
+        local test_path = vim.fn.stdpath("data") .. "mason/packages/java-test"
         local test_jars = vim.split(vim.fn.glob(test_path .. "/extension/server/*.jar", 1), "\n")
         vim.list_extend(bundles, test_jars)
     end
@@ -166,8 +162,8 @@ local function setup_jdtls()
                 updateBuildConfiguration = "interactive",
                 runtimes = {
                     {
-                        name = 'JavaSE-17',
-                        path = '/usr/lib/jvm/java-17-openjdk'
+                        name = 'JavaSE-21',
+                        path = '/usr/lib/jvm/java-21-openjdk'
                     }
                 }
             },

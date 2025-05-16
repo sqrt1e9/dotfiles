@@ -20,7 +20,8 @@ return {
             { "<leader>r", group = "rust" },
 			{ "<leader>w", group = "window" },
 			{ "<leader>l", group = "latex" },
-			{ "<leader>r", group = "rust" }
+			{ "<leader>r", group = "rust" },
+            { "<leader>m", group = "markdown" }
 		})
 	end
 }
