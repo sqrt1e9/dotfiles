@@ -23,9 +23,4 @@ fastfetch
 
 export JAVA_HOME=/usr/lib/jvm/java-21-openjdk
 export PATH="$JAVA_HOME/bin:$HOME/.local/bin:$PATH"
-
-jexec() {
-    mvn exec:java -Dexec.mainClass="$1"
-}
-
 export PATH="$HOME/.cargo/bin:$PATH"

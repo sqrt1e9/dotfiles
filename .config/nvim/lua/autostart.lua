@@ -68,7 +68,7 @@ local function apply_highlights()
 end
 
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "rust", "markdown" },
+	pattern = { "rust", "markdown", "lua" },
 	callback = function(args)
 		local ft = vim.api.nvim_buf_get_option(args.buf, "filetype")
 		if ft == "markdown" then
@@ -81,7 +81,7 @@ vim.api.nvim_create_autocmd("FileType", {
 				if ok then renderer.toggle() end
 				apply_highlights()
 			end, 100)
-		elseif ft == "rust" or ft == "java" then
+		elseif ft == "rust" or ft == "java" or ft == "lua" then
 			vim.defer_fn(apply_highlights, 100)
 		end
 	end,
@@ -96,19 +96,16 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end,
 })
 
-local function reapply_highlights()
-	local count = 0
-	local timer = vim.loop.new_timer()
-	timer:start(0, 250, vim.schedule_wrap(function()
-		apply_highlights()
-		count = count + 1
-		if count >= 8 then
-			timer:stop()
-			timer:close()
-		end
-	end))
-end
-
-vim.api.nvim_create_autocmd({ "BufEnter", "LspAttach", "ColorScheme" }, {
-	callback = reapply_highlights,
+vim.api.nvim_create_autocmd("ColorScheme", {
+    callback = function()
+        for _, group in ipairs(vim.fn.getcompletion("", "highlight")) do
+        local ok, hl = pcall(vim.api.nvim_get_hl, 0, { name = group })
+            if ok and hl and hl.italic then
+                hl.italic = false
+                vim.api.nvim_set_hl(0, group, hl)
+            end
+        end
+    end,
 })
+
+vim.cmd("doautocmd ColorScheme")

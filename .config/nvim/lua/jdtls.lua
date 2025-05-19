@@ -27,12 +27,10 @@ local function get_bundles()
     return bundles
 end
 
+local root_dir = vim.fs.root(0, { '.git', 'pom.xml', 'build.gradle', 'settings.gradle' }) or vim.fn.getcwd()
 local function get_workspace()
-    local home = os.getenv "HOME"
-    local workspace_path = home .. "/.cache/Devworx/"
-    local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
-    local workspace_dir = workspace_path .. project_name
-    return workspace_dir
+    local home = os.getenv("HOME")
+    return home .. "/.cache/Devworx/" .. vim.fn.fnamemodify(root_dir, ":p:h:t")
 end
 
 local function java_keymaps()
@@ -68,7 +66,7 @@ local function java_keymaps()
         local class_name = vim.fn.expand("%:t:r")
         local full_class = package ~= "" and (package .. "." .. class_name) or class_name
         vim.cmd("split | terminal cd " .. project_root .. " && mvn exec:java -Dexec.mainClass=" .. full_class)
-    end, { noremap = true, silent = true, desc = "run" })
+    end, { noremap = true, silent = true, desc = "mvn_exec:java" })
 
 end
 
@@ -202,7 +200,6 @@ local function setup_jdtls()
     }
 
     local on_attach = function(client, bufnr)
-        print("JDTLS: on_attach start")
         local ok, err = pcall(function()
             java_keymaps()
             -- Uncomment these when needed and working
@@ -230,11 +227,6 @@ local function setup_jdtls()
                 end
             })
         end)
-        if not ok then
-            print("JDTLS on_attach error: " .. tostring(err))
-        else
-            print("JDTLS: on_attach success")
-        end
     end
 
     local config = {

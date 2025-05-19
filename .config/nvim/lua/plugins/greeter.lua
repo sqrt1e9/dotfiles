@@ -8,7 +8,6 @@ return {
 		local alpha = require("alpha")
 		local dashboard = require("alpha.themes.startify")
 
-		-- Optionally set sections here *before setup*
 		dashboard.section.header.val = {
 			"Welcome to BigoBrains",
 			"🚀 Build. Think. Scale.",

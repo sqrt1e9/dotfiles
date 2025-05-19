@@ -15,7 +15,7 @@ return {
 		},
 		config = function()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "lua_ls", "jdtls", "lemminx", "rust_analyzer" },
+				ensure_installed = { "lua_ls", "lemminx", "rust_analyzer" },
 			})
 		end
 	},

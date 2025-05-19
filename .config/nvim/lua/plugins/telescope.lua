@@ -16,28 +16,30 @@ return {
 				defaults = {
 					layout_strategy = "horizontal",
 					layout_config = {
-						width = 0.80,
-						height = 0.75,
-						prompt_position = "top",
-						preview_width = 0.55,
+						horizontal = {
+							width = 0.80,
+							height = 0.75,
+							prompt_position = "top",
+							preview_width = 0.55,
+						},
 					},
 					sorting_strategy = "ascending",
 					winblend = 5,
 					border = true,
-                    file_ignore_patterns = {
-                        "%.class$",
-					    "%.jar$",
-					    "%.iml$",
-					    "%.rs.bk$",
-					    "target/",
-					    "build/",
-					    "%.gradle/",
-					    "%.idea/",
-					    "%.git/",
-					    "%.mvn/",
-					    "%.settings/",
-					    "node_modules/"
-                    },
+					file_ignore_patterns = {
+						"%.class$",
+						"%.jar$",
+						"%.iml$",
+						"%.rs.bk$",
+						"target/",
+						"build/",
+						"%.gradle/",
+						"%.idea/",
+						"%.git/",
+						"%.mvn/",
+						"%.settings/",
+						"node_modules/"
+					},
 					mappings = {
 						i = {
 							["<C-j>"] = actions.move_selection_next,
@@ -66,4 +68,3 @@ return {
 		end
 	}
 }
-
