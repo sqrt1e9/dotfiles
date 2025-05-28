@@ -35,6 +35,9 @@ local options = {
 		enabled = true,
 		notify = false,
 	},
+    git = {
+        url_format = "git@github.com:%s.git"
+    }
 }
 
 require("options")

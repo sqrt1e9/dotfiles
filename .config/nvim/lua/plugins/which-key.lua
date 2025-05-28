@@ -17,11 +17,17 @@ return {
 			{ "<leader>f", group = "find" },
 			{ "<leader>g", group = "git" },
 			{ "<leader>J", group = "java" },
-            { "<leader>r", group = "rust" },
+			{ "<leader>r", group = "rust" },
 			{ "<leader>w", group = "window" },
 			{ "<leader>l", group = "latex" },
-			{ "<leader>r", group = "rust" },
-            { "<leader>m", group = "markdown" }
+			{ "<leader>m", group = "markdown" },
+			{ "<leader>o", name = "+obsidian" },
+            { "<leader>of", "<cmd>ObsidianQuickSwitch<CR>", desc = "find_note" },
+            { "<leader>on", "<cmd>ObsidianNew<CR>", desc = "new_note" },
+            { "<leader>os", "<cmd>ObsidianSearch<CR>", desc = "search_in_notes" },
+            { "<leader>ot", "<cmd>ObsidianToday<CR>", desc = "todays_note" },
+            { "<leader>oy", "<cmd>ObsidianYesterday<CR>", desc = "yesterdays_note" },
 		})
 	end
 }
+

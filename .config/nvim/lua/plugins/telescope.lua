@@ -5,7 +5,8 @@ return {
 		tag = '0.1.6',
 		dependencies = {
 			'nvim-lua/plenary.nvim',
-			'nvim-telescope/telescope-ui-select.nvim'
+			'nvim-telescope/telescope-ui-select.nvim',
+            'nvim-lua/plenary.nvim'
 		},
 		config = function()
 			local telescope = require("telescope")

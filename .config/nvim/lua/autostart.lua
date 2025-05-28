@@ -12,40 +12,35 @@ vim.cmd [[
 vim.api.nvim_create_autocmd("VimEnter", {
 	callback = function()
 		if vim.fn.argc() == 0 then
-			require("oil").open()
+			vim.cmd("Neotree show left")
 		end
 	end,
 })
 
 local function apply_highlights()
 	local palette = require("kanagawa.colors").setup({ theme = "wave" }).palette
-	local theme = require("kanagawa.colors").setup({ theme = "wave" }).theme
+	local theme   = require("kanagawa.colors").setup({ theme = "wave" }).theme
 
-    local groups = {
-
-        ["@variable"]                            = { fg = palette.fujiWhite },
+	local groups = {
+		["@variable"]                            = { fg = palette.fujiWhite },
 		["@variable.parameter"]                  = { fg = palette.fujiWhite },
 		["@lsp.typemod.variable.definition"]     = { fg = palette.fujiWhite },
 		["@lsp.typemod.variable.readonly"]       = { fg = palette.fujiWhite },
 		["@variable.builtin"]                    = { fg = palette.peachRed },
 		["@variable.member"]                     = { fg = palette.autumnYellow },
 		["@variable.global"]                     = { fg = palette.autumnYellow },
-
 		["@function"]                            = { fg = palette.crystalBlue },
 		["@function.call"]                       = { fg = palette.crystalBlue },
 		["@method"]                              = { fg = palette.crystalBlue },
 		["@method.call"]                         = { fg = palette.crystalBlue },
-
 		["@field"]                               = { fg = palette.autumnYellow },
 		["@property"]                            = { fg = palette.autumnYellow },
-
 		["@markup.heading.1.markdown"]           = { fg = palette.crystalBlue,    bold = true },
 		["@markup.heading.2.markdown"]           = { fg = palette.sakuraPink,     bold = true },
 		["@markup.heading.3.markdown"]           = { fg = palette.boatYellow2,    bold = true, bg = "NONE" },
 		["@markup.heading.4.markdown"]           = { fg = palette.springGreen,    bold = true },
-    	["@markup.heading.5.markdown"]           = { fg = palette.waveAqua2,      bold = true },
+		["@markup.heading.5.markdown"]           = { fg = palette.waveAqua2,      bold = true },
 		["@markup.heading.6.markdown"]           = { fg = palette.fujiGray,       bold = true },
-
 		["@markup.italic.markdown"]              = { fg = palette.crystalBlue },
 		["@markup.list.markdown"]                = { fg = palette.peachRed },
 		["@markup.link.markdown"]                = { fg = palette.springBlue,     underline = true },
@@ -54,12 +49,27 @@ local function apply_highlights()
 		["@markup.math"]                         = { fg = palette.fujiWhite },
 		["@text.markdown"]                       = { fg = palette.fujiPurple },
 		["@markup.markdown"]                     = { fg = palette.fujiWhite },
-
 		["@comment"]                             = { fg = theme.syn.comment },
 		["@keyword"]                             = { fg = theme.syn.keyword },
 		["@keyword.function"]                    = { fg = theme.syn.keyword },
 		["@keyword.operator"]                    = { fg = theme.syn.operator },
 		["@keyword.return"]                      = { fg = theme.syn.keyword },
+
+		NeoTreeNormal               = { fg = palette.fujiWhite, bg = palette.sumiInk1 },
+		NeoTreeNormalNC             = { fg = palette.fujiWhite, bg = palette.sumiInk1 },
+		NeoTreeEndOfBuffer          = { fg = palette.sumiInk2,  bg = palette.sumiInk1 },
+		NeoTreeDirectoryName        = { fg = palette.crystalBlue },
+		NeoTreeFileName             = { fg = palette.fujiWhite },
+		NeoTreeFileNameOpened       = { fg = palette.springGreen, bold = true },
+		NeoTreeIndentMarker         = { fg = palette.sumiInk3 },
+		NeoTreeExpander             = { fg = palette.crystalBlue },
+		NeoTreeGitAdded             = { fg = palette.springGreen },
+		NeoTreeGitModified          = { fg = palette.boatYellow2 },
+		NeoTreeGitDeleted           = { fg = palette.peachRed },
+		NeoTreeGitUntracked         = { fg = palette.waveAqua2 },
+		NeoTreeGitConflict          = { fg = palette.autumnRed },
+		NeoTreeGitIgnored           = { fg = palette.fujiGray },
+		NeoTreeSymbolicLinkTarget   = { fg = palette.springBlue },
 	}
 
 	for group, opts in pairs(groups) do
@@ -88,24 +98,33 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("LspAttach", {
-    callback = function(args)
-        local client = vim.lsp.get_client_by_id(args.data.client_id)
-        if client then
-            client.server_capabilities.semanticTokensProvider = nil
-        end
-    end,
+	callback = function(args)
+		local client = vim.lsp.get_client_by_id(args.data.client_id)
+		if client then
+			client.server_capabilities.semanticTokensProvider = nil
+		end
+	end,
 })
 
 vim.api.nvim_create_autocmd("ColorScheme", {
-    callback = function()
-        for _, group in ipairs(vim.fn.getcompletion("", "highlight")) do
-        local ok, hl = pcall(vim.api.nvim_get_hl, 0, { name = group })
-            if ok and hl and hl.italic then
-                hl.italic = false
-                vim.api.nvim_set_hl(0, group, hl)
-            end
-        end
-    end,
+	callback = function()
+		for _, group in ipairs(vim.fn.getcompletion("", "highlight")) do
+			local ok, hl = pcall(vim.api.nvim_get_hl, 0, { name = group })
+			if ok and hl and hl.italic then
+				hl.italic = false
+				vim.api.nvim_set_hl(0, group, hl)
+			end
+		end
+        vim.defer_fn(apply_highlights, 10)
+	end,
+})
+
+vim.api.nvim_create_autocmd("BufNewFile", {
+	pattern = "*.md",
+	callback = function()
+		vim.bo.modifiable = true
+	end,
 })
 
 vim.cmd("doautocmd ColorScheme")
+vim.cmd("doautocmd User NeoTreeOpened")
