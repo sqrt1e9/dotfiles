@@ -18,6 +18,7 @@ alias Hi="cowsay Hi Arthana"
 alias ocean="asciiquarium"
 alias yt="yt-dlp"
 alias hostname="cat /etc/hostname"
+alias Notes="cd ~/Devworx/Notes && vim bootstrap.md"
 fastfetch
 
 export JAVA_HOME=/usr/lib/jvm/java-21-openjdk

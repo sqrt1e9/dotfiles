@@ -27,6 +27,7 @@ return {
             { "<leader>os", "<cmd>ObsidianSearch<CR>", desc = "search_in_notes" },
             { "<leader>ot", "<cmd>ObsidianToday<CR>", desc = "todays_note" },
             { "<leader>oy", "<cmd>ObsidianYesterday<CR>", desc = "yesterdays_note" },
+            { "<leader>oT", "<cmd>ObsidianTemplate<CR>", desc = "load_template" },
 		})
 	end
 }
