@@ -42,5 +42,6 @@ local options = {
 
 require("options")
 require("keymaps")
+require("emoji")
 require("lazy").setup("plugins", options)
 require("autostart")

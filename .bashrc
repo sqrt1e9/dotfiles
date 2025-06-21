@@ -3,9 +3,10 @@
 [[ $- != *i* ]] && return
 eval "$(starship init bash)"
 
-alias ls='ls --color=auto'
 PS1='[\u@\h \W]\$ '
 
+alias ls='ls --color=auto'
+alias sl="ls --color=auto"
 alias calculator="gnome-calculator"
 alias neofetch="fastfetch"
 alias dotfiles="/usr/bin/git --git-dir=$HOME/Devworx/dotfiles --work-tree=$HOME"
@@ -13,12 +14,10 @@ alias vim="/usr/bin/nvim"
 alias vi="/usr/bin/nvim"
 alias tlp-stat="sudo tlp-stat"
 alias matrix="cmatrix"
-alias train="sl"
-alias Hi="cowsay Hi Arthana"
-alias ocean="asciiquarium"
 alias yt="yt-dlp"
 alias hostname="cat /etc/hostname"
 alias Notes="cd ~/Devworx/Notes && vim bootstrap.md"
+alias mvnc='function _mvnc() { mvn archetype:generate -DgroupId=com.bigobrains -DartifactId=$1 -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false; }; _mvnc'
 fastfetch
 
 export JAVA_HOME=/usr/lib/jvm/java-21-openjdk
