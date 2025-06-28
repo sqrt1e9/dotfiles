@@ -61,6 +61,7 @@ return {
 				cmd = { "lemminx" },
 				filetypes = { "xml" }
 			})
+            lspconfig.clangd.setup({})
 
 			vim.keymap.set("n", "<leader>ch", vim.lsp.buf.hover, { desc = "hover" })
 			vim.keymap.set("n", "<leader>cd", vim.lsp.buf.definition, { desc = "definition" })

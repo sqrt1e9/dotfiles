@@ -31,6 +31,8 @@ Notes/
 .rustup/
 .cargo/
 .npm/
+.gnupg/
+.password-store/
 
 # Backup files
 *.bak

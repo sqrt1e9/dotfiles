@@ -21,6 +21,7 @@ return {
 			{ "<leader>w", group = "window" },
 			{ "<leader>l", group = "latex" },
 			{ "<leader>m", group = "markdown" },
+            { "<leader>C", "<cmd>lua CompileRunCpp()<CR>", desc = "cpp_compile_run" },
 			{ "<leader>o", name = "+obsidian" },
             { "<leader>of", "<cmd>ObsidianQuickSwitch<CR>", desc = "find_note" },
             { "<leader>on", "<cmd>ObsidianNew<CR>", desc = "new_note" },

@@ -13,6 +13,9 @@ return {
                 require("none-ls.diagnostics.eslint_d"),
                 require("null-ls").builtins.formatting.prettier.with({
                     filetypes = { "xml" }
+                }),
+                require("null-ls").builtins.formatting.clang_format.with({
+                    filetypes = { "c", "cpp" }
                 })
             }
         })
