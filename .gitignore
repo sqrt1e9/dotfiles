@@ -100,4 +100,33 @@ Notes/
 .config/**/*.tdb
 .config/pulse/
 .config/go/**
-.config/BraveSoftware/**/*.txt
+
+.config/BraveSoftware/**
+!.config/BraveSoftware/Brave-Browser/
+!.config/BraveSoftware/Brave-Browser/Bookmarks
+!.config/BraveSoftware/Brave-Browser/Preferences
+!.config/BraveSoftware/Brave-Browser/Secure Preferences
+!.config/BraveSoftware/Brave-Browser/Local State
+!.config/BraveSoftware/Brave-Browser/Default/
+.config/BraveSoftware/Brave-Browser/Default/**
+!.config/BraveSoftware/Brave-Browser/Default/Bookmarks
+!.config/BraveSoftware/Brave-Browser/Default/Preferences
+!.config/BraveSoftware/Brave-Browser/Default/Secure Preferences
+!.config/BraveSoftware/Brave-Browser/Default/Extensions/
+.config/BraveSoftware/Brave-Browser/Default/Cache/
+.config/BraveSoftware/Brave-Browser/Default/Code Cache/
+.config/BraveSoftware/Brave-Browser/Default/GPUCache/
+.config/BraveSoftware/Brave-Browser/Default/Service Worker/
+.config/BraveSoftware/Brave-Browser/Default/Media Cache/
+.config/BraveSoftware/Brave-Browser/Default/Storage/
+.config/BraveSoftware/Brave-Browser/Default/History*
+.config/BraveSoftware/Brave-Browser/Default/Login Data*
+.config/BraveSoftware/Brave-Browser/Default/Top Sites*
+.config/BraveSoftware/Brave-Browser/Default/Visited Links
+.config/BraveSoftware/Brave-Browser/Default/Web Data*
+.config/BraveSoftware/Brave-Browser/Default/Session Storage/
+.config/BraveSoftware/Brave-Browser/Default/Sessions/
+.config/BraveSoftware/Brave-Browser/Default/Extensions/Temp*/
+.config/BraveSoftware/Crash Reports/
+.config/BraveSoftware/Crashpad/
+.config/BraveSoftware/ShaderCache/
