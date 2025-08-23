@@ -99,3 +99,5 @@ Notes/
 .config/**/QuotaManager-journal
 .config/**/*.tdb
 .config/pulse/
+.config/go/**
+.config/BraveSoftware/**/*.txt
