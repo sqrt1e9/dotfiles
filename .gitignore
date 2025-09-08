@@ -15,7 +15,7 @@ Notes/
 .cache/
 .java/
 .lesshst
-.local/
+.local/*
 .m2/
 .mozilla/
 .pki/
@@ -130,3 +130,7 @@ Notes/
 .config/BraveSoftware/Crash Reports/
 .config/BraveSoftware/Crashpad/
 .config/BraveSoftware/ShaderCache/
+
+/.local/*
+!/.local/bin/
+!/.local/bin/**

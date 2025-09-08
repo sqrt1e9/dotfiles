@@ -18,10 +18,13 @@ alias yt="yt-dlp"
 alias hostname="cat /etc/hostname"
 alias Notes="cd ~/Devworx/Notes && vim bootstrap.md"
 alias mvnc='function _mvnc() { mvn archetype:generate -DgroupId=com.bigobrains -DartifactId=$1 -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false; }; _mvnc'
+alias kvmsh="kvmsh.sh"
+alias kvmview="virt-viewer"
 
 export JAVA_HOME=/usr/lib/jvm/java-21-openjdk
 export PATH="$JAVA_HOME/bin:$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
+export LIBVIRT_DEFAULT_URI=qemu:///system
 
 if [[ -z "$NVIM" ]]; then
 	fastfetch

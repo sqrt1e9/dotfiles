@@ -1,0 +1,19 @@
+<!--
+WARNING: THIS IS AN AUTO-GENERATED FILE. CHANGES TO IT ARE LIKELY TO BE
+OVERWRITTEN AND LOST. Changes to this xml configuration should be made using:
+  virsh pool-edit kvmsh-kTwDUb
+or other application using the libvirt API.
+-->
+
+<pool type='dir'>
+  <name>kvmsh-kTwDUb</name>
+  <uuid>3d5fdda6-8053-4a6c-a315-1f4a04793182</uuid>
+  <capacity unit='bytes'>0</capacity>
+  <allocation unit='bytes'>0</allocation>
+  <available unit='bytes'>0</available>
+  <source>
+  </source>
+  <target>
+    <path>/tmp/kvmsh-kTwDUb</path>
+  </target>
+</pool>
