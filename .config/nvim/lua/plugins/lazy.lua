@@ -51,23 +51,48 @@ return {
 		"neovim/nvim-lspconfig",
 		lazy = false,
 		config = function()
-			local lspconfig = require("lspconfig")
-			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+			local lspconfig		= require("lspconfig")
+			local capabilities	= require("cmp_nvim_lsp").default_capabilities()
 
+			-- Lua LSP
 			lspconfig.lua_ls.setup({
 				capabilities = capabilities
 			})
+
+			-- XML (lemminx)
 			lspconfig.lemminx.setup({
 				cmd = { "lemminx" },
 				filetypes = { "xml" }
 			})
-            lspconfig.clangd.setup({})
 
-			vim.keymap.set("n", "<leader>ch", vim.lsp.buf.hover, { desc = "hover" })
-			vim.keymap.set("n", "<leader>cd", vim.lsp.buf.definition, { desc = "definition" })
+			-- C/C++ (clangd)
+			lspconfig.clangd.setup({
+				capabilities = capabilities,
+				cmd = {
+					"clangd",
+					"--background-index",             -- keep an index for fast lookups
+					"--clang-tidy",                   -- run clang-tidy diagnostics
+					"--completion-style=detailed",
+					"--header-insertion=iwyu",        -- smart #include insertion
+					"--all-scopes-completion",
+					-- ensure clangd trusts your system compilers
+					"--query-driver=/usr/bin/clang++,/usr/bin/g++"
+				},
+				-- If you use compile_commands.json (CMake), clangd will auto-pick it up.
+				-- Otherwise, fall back to compile_flags.txt or .clangd configs.
+				root_dir = lspconfig.util.root_pattern(
+					"compile_commands.json",
+					"compile_flags.txt",
+					".git"
+				)
+			})
+
+			-- Common LSP keymaps
+			vim.keymap.set("n", "<leader>ch", vim.lsp.buf.hover,        { desc = "hover" })
+			vim.keymap.set("n", "<leader>cd", vim.lsp.buf.definition,   { desc = "definition" })
 			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "code_actions" })
-			vim.keymap.set("n", "<leader>cR", vim.lsp.buf.rename, { desc = "rename" })
-			vim.keymap.set("n", "<leader>cD", vim.lsp.buf.declaration, { desc = "declaration" })
+			vim.keymap.set("n", "<leader>cR", vim.lsp.buf.rename,       { desc = "rename" })
+			vim.keymap.set("n", "<leader>cD", vim.lsp.buf.declaration,  { desc = "declaration" })
 		end
 	},
 	{
@@ -75,17 +100,17 @@ return {
 		lazy = false,
 		ft = "rust",
 		config = function()
-			local rt = require("rust-tools")
-			local capabilities = require("cmp_nvim_lsp").default_capabilities()
-			local util = require("lspconfig.util")
+			local rt			= require("rust-tools")
+			local capabilities	= require("cmp_nvim_lsp").default_capabilities()
+			local util			= require("lspconfig.util")
 
 			rt.setup({
 				server = {
 					capabilities = capabilities,
 					root_dir = util.root_pattern("Cargo.toml"),
 					on_attach = function(_, bufnr)
-						local map = vim.keymap.set
-						local opts = { buffer = bufnr, silent = true, noremap = true }
+						local map	= vim.keymap.set
+						local opts	= { buffer = bufnr, silent = true, noremap = true }
 
 						map("n", "<leader>rr", "<cmd>!cargo run<CR>", vim.tbl_extend("force", opts, { desc = "cargo_run" }))
 						map("n", "<leader>rt", "<cmd>!cargo test<CR>", vim.tbl_extend("force", opts, { desc = "cargo_test" }))
@@ -98,21 +123,22 @@ return {
 			})
 		end
 	},
-    {
+	{
 		"preservim/vim-markdown",
-        lazy = false,
+		lazy = false,
 		ft = "markdown",
 	},
-    {
-        'MeanderingProgrammer/render-markdown.nvim',
-        lazy = false,
-        dependencies = {
-            'nvim-treesitter/nvim-treesitter',
-            'nvim-tree/nvim-web-devicons',
-        },
-        ft = { 'markdown' },
-        config = function()
-            require('render-markdown').setup({})
-        end
-    }
+	{
+		"MeanderingProgrammer/render-markdown.nvim",
+		lazy = false,
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+			"nvim-tree/nvim-web-devicons",
+		},
+		ft = { "markdown" },
+		config = function()
+			require("render-markdown").setup({})
+		end
+	}
 }
+

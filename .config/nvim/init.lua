@@ -13,6 +13,10 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
+vim.g.c_compiler   = "gcc"
+vim.g.cpp_compiler = "clang++"
+
+
 local options = {
     defaults = {
         lazy = true

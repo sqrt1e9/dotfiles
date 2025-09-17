@@ -5,14 +5,17 @@ set -euo pipefail
 # Modes:
 #	Import (default): extract .ova -> convert .vmdk to .qcow2 -> (system) move to /var/lib/libvirt/images/<VM_NAME>/ -> virt-install
 #	Clean: --clean <VM_NAME>  => shutdown/destroy, undefine, delete disks
+#	Mount ISO: mount-iso <DIR> <VM_NAME> [--label LABEL] [--dev sdb]  => build ISO from DIR and hot-attach as SCSI CD-ROM
 #
 # Deps: tar, qemu-img, virt-install, virsh, systemd (libvirtd running), (optional) qemu-system-x86_64
+#       mount-iso also needs mkisofs (cdrtools) or genisoimage
 
 usage() {
 	cat <<'USAGE'
 Usage:
 	kvmsh [options] <file.ova>
 	kvmsh --clean <VM_NAME> [--force]
+	kvmsh mount-iso <DIR> <VM_NAME> [--label LABEL] [--dev sdb]
 
 Options (all optional; defaults shown in brackets):
 	-n, --name NAME         VM name [basename of OVA]
@@ -30,17 +33,41 @@ Cleanup mode:
 	--clean <VM_NAME>       Remove VM and its disks (see --force)
 	--force                 Skip confirmations during cleanup
 
+Mount ISO mode:
+	mount-iso <DIR> <VM_NAME> [--label LABEL] [--dev sdb]
+	  Builds an ISO from <DIR>, writes an XML that targets SCSI bus, and hot-attaches it to <VM_NAME>.
+	  Read-only inside guest (ISO/CD). Detach with:
+	    virsh detach-device <VM_NAME> /tmp/<DIRNAME>-<STAMP>.xml --live --config
+
 Notes:
 	- Respects LIBVIRT_DEFAULT_URI (e.g., export LIBVIRT_DEFAULT_URI=qemu:///system)
 	- System libvirt: disks are placed under /var/lib/libvirt/images/<VM_NAME>/ with qemu:qemu perms
 	- List OS variants with: osinfo-query os | less
-
-Examples:
-	kvmsh box.ova
-	kvmsh -n college-vm -r 8192 -c 4 -o ubuntu22.04 box.ova
-	kvmsh --graphics none box.ova
-	kvmsh --clean college-vm --force
 USAGE
+}
+
+# --- Small helpers available to all modes ---
+need() { command -v "$1" >/dev/null 2>&1 || { echo "Missing: $1" >&2; exit 1; }; }
+
+ensure_libvirtd() {
+	if ! systemctl is-active --quiet libvirtd; then
+		echo "libvirtd not active; attempting to start (may require sudo)..."
+		if ! sudo systemctl start libvirtd; then
+			echo "Warning: couldn't start libvirtd; operations may fail."
+		fi
+	fi
+}
+
+pick_iso_tool() {
+	if command -v mkisofs >/dev/null 2>&1; then
+		echo "mkisofs"
+		return 0
+	fi
+	if command -v genisoimage >/dev/null 2>&1; then
+		echo "genisoimage"
+		return 0
+	fi
+	return 1
 }
 
 # Defaults
@@ -56,6 +83,74 @@ ASSUME_YES="false"
 DO_CLEAN="false"
 CLEAN_FORCE="false"
 CLEAN_TARGET=""
+
+# --- Handle mount-iso mode early (separate arg parsing) ---
+if [[ "${1-}" == "mount-iso" ]]; then
+	shift
+	MI_DIR="${1-}"; [[ -z "${MI_DIR}" ]] && { echo "Error: mount-iso requires <DIR> and <VM_NAME>"; usage; exit 1; }
+	shift || true
+	MI_VM="${1-}"; [[ -z "${MI_VM}" ]] && { echo "Error: mount-iso requires <DIR> and <VM_NAME>"; usage; exit 1; }
+	shift || true
+	MI_LABEL="LAB"
+	MI_DEV="sdb"
+
+	while [[ $# -gt 0 ]]; do
+		case "$1" in
+			--label) MI_LABEL="${2:-}"; shift 2;;
+			--dev)   MI_DEV="${2:-}"; shift 2;;
+			-h|--help) usage; exit 0;;
+			*) echo "Unknown option for mount-iso: $1" >&2; usage; exit 1;;
+		esac
+	done
+
+	[[ -d "$MI_DIR" ]] || { echo "Error: directory not found: $MI_DIR" >&2; exit 1; }
+
+	# Determine libvirt connection wrappers
+	LIBVIRT_URI="${LIBVIRT_DEFAULT_URI:-}"
+	VIRT_CONNECT_ARGS=()
+	if [[ -n "$LIBVIRT_URI" ]]; then
+		VIRT_CONNECT_ARGS=( --connect "$LIBVIRT_URI" )
+	fi
+	VIRSH_CMD="virsh"
+	if [[ "$LIBVIRT_URI" == "qemu:///system" ]]; then
+		VIRSH_CMD="sudo virsh"
+	fi
+
+	ensure_libvirtd
+	need virsh
+	ISO_TOOL="$(pick_iso_tool)" || { echo "Missing: mkisofs (cdrtools) or genisoimage" >&2; exit 1; }
+
+	BASE="$(basename "$MI_DIR")"
+	STAMP="$(date +%Y%m%d-%H%M%S)"
+	ISO="/tmp/${BASE}-${STAMP}.iso"
+	XML="/tmp/${BASE}-${STAMP}.xml"
+
+	echo "==> Building ISO from '$MI_DIR' -> $ISO"
+	"$ISO_TOOL" -quiet -o "$ISO" -R -J -V "$MI_LABEL" "$MI_DIR"
+
+	cat > "$XML" <<XML
+<disk type='file' device='cdrom'>
+	<driver name='qemu' type='raw'/>
+	<source file='$ISO'/>
+	<target dev='$MI_DEV' bus='scsi'/>
+	<readonly/>
+</disk>
+XML
+
+	echo "==> Attaching ISO to VM '$MI_VM' as $MI_DEV (SCSI CD-ROM)..."
+	$VIRSH_CMD "${VIRT_CONNECT_ARGS[@]}" attach-device "$MI_VM" "$XML" --live --config >/dev/null
+	echo "[✓] Attached."
+	echo
+	echo "Inside guest (manual mount):"
+	echo "	sudo mkdir -p /mnt/cdrom"
+	echo "	# Usually /dev/sr0; otherwise check: dmesg | tail, or ls /dev/sr*"
+	echo "	sudo mount -o ro,exec /dev/sr0 /mnt/cdrom"
+	echo
+	echo "Detach later (host):"
+	echo "	virsh ${VIRT_CONNECT_ARGS[*]} detach-device '$MI_VM' '$XML' --live --config"
+	echo
+	exit 0
+fi
 
 # Parse args (support leading --clean)
 if [[ "${1-}" == "--clean" ]]; then
@@ -96,17 +191,6 @@ if [[ "$LIBVIRT_URI" == "qemu:///system" ]]; then
 	VIRSH_CMD="sudo virsh"
 	SUDO="sudo"
 fi
-
-need() { command -v "$1" >/dev/null 2>&1 || { echo "Missing: $1" >&2; exit 1; }; }
-
-ensure_libvirtd() {
-	if ! systemctl is-active --quiet libvirtd; then
-		echo "libvirtd not active; attempting to start (may require sudo)..."
-		if ! sudo systemctl start libvirtd; then
-			echo "Warning: couldn't start libvirtd; operations may fail."
-		fi
-	fi
-}
 
 # -------------- CLEANUP MODE --------------
 clean_vm() {
@@ -205,7 +289,7 @@ if [[ "$GRAPHICS" == "spice" ]]; then
 	if ! command -v qemu-system-x86_64 >/dev/null 2>&1 || ! qemu-system-x86_64 -spice help >/dev/null 2>&1; then
 		echo "Note: SPICE not supported. Falling back to VNC."
 		GRAPHICS="vnc"
-	fi
+	endif
 fi
 
 # Work dir

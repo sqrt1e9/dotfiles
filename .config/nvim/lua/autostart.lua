@@ -4,6 +4,7 @@ vim.cmd [[
 		autocmd FileType java     lua require("jdtls").setup_jdtls()
 		autocmd FileType rust     lua require("rust")
         autocmd FileType cpp      lua require("clang")
+        autocmd FileType c        lua require("clang")
 		autocmd FileType markdown lua require("md")
 		autocmd FileType markdown setlocal foldmethod=expr
 		autocmd FileType markdown setlocal foldexpr=nvim_treesitter#foldexpr()
