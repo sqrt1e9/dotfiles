@@ -1,0 +1,31 @@
+[2025-09-21][22:20:22][chatgpt::app::setup][INFO] stepup
+[2025-09-21][22:20:22][chatgpt::app::template][INFO] write_script: /home/barvind/.chatgpt/scripts/main.js
+[2025-09-21][22:20:22][chatgpt::app::template][INFO] write_script: /home/barvind/.chatgpt/scripts/core.js
+[2025-09-21][22:20:22][chatgpt::app::template][INFO] write_script: /home/barvind/.chatgpt/scripts/chat.js
+[2025-09-21][22:20:22][chatgpt::app::template][INFO] write_script: /home/barvind/.chatgpt/scripts/cmd.js
+[2025-09-21][22:20:22][chatgpt::app::template][INFO] write_script: /home/barvind/.chatgpt/scripts/dalle2.js
+[2025-09-21][22:20:22][chatgpt::app::template][INFO] write_script: /home/barvind/.chatgpt/scripts/export.js
+[2025-09-21][22:20:22][chatgpt::app::template][INFO] write_script: /home/barvind/.chatgpt/scripts/markdown.export.js
+[2025-09-21][22:20:22][chatgpt::app::template][INFO] write_script: /home/barvind/.chatgpt/scripts/popup.core.js
+[2025-09-21][22:20:22][chatgpt::app::template][INFO] write_script: /home/barvind/.chatgpt/scripts/README.md
+[2025-09-21][22:20:22][chatgpt::app::template][INFO] write_script: /home/barvind/.chatgpt/scripts/manifest.json
+[2025-09-21][22:20:22][chatgpt::app::setup][INFO] global_shortcut_unregister
+[2025-09-21][22:20:22][chatgpt::app::setup][INFO] run_check_update
+[2025-09-21][22:20:22][chatgpt::utils][INFO] run_check_update: silent=false has_msg=None
+[2025-09-21][22:20:22][chatgpt::app::setup][INFO] stepup_tray
+[2025-09-21][22:20:22][attohttpc][DEBUG] trying to connect to lencx.github.io:443
+[2025-09-21][22:20:22][reqwest::connect][DEBUG] starting new connection: https://raw.githubusercontent.com/
+[2025-09-21][22:20:22][attohttpc][DEBUG] trying to connect to [2606:50c0:8002::153]:443
+[2025-09-21][22:20:22][attohttpc][DEBUG] successfully connected to [2606:50c0:8002::153]:443, took 26ms
+[2025-09-21][22:20:22][attohttpc][DEBUG] GET /ChatGPT/install.json HTTP/1.1
+[2025-09-21][22:20:22][attohttpc][DEBUG] creating a length body reader
+[2025-09-21][22:20:22][attohttpc][DEBUG] creating plain reader
+[2025-09-21][22:20:22][attohttpc][DEBUG] status code 301
+[2025-09-21][22:20:22][attohttpc][DEBUG] redirected to https://lencx.me/ChatGPT/install.json giving url https://lencx.me/ChatGPT/install.json
+[2025-09-21][22:20:22][attohttpc][DEBUG] trying to connect to lencx.me:443
+[2025-09-21][22:20:22][attohttpc][DEBUG] trying to connect to [2606:50c0:8002::153]:443
+[2025-09-21][22:20:22][attohttpc][DEBUG] successfully connected to [2606:50c0:8002::153]:443, took 6ms
+[2025-09-21][22:20:22][attohttpc][DEBUG] GET /ChatGPT/install.json HTTP/1.1
+[2025-09-21][22:20:22][attohttpc][DEBUG] creating a length body reader
+[2025-09-21][22:20:22][attohttpc][DEBUG] creating gzip decoder
+[2025-09-21][22:20:22][attohttpc][DEBUG] status code 200

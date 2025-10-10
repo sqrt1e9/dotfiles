@@ -1,19 +1,8 @@
 {
-   "checksum": "787efefcfde1ce40eeb3f91b2990bbfe",
+   "checksum": "63f44463ff5b5d59ed180378fdcd1d9d",
    "roots": {
       "bookmark_bar": {
-         "children": [ {
-            "date_added": "13401657845852797",
-            "date_last_used": "0",
-            "guid": "b73ae84b-6848-4d71-af56-bd64e909e15b",
-            "id": "5",
-            "meta_info": {
-               "power_bookmark_meta": ""
-            },
-            "name": "12. Intensity - Balance and Time: Intro to High Performance Computing",
-            "type": "url",
-            "url": "https://gatech.instructure.com/courses/464604/pages/12-intensity-balance-and-time?module_item_id=5327836"
-         } ],
+         "children": [  ],
          "date_added": "13400810886673244",
          "date_last_used": "0",
          "date_modified": "13401657845852797",

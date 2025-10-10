@@ -15,6 +15,7 @@ vim.opt.rtp:prepend(lazypath)
 
 vim.g.c_compiler   = "gcc"
 vim.g.cpp_compiler = "clang++"
+vim.o.scrolloff = 3
 
 
 local options = {

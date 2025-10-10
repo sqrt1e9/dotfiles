@@ -139,6 +139,18 @@ return {
 		config = function()
 			require("render-markdown").setup({})
 		end
-	}
+	},
+    {
+        "folke/zen-mode.nvim",
+        lazy = false,
+        opts = {
+            plugins = {
+                options = {
+                    width = 0.75,
+                    height = 0.80
+                },
+            },
+        },
+    }
 }
 

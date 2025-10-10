@@ -1,0 +1,29 @@
+name: Test fastwalk on Linux
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      # Test all supported versions on Linux (since it's fast)
+      matrix:
+        go: ['1.21', '1.22', '1.23', '1.24', '1.25']
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ matrix.go }}
+      - name: Test
+        run: go test -coverprofile=coverage.txt -race ./...
+      - name: Test Builds
+        run: make test_build --jobs=4
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
