@@ -16,6 +16,24 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.c_compiler   = "gcc"
 vim.g.cpp_compiler = "clang++"
 vim.o.scrolloff = 3
+vim.cmd [[
+    hi Normal        guibg=none	ctermbg=none
+    hi NormalFloat   guibg=none	ctermbg=none
+    hi SignColumn    guibg=none	ctermbg=none
+    hi LineNr        guibg=none	ctermbg=none
+    hi EndOfBuffer   guibg=none	ctermbg=none
+    hi NonText       guibg=none	ctermbg=none
+    hi StatusLine    guibg=none	ctermbg=none
+    hi StatusLineNC  guibg=none	ctermbg=none
+    hi VertSplit     guibg=none	ctermbg=none
+    hi TabLine       guibg=none	ctermbg=none
+    hi TabLineFill   guibg=none	ctermbg=none
+    hi TabLineSel    guibg=none	ctermbg=none
+    hi Pmenu         guibg=none	ctermbg=none
+    hi PmenuSel      guibg=none	ctermbg=none
+    hi PmenuSbar     guibg=none	ctermbg=none
+    hi PmenuThumb    guibg=none	ctermbg=none
+]]
 
 
 local options = {

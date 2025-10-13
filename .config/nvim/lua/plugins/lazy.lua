@@ -4,29 +4,29 @@ return {
 		lazy = false,
 		config = function()
 			require("mason").setup()
-		end
+		end,
 	},
 	{
 		"williamboman/mason-lspconfig.nvim",
 		lazy = false,
 		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/nvim-cmp"
+			"hrsh7th/nvim-cmp",
 		},
 		config = function()
 			require("mason-lspconfig").setup({
 				ensure_installed = { "lua_ls", "lemminx", "rust_analyzer" },
 			})
-		end
+		end,
 	},
 	{
 		"jay-babu/mason-nvim-dap.nvim",
 		lazy = false,
 		config = function()
 			require("mason-nvim-dap").setup({
-				ensure_installed = { "java-debug-adapter", "java-test" }
+				ensure_installed = { "java-debug-adapter", "java-test" },
 			})
-		end
+		end,
 	},
 	{
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
@@ -38,53 +38,50 @@ return {
 					"rust-analyzer",
 				},
 			})
-		end
+		end,
 	},
 	{
 		"mfussenegger/nvim-jdtls",
 		lazy = false,
 		dependencies = {
 			"mfussenegger/nvim-dap",
-		}
+		},
 	},
 	{
 		"neovim/nvim-lspconfig",
 		lazy = false,
 		config = function()
-			local lspconfig		= require("lspconfig")
-			local capabilities	= require("cmp_nvim_lsp").default_capabilities()
+			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+			local util = require("lspconfig.util") -- still needed for root_pattern
 
 			-- Lua LSP
-			lspconfig.lua_ls.setup({
-				capabilities = capabilities
+			vim.lsp.config("lua_ls", {
+				capabilities = capabilities,
 			})
 
 			-- XML (lemminx)
-			lspconfig.lemminx.setup({
+			vim.lsp.config("lemminx", {
 				cmd = { "lemminx" },
-				filetypes = { "xml" }
+				filetypes = { "xml" },
 			})
 
 			-- C/C++ (clangd)
-			lspconfig.clangd.setup({
+			vim.lsp.config("clangd", {
 				capabilities = capabilities,
 				cmd = {
 					"clangd",
-					"--background-index",             -- keep an index for fast lookups
-					"--clang-tidy",                   -- run clang-tidy diagnostics
+					"--background-index",      -- keep an index for fast lookups
+					"--clang-tidy",            -- run clang-tidy diagnostics
 					"--completion-style=detailed",
-					"--header-insertion=iwyu",        -- smart #include insertion
+					"--header-insertion=iwyu", -- smart #include insertion
 					"--all-scopes-completion",
-					-- ensure clangd trusts your system compilers
-					"--query-driver=/usr/bin/clang++,/usr/bin/g++"
+					"--query-driver=/usr/bin/clang++,/usr/bin/g++",
 				},
-				-- If you use compile_commands.json (CMake), clangd will auto-pick it up.
-				-- Otherwise, fall back to compile_flags.txt or .clangd configs.
-				root_dir = lspconfig.util.root_pattern(
+				root_dir = util.root_pattern(
 					"compile_commands.json",
 					"compile_flags.txt",
 					".git"
-				)
+				),
 			})
 
 			-- Common LSP keymaps
@@ -93,24 +90,24 @@ return {
 			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "code_actions" })
 			vim.keymap.set("n", "<leader>cR", vim.lsp.buf.rename,       { desc = "rename" })
 			vim.keymap.set("n", "<leader>cD", vim.lsp.buf.declaration,  { desc = "declaration" })
-		end
+		end,
 	},
 	{
 		"simrat39/rust-tools.nvim",
 		lazy = false,
 		ft = "rust",
 		config = function()
-			local rt			= require("rust-tools")
-			local capabilities	= require("cmp_nvim_lsp").default_capabilities()
-			local util			= require("lspconfig.util")
+			local rt = require("rust-tools")
+			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+			local util = require("lspconfig.util")
 
 			rt.setup({
 				server = {
 					capabilities = capabilities,
 					root_dir = util.root_pattern("Cargo.toml"),
 					on_attach = function(_, bufnr)
-						local map	= vim.keymap.set
-						local opts	= { buffer = bufnr, silent = true, noremap = true }
+						local map = vim.keymap.set
+						local opts = { buffer = bufnr, silent = true, noremap = true }
 
 						map("n", "<leader>rr", "<cmd>!cargo run<CR>", vim.tbl_extend("force", opts, { desc = "cargo_run" }))
 						map("n", "<leader>rt", "<cmd>!cargo test<CR>", vim.tbl_extend("force", opts, { desc = "cargo_test" }))
@@ -118,10 +115,10 @@ return {
 
 						map("n", "<leader>rh", rt.hover_actions.hover_actions, vim.tbl_extend("force", opts, { desc = "hover_actions" }))
 						map("n", "<leader>ra", rt.code_action_group.code_action_group, vim.tbl_extend("force", opts, { desc = "code_actions" }))
-					end
-				}
+					end,
+				},
 			})
-		end
+		end,
 	},
 	{
 		"preservim/vim-markdown",
@@ -138,19 +135,19 @@ return {
 		ft = { "markdown" },
 		config = function()
 			require("render-markdown").setup({})
-		end
+		end,
 	},
-    {
-        "folke/zen-mode.nvim",
-        lazy = false,
-        opts = {
-            plugins = {
-                options = {
-                    width = 0.75,
-                    height = 0.80
-                },
-            },
-        },
-    }
+	{
+		"folke/zen-mode.nvim",
+		lazy = false,
+		opts = {
+			plugins = {
+				options = {
+					width = 0.75,
+					height = 0.80,
+				},
+			},
+		},
+	},
 }
 

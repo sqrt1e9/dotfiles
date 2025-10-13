@@ -1,0 +1,36 @@
+# --- Time out settings ---
+# Display notifications for 3000 milliseconds (3 seconds)
+default-timeout=3000
+# Ignores timeout hints sent by applications
+ignore-timeout=1
+
+# --- Glowing white glass theme ---
+# Background color: Semi-transparent white. The transparency level is controlled by the last two hex digits (40).
+background-color=#FFFFFF
+
+# Text color: Pure black for excellent contrast on the semi-transparent white background.
+text-color=#000000
+
+# Border color: Pure white for a bright, glowing effect.
+border-color=#FFFFFFFF
+
+# Border size: Increase this value to make the glow more noticeable.
+border-size=2
+
+# Border radius: Creates the rounded corners for a modern feel.
+border-radius=10
+
+# Padding: Provides space between the text and the notification's edge.
+padding=10
+
+# Margin: Space between multiple notifications.
+margin=30
+
+# Font: A modern font for readability.
+font=FiraCode Nerd Font Mono 8
+
+# Special styling for critical notifications, with a slightly more opaque background.
+[urgency=critical]
+background-color=#FFFFFF80
+border-color=#FFFFFFFF
+

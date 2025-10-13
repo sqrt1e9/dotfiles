@@ -1,0 +1,59 @@
+window {
+    font-family: "FiraCode Nerd Font Mono";
+    font-size: 10pt;
+    background-color: rgba(33, 33, 36, 0.40);
+    border-radius: 24px;
+    border: 1px solid transparent;
+    margin: 0px;
+    padding: 0px;
+}
+
+#input {
+    background-color: rgba(33, 33, 36, 0.40);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.20);
+    border-radius: 16px;
+    padding: 8px 16px;
+    margin: 12px;
+}
+
+#input:focus {
+    border: 1px solid rgba(255, 255, 255, 0.40);
+}
+
+#entry {
+    background-color: transparent;
+    color: #ffffff;
+}
+
+#prompt {
+    color: #dddddd;
+}
+
+#list {
+    background-color: transparent;
+    margin: 12px;
+}
+
+#entry:selected {
+    background-color: rgba(33, 33, 36, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 16px;
+    color: #ffffff;
+}
+
+#entry:selected:focus {
+    background-color: rgba(33, 33, 36, 0.20);
+}
+
+#scroll {
+    background-color: transparent;
+}
+
+#scrollbar {
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.30);
+    min-width: 5px;
+    border: 0px;
+}
+

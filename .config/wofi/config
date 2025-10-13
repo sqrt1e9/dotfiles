@@ -1,0 +1,7 @@
+normal_window = true
+lines = 8
+width = 480
+location = top
+y = 200   
+allow_images = true
+image_size = 20

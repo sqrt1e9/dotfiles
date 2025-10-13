@@ -19,13 +19,9 @@
 # ==========================
 # # The config file consists of simple key-value pairs,
 # # separated by equals signs.
-font-family = LigaMonaco Nerd Font
+font-family = FiraCode Nerd Font Mono
 font-size = 10
-window-padding-x = 10, 10
-window-padding-y = 10, 10
-window-padding-balance = true
-window-padding-color = background
-#
+theme = Black Metal (Immortal)
 # # Spacing around the equals sign does not matter.
 # # All of these are identical:
 # key=value
@@ -35,8 +31,8 @@ window-padding-color = background
 # # Any line beginning with a # is a comment. It's not possible to put
 # # a comment after a config option, since it would be interpreted as a
 # # part of the value. For example, this will have a value of "#123abc":
-background = #000000
-background-opacity = 0.6
+background = #0E0E10
+background-opacity = 0.1
 # # Empty values are used to reset config keys to default.
 # key =
 # # Some config options have unique syntaxes for their value,
