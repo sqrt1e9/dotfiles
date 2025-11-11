@@ -6,13 +6,14 @@ ignore-timeout=1
 
 # --- Glowing white glass theme ---
 # Background color: Semi-transparent white. The transparency level is controlled by the last two hex digits (40).
-background-color=#FFFFFF
+# background-color=#FFFFFF
+background-color=#00000099
 
 # Text color: Pure black for excellent contrast on the semi-transparent white background.
-text-color=#000000
+text-color=#FFFFFF
 
 # Border color: Pure white for a bright, glowing effect.
-border-color=#FFFFFFFF
+border-color=#00000099
 
 # Border size: Increase this value to make the glow more noticeable.
 border-size=2
@@ -27,10 +28,10 @@ padding=10
 margin=30
 
 # Font: A modern font for readability.
-font=FiraCode Nerd Font Mono 8
+font=FiraCode Nerd Font 8
 
 # Special styling for critical notifications, with a slightly more opaque background.
-[urgency=critical]
-background-color=#FFFFFF80
-border-color=#FFFFFFFF
+# [urgency=critical]
+# background-color=#FFFFFF80
+# border-color=#FFFFFFFF
 

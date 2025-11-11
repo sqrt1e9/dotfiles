@@ -1,0 +1,9 @@
+# greetd config.toml for auto-login only (no greeter)
+
+[terminal]
+vt = 1
+
+[initial_session]
+command = "Hyprland"
+user = "barvind"
+

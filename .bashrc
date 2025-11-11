@@ -9,7 +9,6 @@ GPG_TTY=$(tty)
 
 alias neofetch="fastfetch"
 alias ls='ls --color=auto'
-alias calculator="gnome-calculator"
 alias dotfiles="/usr/bin/git --git-dir=$HOME/Devworx/dotfiles --work-tree=$HOME"
 alias vim="/usr/bin/nvim"
 alias vi="/usr/bin/nvim"
@@ -27,6 +26,7 @@ alias sha="sha256sum"
 alias hi="cowsay \"Hi Arthana\""
 alias fire="cacafire"
 alias sl="sl -le"
+alias fc-scan="fc-scan --format \"%{family}\n\""
 
 export GPG_TTY
 export CACA_DRIVER=ncurses cacafire
@@ -36,6 +36,10 @@ export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="/usr/lib/qt6/bin:$PATH"
 export LIBVIRT_DEFAULT_URI=qemu:///system
 export QT_STYLE_OVERRIDE=dark
+export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+export GTK_THEME=Adwaita:dark
+
+export SYSTEMD_EDITOR=vim
 
 ~/.local/bin/gpg-unlock.sh
 

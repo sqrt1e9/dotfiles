@@ -5,72 +5,63 @@
     "exclusive": true,
     "passthrough": false,
     "gtk-layer-shell": true,
-    "height": 30,
-    "modules-left": ["disk", "memory", "cpu"],
+    "height": 32,
+    "modules-left": ["custom/logo", "disk", "memory", "cpu", "hyprland/workspaces"],
     "modules-center": ["clock"],
-    "modules-right": ["temperature","custom/power_profile","battery","backlight","pulseaudio","pulseaudio#microphone","tray"],
+    "modules-right": ["custom/weather", "battery", "backlight", "pulseaudio", "tray"],
     "hyprland/window": {
         "format": "{}"
     },
-    "wlr/workspaces": {
-        "disable-scroll": true,
-        "all-outputs": true,
-        "on-click": "activate",
-        "persistent_workspaces": {
-            "1": [],
-            "2": [],
-            "3": [],
-            "4": [],
-            "5": [],
-            "6": [],
-            "7": [],
-            "8": [],
-            "9": [],
-            "10": []
+    "hyprland/workspaces": {
+        "format": "{icon}",
+        "active-only": true,
+        "format-icons": {
+            "1": "1",
+            "2": "2",
+            "3": "3",
+            "4": "4",
         }
+    },
+    "custom/logo": {
+        "format": "<span size='x-large'></span>",
+        "tooltip": false,
+        "on-click": "wofi --show drun --prompt \"Search\""
     },
     "tray": {
         "icon-size": 15,
         "spacing": 10
     },
-    "custom/power_profile": {
-        "exec": "asusctl profile -p | sed s:'Active profile is'::",
-        "interval": 30,
-        "format": "󰈐{}", 
-        "on-click": "asusctl profile -n; pkill -SIGRTMIN+8 waybar",
-        "signal": 8
-    },
     "disk": {
         "interval": 30,
-        "format": "  {percentage_used}%",
+        "format": "<span size='large'></span> {percentage_used}%",
         "path": "/"
     },
     "cpu": {
         "interval": 1,
-        "format": " {usage}%",
+        "format": "<span size='large'></span> {usage}%",
         "min-length": 6,
         "max-length": 6,
         "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
     },
     "memory": {
-        "format": " {percentage}%"
+        "format": "<span size='large'></span> {percentage}%"
     },
-    "custom/weather" : {
-        "tooltip" : true,
-        "format" : "{}",
-        "interval" : 30,
-        "exec" : "~/.config/waybar/scripts/wttr.py",
-        "return-type" : "json"
+    "custom/weather": {
+        "exec": "python3 ~/.config/waybar/wttr.py",
+        "interval": 900,
+        "format": "{}",
+        "tooltip": true,
+        "return-type": "json"
     },
     "clock": {
-        "format": " {0:%I:%M %p}   {0:%a, %b %e}",
-        "font-family": "FiraCode Nerd Font Mono",
+        "format": "<span size='large'></span> {0:%I:%M %p}  <span size='large'></span> {0:%a, %b %e}",
+        "font-family": "FiraCode Nerd Font",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
     },
 
     "backlight": {
         "device": "intel_backlight",
-        "format": "{icon} {percent}%",
+        "format": "<span size = 'large'>{icon}</span> {percent}%",
         "format-icons": ["󰃞", "󰃟", "󰃠"],
         "on-scroll-up": "brightnessctl set 1%+",
         "on-scroll-down": "brightnessctl set 1%-",
@@ -89,11 +80,10 @@
         "format-alt": "{time} {icon}",
         "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
     },
-
     "pulseaudio": {
-        "format": "{icon} {volume}%",
+        "format": "<span size = 'x-large'>{icon}</span> {volume}%",
         "tooltip": false,
-        "format-muted": " Muted",
+        "format-muted": "<span size='x-large'></span> Muted",
         "on-click": "pamixer -t",
         "on-scroll-up": "pamixer -i 5",
         "on-scroll-down": "pamixer -d 5",

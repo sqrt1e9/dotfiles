@@ -1,0 +1,11 @@
+window, dialog, filechooser, filechooser * {
+    background-color: #1e1e1e;
+    color: #eeeeee;
+}
+
+entry, button {
+  background-color: #2b2b2b;
+  color: #ffffff;
+}
+
+

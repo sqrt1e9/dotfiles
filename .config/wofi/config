@@ -5,3 +5,5 @@ location = top
 y = 200   
 allow_images = true
 image_size = 20
+no_actions = true
+show-icons = true
