@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# rofi-based askpass helper for Git/SSH
+# rofi-based askpass helper for SSH/Git
 
 PROMPT="${1:-Password:}"
 
