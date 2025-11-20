@@ -7,13 +7,44 @@ exec >>"$LOG_FILE" 2>&1
 
 echo "--- hypr-refresh-all start $(date) ---"
 
-# Wallpaper to use (change if you want)
-IMG="${1:-$HOME/Pictures/Wallpapers/default.jpg}"
+WALL_DIR="$HOME/Pictures/Wallpapers"
+
+pick_random_wallpaper() {
+    # Find images and pick one randomly
+    if [ ! -d "$WALL_DIR" ]; then
+        echo "Wallpaper directory not found: $WALL_DIR"
+        return 1
+    fi
+
+    local img
+    img="$(find "$WALL_DIR" -maxdepth 1 -type f \( \
+            -iname '*.jpg' -o -iname '*.jpeg' -o \
+            -iname '*.png' -o -iname '*.webp' \
+        \) | shuf -n 1)"
+
+    if [ -z "$img" ]; then
+        echo "No wallpapers found in $WALL_DIR"
+        return 1
+    fi
+
+    echo "$img"
+    return 0
+}
+
+# Decide image:
+if [ -n "$1" ]; then
+    IMG="$1"
+    echo "Using image from argument: $IMG"
+else
+    echo "No image given; picking random from $WALL_DIR"
+    IMG="$(pick_random_wallpaper)" || exit 1
+    echo "Random image chosen: $IMG"
+fi
 
 CACHE_DIR="$HOME/.cache/wal"
 COLORS_FILE="$CACHE_DIR/colors.json"
 
-echo "Using image: $IMG"
+echo "Final image path: $IMG"
 
 wait_for_hyprctl() {
     echo "Waiting for Hyprland (hyprctl)..."
@@ -103,7 +134,6 @@ swayosd-server &
 
 echo "Reloading Waybar (if running)..."
 if pgrep -x waybar >/dev/null 2>&1; then
-    # USR2 = reload config in Waybar
     pkill -USR2 waybar || echo "Failed to send USR2 to waybar."
 else
     echo "waybar not running; starting it."
