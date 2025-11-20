@@ -14,8 +14,8 @@ exec >>"$LOG_FILE" 2>&1
 echo "--- dotfiles sync start $(date) ---"
 
 # Use rofi for passwords (Git/SSH)
-export GIT_ASKPASS="$HOME/bin/rofi-askpass.sh"
-export SSH_ASKPASS="$HOME/bin/rofi-askpass.sh"
+export GIT_ASKPASS="$HOME/bin/askpass.sh"
+export SSH_ASKPASS="$HOME/bin/askpass.sh"
 export GIT_TERMINAL_PROMPT=0
 export DISPLAY="${DISPLAY:-:0}"
 
