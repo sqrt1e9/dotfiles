@@ -1,0 +1,140 @@
+{
+    "$schema": "/etc/xdg/swaync/configSchema.json",
+
+    "positionX": "right",
+    "positionY": "top",
+
+    "layer": "overlay",
+    "control-center-layer": "overlay",
+    "layer-shell": true,
+    "cssPriority": "user",
+
+    "control-center-width": 300,
+    "control-center-height": 700,
+    "control-center-margin-top": 8,
+    "control-center-margin-bottom": 8,
+    "control-center-margin-right": 8,
+    "control-center-margin-left": 0,
+
+    "notification-window-width": 300,
+    "notification-body-image-height": 1,
+    "notification-body-image-width": 1,
+    "notification-inline-replies": true,
+    "notification-2fa-action": true,
+
+    "timeout": 3,
+    "timeout-low": 1,
+    "timeout-critical": 1,
+
+    "fit-to-screen": true,
+    "keyboard-shortcuts": true,
+    "image-visibility": "when available",
+    "transition-time": 200,
+    "hide-on-clear": false,
+    "hide-on-action": true,
+    "script-fail-notify": true,
+
+    "widgets": [
+        "menubar#label",
+        "volume",
+        "backlight",
+        "buttons-grid"
+    ],
+
+    "widget-config": {
+        "mpris": {
+            "image-size": 80,
+            "image-radius": 0
+        },
+        "volume": {
+            "label": "󰕾 "
+        },
+
+        "backlight": {
+            "label": "󰃟 "
+        },
+
+        "menubar#label": {
+            "menu#power-buttons": {
+                "label": "",
+                "position": "right",
+                "actions": [
+                    {
+                        "label": " Reboot",
+                        "command": "systemctl reboot"
+                    },
+                    {
+                        "label": " Lock",
+                        "command": "hyprlock"
+                    },
+                    {
+                        "label": " Logout",
+                        "command": "hyprctl dispatch exit 0"
+                    },
+                    {
+                        "label": " Shut down",
+                        "command": "systemctl poweroff"
+                    }
+                ]
+            },
+
+            "menu#powermode-buttons": {
+                "label": "󰠠",
+                "position": "right",
+                "actions": [
+                    {
+                        "label": "󰓅 Performance",
+                        "command": "powerprofilesctl set performance"
+                    },
+                    {
+                        "label": "󰾅 Balanced",
+                        "command": "powerprofilesctl set balanced"
+                    },
+                    {
+                        "label": "󰾆 Power Saver",
+                        "command": "powerprofilesctl set power-saver"
+                    }
+                ]
+            },
+
+            "buttons#wallpaper-switcher": {
+                "position": "left",
+                "actions": [
+                    {
+                        "label": "󱄄",
+                        "command": "~/.config/hypr/scripts/hyprwall-init.sh"
+                    }
+                ]
+            }
+        },
+
+        "buttons-grid": {
+            "actions": [
+                {
+                    "label": "",
+                    "type": "button",
+                    "command": "swaync-client --close-panel && sleep 0.7 && color=$(hyprpicker -a -f hex) && notify-send -a 'Hyprpicker' '🎨 Color copied!' $color"
+                },
+                {
+                    "label": "󰍭",
+                    "command": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
+                    "type": "toggle"
+                },
+                {
+                    "label": "󰤄",
+                    "command": "swaync-client -d",
+                    "type":"toggle"
+                },
+                {
+                    "label": "",
+                    "command": "kitty bash -i -c 'Settings'"
+                },
+                {
+                    "label": "",
+                    "command": "kitty bash -i -c 'tasks'"
+                }
+            ]
+        }
+    }
+}
+

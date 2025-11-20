@@ -1,0 +1,149 @@
+@import "colors.css";
+
+* {
+  all: unset;
+}
+
+picture {
+  filter: blur(2rem);
+}
+
+frame.background {
+  background: alpha(@surface, .92);
+  color: @on_surface;
+  border-radius: 24px;
+  box-shadow: 0 0 12px 2px alpha(@shadow, .9);
+}
+
+frame.background>grid>label:first-child {
+  font-size: 1.2rem;
+  padding: 6px;
+}
+
+frame.background.top {
+  font-size: 1.2rem;
+  padding: 8px;
+  background: @surface;
+  border-radius: 0;
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
+}
+
+box.horizontal>button.default.suggested-action.text-button {
+  background: @primary_container;
+  color: @on_primary_container;
+  padding: 12px;
+  margin: 0 8px;
+  border-radius: 12px;
+  box-shadow: 0 0 2px 1px alpha(@shadow, .6);
+  transition: background .3s ease-in-out;
+}
+
+box.horizontal>button.default.suggested-action.text-button:hover {
+  background: @primary;
+  color: @on_primary;
+}
+
+box.horizontal>button.text-button {
+  background: alpha(@error, .1);
+  color: @on_error_container;
+  padding: 12px;
+  border-radius: 12px;
+  transition: background .3s ease-in-out;
+}
+
+box.horizontal>button.text-button:hover {
+  background: alpha(@error, .3);
+}
+
+box.bottom.vertical>box.horizontal>button.destructive-action.text-button {
+  background: @surface_variant;
+  color: @on_error_container;
+  padding: 12px;
+  border-radius: 12px;
+  transition: background .3s ease-in-out;
+}
+
+box.bottom.vertical>box.horizontal>button.destructive-action.text-button:hover {
+  background: @error;
+  color: @on_error;
+}
+
+combobox {
+  background: @surface_variant;
+  color: @on_surface;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 0 0 1px alpha(@shadow, .6);
+}
+
+combobox:disabled {
+  background: @surface_dim;
+  color: alpha(@on_surface_variant, .6);
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: none;
+}
+
+modelbutton.flat {
+  background: @surface_variant;
+  padding: 6px;
+  margin: 2px;
+  border-radius: 8px;
+  border-spacing: 6px;
+}
+
+modelbutton.flat:hover {
+  background: alpha(@tertiary, .2);
+}
+
+button.image-button.toggle {
+  margin-right: 36px;
+  padding: 12px;
+  border-radius: 12px;
+}
+
+button.image-button.toggle:hover {
+  background: @surface;
+}
+
+button.image-button.toggle:disabled {
+  background: @surface_dim;
+  color: alpha(@on_surface_variant, .6);
+  margin-right: 36px;
+  padding: 12px;
+  border-radius: 12px;
+}
+
+combobox>popover {
+  background: @surface_variant;
+  color: @on_surface_variant;
+  border-radius: 12px;
+  border: 1px solid @tertiary;
+  padding: 2px 12px;
+}
+
+combobox>popover>contents {
+  padding: 2px;
+}
+
+combobox:hover {
+  background: alpha(@tertiary, .2);
+}
+
+entry.password {
+  border: 2px solid @primary;
+  border-radius: 12px;
+  padding: 12px;
+}
+
+entry.password:hover {
+  border: 2px solid @primary;
+}
+
+tooltip {
+  background: @surface;
+  color: @on_surface;
+  padding: 12px;
+  border-radius: 12px;
+}

@@ -1,58 +1,39 @@
+@import '../../.cache/wal/colors-waybar.css';
+
+@define-color text            @foreground;
+@define-color background-alt  alpha(@color1, .4);
+@define-color selected        @color6;
+@define-color hover           alpha(@selected, .4);
+@define-color urgent          @color2;
+@define-color border          rgba(255, 255, 255, .15);
+
 * {
 	border: none;
-	border-radius: 0px;
+	border-radius: 0;
 	font-family: "FiraCode Nerd Font";
 	font-weight: normal;
-	font-size: 13px;
+	font-size: 0.9rem;
 	min-height: 0;
 	transition: 0.3s;
-    margin: 0px 5px;
+    margin: 0 0.17em; /* 5px */
     background: transparent;
 }
 
 window#waybar {
-    background: transparent;
-	color: #ffffff;
-	border-radius: 12px;
-    padding: 8px;
+	color: @text;
+    padding: 0.5em; /* 8px */
+    background: rgba(0, 0, 0, .2);
 }
 
 tooltip {
-	border-radius: 10px;
-	border: 1px solid rgba(255,255,255,0.15);
+	border-radius: 0.625em; /* 10px */
+	border: 0.0625em solid @border; /* 1px */
 	transition: 0.3s;
-}
-
-#workspaces button {
-	background: transparent;
-    padding: 0px;
-}
-
-#workspaces button.active {
-	color: #ffffff;
-}
-
-#workspaces button.focused {
-	color: #ffffff;
-}
-
-#workspaces button.urgent {
-	color: #11111b;
-}
-
-#workspaces button:hover {
-	color: #ffffff;
-}
-
-#workspaces {
-	border: 1px solid rgba(255,255,255,0.15);
-	opacity: 0.9;
-	margin: 0;
-	margin-top: 5px;
 }
 
 #custom-power_profile,
 #custom-weather,
+#custom-swaync,
 #window,
 #clock,
 #battery,
@@ -64,113 +45,92 @@ tooltip {
 #disk,
 #memory,
 #cpu,
+#workspaces,
 #backlight {
-	border: 1px solid rgba(255,255,255,0.15);
+    color: @text;
 	opacity: 0.9;
-	padding: 0px 10px;
-	margin: 0;
-	margin-top: 5px;
+	padding: 0 0.625em; /* 10px */
 }
 
-#temperature.critical {
-	color: #eba0ac;
+#workspaces button {
+	background: transparent;
+    padding: 0;
 }
 
-#backlight {
-	border-radius: 0px 0px 0px 0px;
-	padding-left: 7px;
-    /* color: #fab989; */
+#workspaces button.active {
+	color: @text;
 }
 
-#tray {
-	border-radius: 20px;
-	margin-right: 5px;
-	padding: 0px 4px;
+#workspaces button.focused {
+	color: @text;
+}
+
+#workspaces button.urgent {
+	color: @urgent;
+}
+
+#workspaces button:hover {
+	color: @hover;
 }
 
 #workspaces {
-	border-radius: 0px 20px 0px 0px;
-	margin-left: 0px;
+	opacity: 0.9;
+	margin: 0;
 }
 
-#custom-power_profile {
-	color: #a6e3a1;
-	border-left: 0px;
-	border-right: 0px;
+#temperature.critical {
+	color: @urgent;
+}
+
+#backlight {
+	border-radius: 0;
+	padding-left: 0.4375em; /* 7px */
+}
+
+#tray {
+	border-radius: 1.25em; /* 20px */
+	margin-right: 0.3125em; /* 5px */
+	padding: 0 0.25em; /* 4px */
+}
+
+#workspaces {
+	border-radius: 0 0 1.25em 0; /* 20px */
 }
 
 #window {
-	border-radius: 20px;
-	margin-left: 5px;
-	margin-right: 5px;
+	border-radius: 1.25em; /* 20px */
+	margin-left: 0.3125em; /* 5px */
+	margin-right: 0.3125em; /* 5px */
 }
 
 #clock {
-	color: #ffffff;
-	border-radius: 20px 0px 20px 0px;
-	margin-left: 5px;
-	border-right: 0px;
+	margin-left: 0.3125em; /* 5px */
+	border-right: 0;
 	transition: 0.3s;
-	padding-left: 7px;
-}
-
-#network {
-	color: #f9e2af;
-	border-radius: 20px 0px 0px 20px;
-	border-left: 0px;
-	border-right: 0px;
-}
-
-#bluetooth {
-	color: #89b4fa;
-	border-radius: 20px;
-	margin-right: 10px;
-}
-
-#pulseaudio.microphone {
-	/* color: #cba6f7; */
-	border-left: 0px;
-	border-right: 0px;
-	border-radius: 0px 20px 20px 0px;
-	margin-right: 5px;
-	padding-right: 8px;
+	padding-left: 0.4375em; /* 7px */
 }
 
 #memory {
-    /* color: #fab989; */
-    border-radius: 0px;
+    border-radius: 0;
 }
 
 #battery {
-	/* color: #a6e3a1; */
-	margin-right: 0px;
-	border-left: 0px;
+	margin-right: 0;
+	border-left: 0;
 }
 
+#hyprland-workspace,
 #cpu {
-	border-radius: 0px 0px 0px 0px;
-	margin-right: 0px;
-	border-left: 0px;
+	margin-right: 0;
+	border-left: 0;
 }
 
-#custom-weather {
-    /* color: #d0b1da; */
-    border-radius: 0px 0px 0px 20px;
+#network {
+    padding: 0 .8em;
 }
 
-#pulseaudio {
-    /* color: #89b4fa; */
-    border-radius: 0px 20px 0px 0px;
+#custom-swaync {
+    margin-right: 0.3125em; /* 5px */
 }
 
-#disk {
-    /* color: #89b4fa; */
-    margin-left: 10px;
-    border-radius: 0px 0px 0px 20px;
-}
 
-#custom-logo {
-    padding-top: 5px;
-    font-size: 15px;
-    color: #ffffff;
-}

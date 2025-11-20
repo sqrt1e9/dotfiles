@@ -1,2 +1,0 @@
-setenv SSH_AUTH_SOCK /tmp/ssh-XXXXXXjqRgid/agent.2308;
-setenv SSH_AGENT_PID 2309;

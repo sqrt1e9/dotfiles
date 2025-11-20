@@ -1,11 +1,16 @@
-window, dialog, filechooser, filechooser * {
-    background-color: #1e1e1e;
-    color: #eeeeee;
+/* Force GTK4/libadwaita surfaces transparent */
+window, window.background, .background, .osd, .dim, .content, .titlebar, .headerbar,
+.adw-dialog, .adw-toast, .adw-banner, .popup, .popover, .shadow,
+box, grid, stack, clamp, scrolledwindow, viewport, list, listview, row, revealer, separator {
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
 }
 
-entry, button {
-  background-color: #2b2b2b;
-  color: #ffffff;
-}
-
+/* Neutralize libadwaita palette so nothing re-tints */
+@define-color window_bg_color rgba(0,0,0,0);
+@define-color view_bg_color rgba(0,0,0,0);
+@define-color headerbar_bg_color rgba(0,0,0,0);
+@define-color shade_color rgba(0,0,0,0);
 

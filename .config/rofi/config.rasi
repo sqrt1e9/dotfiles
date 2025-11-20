@@ -1,0 +1,172 @@
+configuration {
+    modi:                       "drun,filebrowser,window,run";
+    font:                       "FiraCode Nerd Font 11";
+    show-icons:                 true;
+    display-drun:                " ";
+    display-run:                 " ";
+    display-filebrowser:         "";
+    display-window:              "";
+	drun-display-format:        "{name}";
+    hover-select:               false;
+    scroll-method:              1;
+    me-select-entry:            "";
+    me-accept-entry:            "MousePrimary";
+    window-format:              "{w} · {c} · {t}";
+}
+
+@import "default.rasi"
+
+window {
+    height:                     30em;
+    width:                      46em;
+    fullscreen:                 false;
+    enabled:                    true;
+    cursor:                     "default";
+    spacing:                    0em;
+    padding:                    0em;
+    location:                   center;
+    anchor:                     center;
+    border:                     0.1em;
+    border-radius:              1em;
+    width:                      55%;
+}
+
+mainbox {
+    enabled:                     true;
+    spacing:                     0em;
+    padding:                     0em;
+    orientation:                 horizontal;
+    children:                    [ "imagebox" , "listbox" ];
+    background-color:            black / 20%;
+}
+
+imagebox {
+    padding:                     0.5em;
+    background-color:            black / 20%;
+    border-radius:               1em;
+    orientation:                 vertical;
+    children:                    [ "inputbar", "dummy", "mode-switcher" ];
+}
+
+dummy {
+    background-color:            transparent;
+}
+
+mode-switcher {
+    orientation:                 horizontal;
+    width:                       6.6em;
+    enabled:                     true;
+    padding:                     1.5em;
+    spacing:                     1.5em;
+    background-color:            transparent;
+}
+
+button {
+    padding:                     1em;
+    border-radius:               1em;
+    border:                      0;    
+    cursor:                      pointer;
+    background-color:            black / 10%;
+    text-color:                  @text;
+}
+
+button selected {
+    padding:                     1em;
+    border-radius:               1em;    
+    background-color:            @shade-bg;
+    text-color:                  @text;
+}
+
+inputbar {
+    enabled:                     true;
+    background-color:            @shade-bg;
+    text-color:                  @text;
+    margin: 1em;
+    children:                    [ "textbox-prompt-colon", "entry" ];
+    border-radius:               1em;
+}
+
+textbox-prompt-colon {
+    enabled:                     true;
+    expand:                      false;
+    str:                         "  ";
+    padding:                     1em 0.3em 0 0;
+    text-color:                  @text;
+    background-color:            transparent;
+}
+
+entry {
+    enabled:                     true;
+    spacing:                     1em;
+    padding:                     1em;
+    cursor:                      text;
+    placeholder:                 "";
+    background-color:            transparent;
+    placeholder-color:           inherit;
+}
+
+listbox {
+    padding:                     0em;
+    spacing:                     0em;
+    orientation:                 horizontal;
+    children:                    [ "listview" ];
+    background-color:            transparent;
+}
+
+listview {
+    padding:                     1em;
+    spacing:                     0.5em;
+    enabled:                     true;
+    columns:                     1;
+    lines:                       6;
+    cycle:                       true;
+    dynamic:                     true;
+    scrollbar:                   false;
+    layout:                      vertical;
+    reverse:                     false;
+    fixed-height:                true;
+    fixed-columns:               true;
+    cursor:                      "default";
+    background-color:            transparent;
+}
+
+element {
+    enabled:                     true;
+    spacing:                     0.2em;
+    padding:                     0.5em;
+    cursor:                      pointer;
+    background-color:            transparent;
+    text-color:                  white;
+    border-radius:               1em;
+}
+
+
+element-icon {
+    size:                        1.3em;
+    cursor:                      inherit;
+    background-color:            transparent;
+    text-color:                  inherit;
+    border-radius:               0em;
+}
+
+element-text {
+    vertical-align:              0.5;
+    horizontal-align:            0.0;
+    padding:                     0.5em;
+    cursor:                      inherit;
+    background-color:            transparent;
+    text-color:                  inherit;
+}
+
+error-message {
+    background-color:            transparent;
+    text-transform:              capitalize;
+    children:                    [ "textbox" ];
+}
+
+textbox {
+    text-color:                  inherit;
+    background-color:            inherit;
+    vertical-align:              0.5;
+    horizontal-align:            0.5;
+}

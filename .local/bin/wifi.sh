@@ -11,7 +11,7 @@ elif [[ "$connected" =~ "disabled" ]]; then
 fi
 
 chosen_network=$(echo -e "$toggle\n$wifi_list" | uniq -u | \
-    wofi --dmenu --prompt "Wi-Fi SSID:")
+    rofi -dmenu -prompt "Wi-Fi SSID:")
 
 read -r chosen_id <<< "${chosen_network:3}"
 
@@ -27,7 +27,7 @@ else
     if [ "$chosen_id" = "$active_id" ]; then
         notify-send "Already Connected" "$success_message"
     else
-        wifi_password=$(wofi --dmenu --password --prompt "Password for $chosen_id:")
+        wifi_password=$(rofi -dmenu -config ~/.config/rofi/password.rasi -password -prompt "Password for $chosen_id:")
         if [ -n "$wifi_password" ]; then
             nmcli connection delete id "$chosen_id" 2>/dev/null
             notify-send "Wi-Fi" "Connecting to $chosen_id..."

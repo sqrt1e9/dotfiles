@@ -1,0 +1,28 @@
+[background]
+path = "/usr/share/wallpapers/a_road_with_lightning_bolts_in_the_sky.png"
+fit = "Fill"
+
+[GTK]
+application_prefer_dark_theme = true
+cursor_theme_name = "Bibata-Modern-Amber"
+font_name = "Readex Pro"
+icon_theme_name = "Papirus"
+theme_name = "Adwaita"
+
+[commands]
+reboot = [
+    "systemctl",
+    "reboot",
+]
+poweroff = [
+    "systemctl",
+    "poweroff",
+]
+
+[appearance]
+greeting_msg = "Welcome back!"
+
+[widget.clock]
+format = "%a %d %B, %R"
+resolution = "500ms"
+label_width = 150

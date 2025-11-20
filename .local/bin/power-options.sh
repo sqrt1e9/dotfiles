@@ -11,7 +11,7 @@ options=" Lock
 
 # Run wofi synchronously; it exits after selection
 choice=$(echo -e "$options" \
-    | wofi --dmenu --prompt "Power")
+    | rofi -dmenu --prompt "Power")
 
 case "$choice" in
     " Lock")
@@ -28,7 +28,7 @@ case "$choice" in
         systemctl reboot
         ;;
     " Shutdown")
-        systemctl poweroff
+        shutdown
         ;;
     "   Hibernate")
         systemctl hibernate

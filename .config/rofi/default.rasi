@@ -1,0 +1,169 @@
+@import "~/.cache/wal/colors-rofi-dark.rasi"
+@import "~/.cache/wal/colors-rofi-dark.rasi"
+
+* {
+    background-alt:              @selected-active-background; // Buttons background
+    selected:                    @selected-normal-background; // Button selected
+    active:                      @selected-urgent-background; // Window activated
+    urgent:                      @selected-normal-background; // When hovering the activated window (maybe more?)
+    text-selected:               @background;
+    text:                        white;
+    shade-shadow:                white / 6%;
+    shade-bg:                    white / 12%;
+    shade-border:                white / 24%;
+    border-color:                white / 10%;
+}
+
+window {
+    fullscreen:                  false;
+    transparency:                "real";
+    cursor:                      "default";
+    background-color:            transparent;
+    border:                      0em;
+    border-color:                @border-color;
+}
+
+/* Elements ----------------------------------------------------- */
+element normal.normal,
+element alternate.normal {
+    background-color:            transparent;
+    text-color:                  @text;
+}
+
+element selected.normal {
+    background-color:            @shade-bg;
+    text-color:                  white;
+    border:                      0.0625em solid; /* 1px */
+    border-color:                @border-color;
+}
+
+element-text {
+    background-color:            transparent;
+    text-color:                  inherit;
+    highlight:                   inherit;
+    cursor:                      inherit;
+    vertical-align:              0.5;
+    horizontal-align:            0.5;
+}
+
+/* Listview ---------------------------------------------------- */
+
+listview {
+  border:                        0em;
+}
+
+/* Scrollbar ---------------------------------------------------- */
+scrollbar {
+    margin:                      0 0.25em; /* 4px */
+    handle-width:                0.5em; /* 8px */
+    handle-color:                white;
+    background-color:            @shade-shadow;
+    border-radius:               0.25em; /* 4px */
+}
+
+/* Message ------------------------------------------------------ */
+message {
+    background-color:            @shade-bg;
+    border:                      0.0625em solid; /* 1px */
+    border-color:                transparent;
+    border-radius:               0.75em; /* 12px */
+    padding:                     1.5em; /* 24px */
+}
+error-message {
+    padding:                     6.25em; /* 100px */
+    border:                      0em solid;
+    border-radius:               0em;
+    background-color:            black / 10%;
+    text-color:                  @text;
+}
+textbox {
+    background-color:            transparent;
+    text-color:                  @text;
+    vertical-align:              0.5;
+    horizontal-align:            0.5;
+    highlight:                   none;
+}
+
+* {
+    background-alt:              @selected-active-background; // Buttons background
+    selected:                    @selected-normal-background; // Button selected
+    active:                      @selected-urgent-background; // Window activated
+    urgent:                      @selected-normal-background; // When hovering the activated window (maybe more?)
+    text-selected:               @background;
+    text:                        white;
+    shade-shadow:                white / 6%;
+    shade-bg:                    white / 12%;
+    shade-border:                white / 24%;
+    border-color:                white / 10%;
+}
+
+window {
+    fullscreen:                  false;
+    transparency:                "real";
+    cursor:                      "default";
+    background-color:            black / 10%;
+    border:                      0em;
+    border-color:                @border-color;
+}
+
+/* Elements ----------------------------------------------------- */
+element normal.normal,
+element alternate.normal {
+    background-color:            transparent;
+    text-color:                  @text;
+}
+
+element selected.normal {
+    background-color:            @shade-bg;
+    text-color:                  white;
+    border:                      0.0625em solid; /* 1px */
+    border-color:                @border-color;
+}
+
+element-text {
+    background-color:            transparent;
+    text-color:                  inherit;
+    highlight:                   inherit;
+    cursor:                      inherit;
+    vertical-align:              0.5;
+    horizontal-align:            0.5;
+}
+
+/* Listview ---------------------------------------------------- */
+
+listview {
+  border:                        0em;
+}
+
+/* Scrollbar ---------------------------------------------------- */
+scrollbar {
+    margin:                      0 0.25em; /* 4px */
+    handle-width:                0.5em; /* 8px */
+    handle-color:                white;
+    background-color:            @shade-shadow;
+    border-radius:               0.25em; /* 4px */
+}
+
+/* Message ------------------------------------------------------ */
+message {
+    background-color:            @shade-bg;
+    border:                      0.0625em solid; /* 1px */
+    border-color:                transparent;
+    border-radius:               0.75em; /* 12px */
+    padding:                     1.5em; /* 24px */
+}
+error-message {
+    padding:                     6.25em; /* 100px */
+    border:                      0em solid;
+    border-radius:               0em;
+    background-color:            black / 10%;
+    text-color:                  @text;
+}
+textbox {
+    background-color:            transparent;
+    text-color:                  @text;
+    vertical-align:              0.5;
+    horizontal-align:            0.5;
+    highlight:                   none;
+}
+

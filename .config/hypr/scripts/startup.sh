@@ -9,19 +9,21 @@ blueman-daemon &
 exec-once = systemctl --user import-environment DISPLAY WAYLAND_DISPLAY
 exec-once = hash xdg-desktop-portal-hyprland 2>/dev/null && xdg-desktop-portal-hyprland || xdg-desktop-portal-gnome || xdg-desktop-portal-kde
 
-# --- GTK Theme, Icons ---
-gsettings set org.gnome.desktop.interface gtk-theme "Adwaita-Dark"
+exec-once = gsettings set org.gnome.desktop.interface cursor-theme Adwaita
+exec-once = gsettings set org.gnome.desktop.interface cursor-size 24
+
+env = HYPRCURSOR_THEME, Adwaita
+env = HYPRCURSOR_SIZE, 24 
+
+gsettings set org.gnome.desktop.interface gtk-theme "Adwaita"
 gsettings set org.gnome.desktop.interface icon-theme "Adwaita"
 
-# --- Fonts ---
-gsettings set org.gnome.desktop.interface font-name "FiraCode Nerd Font 11"
-gsettings set org.gnome.desktop.interface monospace-font-name "FiraCode Nerd Font 11"
-gsettings set org.gnome.desktop.interface document-font-name "FiraCode Nerd Font 11"
+gsettings set org.gnome.desktop.interface font-name "SF Pro Display 11"
+gsettings set org.gnome.desktop.interface monospace-font-name "SF Pro Display 11"
+gsettings set org.gnome.desktop.interface document-font-name "SF Pro Display 11"
 
-# --- Antialiasing / Hinting ---
 gsettings set org.gnome.settings-daemon.plugins.xsettings antialiasing "rgba"
 gsettings set org.gnome.settings-daemon.plugins.xsettings hinting "slight"
 
-# --- Dark Mode ---
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 

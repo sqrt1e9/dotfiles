@@ -1,0 +1,119 @@
+/* ------------------------------------------------------------------
+ *  Base Colors (same scheme as swaync)
+ * ------------------------------------------------------------------ */
+
+@import '../../.cache/wal/colors-waybar.css';
+
+@define-color text            @foreground;
+@define-color background-alt  alpha(@color1, .4);
+@define-color selected        @color6;
+@define-color hover           alpha(@selected, .4);
+@define-color urgent          @color2;
+@define-color border          rgba(255, 255, 255, .1);
+
+/* ------------------------------------------------------------------
+ *  Global defaults (slightly smaller)
+ * ------------------------------------------------------------------ */
+* {
+    color:         @text;
+    font-family:   "FiraCode Nerd Font Mono";
+    transition:    200ms;
+}
+
+/* ------------------------------------------------------------------
+ *  WINDOW – transparent (no outer box)
+ * ------------------------------------------------------------------ */
+window {
+    background:         transparent;
+    background-color:   transparent;
+    border:             none;
+    box-shadow:         none;
+    padding:            0;
+    margin:             0;
+}
+
+/* ------------------------------------------------------------------
+ *  OSD PILL – smaller, matches swaync background
+ * ------------------------------------------------------------------ */
+.osd {
+    background-color: rgba(0, 0, 0, .1);
+    border-radius:    15px;
+    border: 1px solid @border;
+
+    /* reduced size */
+    padding:          1px 3px;
+    margin:           2px;
+    box-shadow:       0 0 10px 0 rgba(0, 0, 0, 0.55);
+}
+
+/* ------------------------------------------------------------------
+ *  Icon + Text – slightly smaller
+ * ------------------------------------------------------------------ */
+.osd-icon {
+    margin-right: 4px;
+    font-size:    0.7rem;
+    color:        @text;
+}
+
+.osd-label {
+    font-weight:  500;
+    margin-bottom: 0;
+    font-size:    0.70rem;
+    color:        @text;
+}
+
+.osd-value {
+    margin-left:  4px;
+    font-size:    0.70rem;
+    font-weight:  600;
+}
+
+/* Muted */
+.osd-muted .osd-icon {
+    color: @urgent;
+}
+
+/* ------------------------------------------------------------------
+ *  SCALE – compact, using selected color for fill
+ * ------------------------------------------------------------------ */
+
+/* Track */
+.osd scale trough {
+    min-height:    3px;
+    border-radius: 16px;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Filled */
+.osd scale highlight {
+    border-radius: 16px;
+    background-color: @text;
+    box-shadow:
+        0 0 3px 0.8px @text,
+        inset 0 0 2px @text;
+}
+
+/* Optional fallback for progressbar-based widgets */
+progressbar,
+progressbar trough {
+    min-height: 3px;
+    border-radius: 16px;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+progressbar progress {
+    border-radius: 16px;
+    background-color: @text;
+    box-shadow:
+        0 0 3px 0.8px @text,
+        inset 0 0 2px @text;
+}
+
+/* Muted */
+.osd-muted scale highlight {
+    background-color: @urgent;
+    box-shadow:
+        0 0 3px 0.8px @urgent,
+        inset 0 0 2px @urgent;
+}
+
