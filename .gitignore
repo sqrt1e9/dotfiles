@@ -134,3 +134,42 @@ Notes/
 /.local/*
 !/.local/bin/
 !/.local/bin/**
+
+
+# Ignore the entire .zen directory
+.config/.zen/*
+
+# Exception: Re-include the essential settings files and folders
+
+# Core preferences (about:config settings, general settings)
+!.config/.zen/prefs.js
+
+# Bookmarks and history
+!.config/.zen/places.sqlite
+
+# Passwords and sensitive data
+!.config/.zen/cert9.db
+!.config/.zen/key4.db
+!.config/.zen/logins.json
+
+# Extensions/Add-ons and their settings
+!.config/.zen/extensions.*
+!.config/.zen/extension-preferences.json
+!.config/.zen/extension-settings.json
+!.config/.zen/extensions/
+
+# Cookies and session information (if desired for login sessions)
+!.config/.zen/cookies.sqlite
+!.config/.zen/sessionstore.jsonlz4
+
+# Search engine preferences
+!.config/.zen/search.json.mozlz4
+
+# Custom UI/Themes (if used)
+!.config/.zen/chrome/
+!.config/.zen/zen-themes.json
+
+# Required for profile management
+!.config/.zen/compatibility.ini
+!.config/.zen/profiles.ini
+
