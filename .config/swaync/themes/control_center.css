@@ -1,11 +1,12 @@
-@define-color text            @foreground;
+@define-color text            rgba(255, 255, 255, 1);
 @define-color noti-bg         @color7;
-@define-color bg              rgba(0, 0, 0, .2);
+@define-color bg              rgba(255, 255, 255, .14);
 @define-color background-alt  alpha(@color1, .4);
-@define-color selected        @color4;
-@define-color hover           alpha(@selected, .4);
+@define-color hover           @color4;
 @define-color urgent          @color2;
-@define-color border          rgba(255, 255, 255, .1);
+@define-color border          rgba(255, 255, 255, .28);
+@define-color secondary_container      rgba(255, 255, 255, .1);
+@define-color secondary_container_border      rgba(255, 255, 255, .32);
 
 * {
 	color:       @text;
@@ -60,11 +61,11 @@ blankwindow {
 }
 
 .control-center .notification-row .notification-background .notification > *:last-child > * .notification-action:hover {
-	background: @selected;
+	background: @hover;
 }
 
 .control-center .notification-row .notification-background .notification > *:last-child > * .notification-action:active {
-	background-color: @selected;
+	background-color: @hover;
 }
 
 .control-center .notification-row .notification-background .close-button {
@@ -76,11 +77,11 @@ blankwindow {
 }
 
 .control-center .notification-row .notification-background .close-button:hover {
-	background-color: @selected;
+	background-color: @hover;
 }
 
 .control-center .notification-row .notification-background .close-button:active {
-	background-color: @selected;
+	background-color: @hover;
 }
 
 progressbar,
@@ -244,7 +245,7 @@ progressbar {
 }
 
 .notification-group .notification-group-close-button .close-button:hover {
-    background: @selected;
+    background: @hover;
 }
 
 .notification-group .notification-group-buttons,
@@ -291,7 +292,6 @@ progressbar {
 
 .notification-group.collapsed .notification-row:nth-last-child(n+4) {
   /* *** NEW RULE *** Hides any notification row beyond the first 3 when collapsed */
-    display: none;
 }
 
 .notification-group.collapsed .notification-row:first-child .notification {
@@ -320,7 +320,7 @@ progressbar {
 
 .notification-group-collapse-button:hover,
 .notification-group-close-all-button:hover {
-    background: @selected;
+    background: @hover;
 }
 
 .menu-button-bar {
@@ -347,22 +347,22 @@ progressbar {
 
 .menu-button-bar text-button:hover,
 .menu-button-bar button:hover {
-    background: @selected;
+    background: @hover;
     box-shadow: 0px 0px 2px rgba(0, 0, 0, .2);
     transition: all .5s ease;
 }
 
 .power-buttons,
 .powermode-buttons {
-    background: @bg;
     padding: .5em;
-    margin: 1em;
+    margin: .5em;
     border-radius: .9em;
+    background: @secondary_container;
+    border: 1px solid @secondary_container_border;
 }
 
 .powermode-buttons button,
 .power-buttons button {
-    background: @secondary_container;
     padding: 8px;
     margin: 8px 0;
     border-radius: .9em;
@@ -376,7 +376,7 @@ progressbar {
 
 .powermode-buttons > button:hover,
 .power-buttons > button:hover {
-    background: @selected;
+    background: @hover;
     box-shadow: 0px 0px 2px rgba(0, 0, 0, .2);
     transition: all .5s ease;
 }
@@ -427,7 +427,7 @@ progressbar {
 }
 
 .widget-dnd switch:checked {
-	background: @selected;
+	background: @hover;
 }
 
 .widget-dnd switch slider {
@@ -493,7 +493,7 @@ progressbar {
 }
 
 .widget-buttons-grid > flowbox > flowboxchild > button:hover {
-    background: @selected;
+    background: @hover;
     box-shadow: 0px 0px 2px rgba(0, 0, 0, .2);
     transition: all .5s ease;
 }

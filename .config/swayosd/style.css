@@ -9,15 +9,15 @@
 @define-color selected        @color6;
 @define-color hover           alpha(@selected, .4);
 @define-color urgent          @color2;
-@define-color border          rgba(255, 255, 255, .1);
+@define-color border          rgba(255, 255, 255, .25);
 
 /* ------------------------------------------------------------------
- *  Global defaults (slightly smaller)
+ *  Global defaults
  * ------------------------------------------------------------------ */
 * {
     color:         @text;
     font-family:   "FiraCode Nerd Font Mono";
-    transition:    200ms;
+    transition:    0.2s;
 }
 
 /* ------------------------------------------------------------------
@@ -33,38 +33,35 @@ window {
 }
 
 /* ------------------------------------------------------------------
- *  OSD PILL – smaller, matches swaync background
+ *  OSD PILL
  * ------------------------------------------------------------------ */
 .osd {
-    background-color: rgba(0, 0, 0, .1);
-    border-radius:    15px;
-    border: 1px solid @border;
-
-    /* reduced size */
-    padding:          1px 3px;
-    margin:           2px;
-    box-shadow:       0 0 10px 0 rgba(0, 0, 0, 0.55);
+    background-color: rgba(255, 255, 255, .14);
+    border-radius:    0.9375em;      /* 15px */
+    border:           0.0625em solid @border; /* 1px */
+    padding:          0.0625em 0.5em; /* 1px 3px */
+    margin:           0.125em;       /* 2px */
 }
 
 /* ------------------------------------------------------------------
- *  Icon + Text – slightly smaller
+ *  Icon + Text
  * ------------------------------------------------------------------ */
 .osd-icon {
-    margin-right: 4px;
-    font-size:    0.7rem;
+    margin-right: 0.25em;            /* 4px */
+    font-size:    0.7em;
     color:        @text;
 }
 
 .osd-label {
     font-weight:  500;
     margin-bottom: 0;
-    font-size:    0.70rem;
+    font-size:    0.70em;
     color:        @text;
 }
 
 .osd-value {
-    margin-left:  4px;
-    font-size:    0.70rem;
+    margin-left:  0.25em;            /* 4px */
+    font-size:    0.70em;
     font-weight:  600;
 }
 
@@ -74,46 +71,46 @@ window {
 }
 
 /* ------------------------------------------------------------------
- *  SCALE – compact, using selected color for fill
+ *  SCALE – compact
  * ------------------------------------------------------------------ */
 
 /* Track */
 .osd scale trough {
-    min-height:    3px;
-    border-radius: 16px;
+    min-height:    0.1875em;         /* 3px */
+    border-radius: 1em;
     background-color: rgba(255, 255, 255, 0.3);
 }
 
 /* Filled */
 .osd scale highlight {
-    border-radius: 16px;
+    border-radius: 1em;
     background-color: @text;
     box-shadow:
-        0 0 3px 0.8px @text,
-        inset 0 0 2px @text;
+        0 0 0.1875em 0.05em @text,   /* 3px 0.8px */
+        inset 0 0 0.125em @text;     /* 2px */
 }
 
-/* Optional fallback for progressbar-based widgets */
+/* Optional fallback for progressbar */
 progressbar,
 progressbar trough {
-    min-height: 3px;
-    border-radius: 16px;
+    min-height: 0.1875em;            /* 3px */
+    border-radius: 1em;
     background-color: rgba(255, 255, 255, 0.3);
 }
 
 progressbar progress {
-    border-radius: 16px;
+    border-radius: 1em;
     background-color: @text;
     box-shadow:
-        0 0 3px 0.8px @text,
-        inset 0 0 2px @text;
+        0 0 0.1875em 0.05em @text,
+        inset 0 0 0.125em @text;
 }
 
 /* Muted */
 .osd-muted scale highlight {
     background-color: @urgent;
     box-shadow:
-        0 0 3px 0.8px @urgent,
-        inset 0 0 2px @urgent;
+        0 0 0.1875em 0.05em @urgent,
+        inset 0 0 0.125em @urgent;
 }
 

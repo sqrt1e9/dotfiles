@@ -37,12 +37,12 @@ mainbox {
     padding:                     0em;
     orientation:                 horizontal;
     children:                    [ "imagebox" , "listbox" ];
-    background-color:            black / 20%;
+    background-color:            white / 14%;
 }
 
 imagebox {
     padding:                     0.5em;
-    background-color:            black / 20%;
+    background-color:            white / 5%;
     border-radius:               1em;
     orientation:                 vertical;
     children:                    [ "inputbar", "dummy", "mode-switcher" ];
