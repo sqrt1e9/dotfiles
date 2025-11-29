@@ -272,41 +272,45 @@ progressbar {
 
 .notification-group.collapsed {
   /* When another group is expanded, lower the opacity of the collapsed ones */
-    border-radius: 1em;
     transition: var(--group-collapse-tranistion);
 }
 
 .notification-group.collapsed.not-expanded {
 }
 
+.notification-group.collapsed .notification-row {
+}
+
 .notification-group.collapsed .notification-row .notification {
-    background: @bg;
-    opacity: 1;
 }
 
 .notification-group.collapsed .notification-row:not(:last-child) {
   /* Top notification in stack */
   /* Set lower stacked notifications opacity to 0 */
-    filter: blur(1px);
-}
-
-.notification-group.collapsed .notification-row:nth-last-child(n+4) {
-  /* *** NEW RULE *** Hides any notification row beyond the first 3 when collapsed */
-}
-
-.notification-group.collapsed .notification-row:first-child .notification {
-  /* Ensure the very first notification is always fully visible and not blurred */
+    background: alpha(@bg, 1);
+    border-radius: 1em;
     opacity: 1 !important; 
     filter: none !important; 
 }
 
+.notification-group.collapsed .notification-row:first-child {
+  /* Ensure the very first notification is always fully visible and not blurred */
+    background: alpha(@bg, 1);
+    border-radius: 1em;
+    opacity: 1 !important; 
+    filter: none !important; 
+}
+
+.notification-group.collapsed .notification-row:first-child .notification {
+  /* Ensure the very first notification is always fully visible and not blurred */
+}
+
 .notification-group.collapsed .notification-row:not(:last-child) .notification-action,
 .notification-group.collapsed .notification-row:not(:last-child) .notification-default-action {
-    opacity: 0;
+
 }
 
 .notification-group.collapsed:hover .notification-row:not(:only-child) .notification {
-    border-radius: 1em;
 }
 
 .notification-group-collapse-button,
