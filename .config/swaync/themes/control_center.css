@@ -24,19 +24,19 @@ blankwindow {
 /* CONTROL CENTER ------------------------------------------------------------------------ */
 
 .control-center {
-	background:    @bg; /* @background is set to transparent */
-	border-radius: 0.9375em;       /* 15px */
-	margin:        1.2em;        /* 10px */
-	padding:       0.625em;        /* 10px */
+	background:    @bg; 
+	border-radius: 0.9375em;    
+	margin:        1.2em;        
+	padding:       0.625em;     
 }
 
 /* Notifications  */
 .control-center .notification-row .notification-background,
 .control-center .notification-row .notification-background .notification.critical {
-	border-radius: 0.9375em;                  /* 15px */
-	margin:        0.25em 0;                  /* 4px 0px */
-	padding:       0.25em;                    /* 4px */
-	border:        0.0625em solid @border;    /* 1px */
+	border-radius: 0.9375em;                
+	margin:        0.25em 0;                  
+	padding:       0.25em;                  
+	border:        0.0625em solid @border; 
 }
 
 .control-center .notification-row .notification-background .notification.critical {
@@ -279,38 +279,26 @@ progressbar {
 }
 
 .notification-group.collapsed .notification-row {
+    background: rgba(255, 255, 255, .14);
+    border-radius: 1em;
+    opacity: 1;
+    filter: none; 
 }
 
 .notification-group.collapsed .notification-row .notification {
 }
 
 .notification-group.collapsed .notification-row:not(:last-child) {
-  /* Top notification in stack */
-  /* Set lower stacked notifications opacity to 0 */
-    background: alpha(@bg, 1);
+    background: rgba(255, 255, 255, .14);
     border-radius: 1em;
-    opacity: 1 !important; 
-    filter: none !important; 
 }
 
-.notification-group.collapsed .notification-row:first-child {
-  /* Ensure the very first notification is always fully visible and not blurred */
-    background: alpha(@bg, 1);
+.notification-group.collapsed .notification-row:not(:last-child) .notification,
+.notification-group.collapsed .notification-row:not(:last-child) .notification-content,
+.notification-group.collapsed .notification-row:not(:last-child) .notification .summary {
+    background: rgba(255, 255, 255, .14);
     border-radius: 1em;
-    opacity: 1 !important; 
-    filter: none !important; 
-}
-
-.notification-group.collapsed .notification-row:first-child .notification {
-  /* Ensure the very first notification is always fully visible and not blurred */
-}
-
-.notification-group.collapsed .notification-row:not(:last-child) .notification-action,
-.notification-group.collapsed .notification-row:not(:last-child) .notification-default-action {
-
-}
-
-.notification-group.collapsed:hover .notification-row:not(:only-child) .notification {
+    color: red;
 }
 
 .notification-group-collapse-button,

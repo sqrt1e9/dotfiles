@@ -8,6 +8,8 @@ exec >>"$LOG_FILE" 2>&1
 echo "--- hypr-refresh-all start $(date) ---"
 
 WALL_DIR="$HOME/Pictures/Wallpapers"
+URL_CACHE_DIR="$HOME/.cache/hypr-wall-url"
+mkdir -p "$URL_CACHE_DIR"
 
 pick_random_wallpaper() {
     # Find images and pick one randomly
@@ -31,10 +33,35 @@ pick_random_wallpaper() {
     return 0
 }
 
+download_wallpaper_from_url() {
+    local url="$1"
+
+    echo "Downloading wallpaper from URL: $url"
+
+    local filename
+    filename="$(basename "$url")"
+    local dest="$URL_CACHE_DIR/$filename"
+
+    # Curl with silent mode + follow redirects
+    if curl -L --fail -o "$dest" "$url"; then
+        echo "Downloaded to: $dest"
+        echo "$dest"
+        return 0
+    else
+        echo "Failed to download image from: $url"
+        return 1
+    fi
+}
+
 # Decide image:
 if [ -n "$1" ]; then
-    IMG="$1"
-    echo "Using image from argument: $IMG"
+    if [[ "$1" =~ ^https?:// ]]; then
+        echo "Argument is a URL, downloading..."
+        IMG="$(download_wallpaper_from_url "$1")" || exit 1
+    else
+        echo "Using local image from argument: $1"
+        IMG="$1"
+    fi
 else
     echo "No image given; picking random from $WALL_DIR"
     IMG="$(pick_random_wallpaper)" || exit 1

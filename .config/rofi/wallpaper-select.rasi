@@ -1,0 +1,124 @@
+configuration {
+    modi:                       "drun,filebrowser,window,run";
+    font:                       "FiraCode Nerd Font 11";
+    show-icons:                 true;
+
+    display-drun:               " ";
+    display-run:                " ";
+    display-filebrowser:        "";
+    display-window:             "";
+
+    drun-display-format:        "{name}";
+    hover-select:               false;
+    scroll-method:              1;
+    me-select-entry:            "";
+    me-accept-entry:            "MousePrimary";
+
+    window-format:              "{w} · {c} · {t}";
+}
+
+@import "default.rasi"
+
+/* ---------------------- WINDOW ----------------------- */
+window {
+    height:                     35em;
+    width:                      55%;
+    border-radius:              1em;
+    border:                     0.1em;
+    padding:                    0em;
+    spacing:                    0em;
+    location:                   center;
+    anchor:                     center;
+}
+
+/* ---------------------- MAIN ------------------------- */
+mainbox {
+    spacing:                    0em;
+    padding:                    0em;
+    children:                   [ "inputbar", "listview" ];
+    background-color:           white / 14%;
+}
+
+/* ---------------------- INPUT BAR --------------------- */
+inputbar {
+    background-color:           @shade-bg;
+    text-color:                 @text;
+    margin:                     1em;
+    border-radius:              1em;
+    children:                   [ "textbox-prompt-colon", "entry" ];
+}
+
+textbox-prompt-colon {
+    expand:                     false;
+    str:                        "  ";
+    padding:                    1em 0.3em 0 0;
+    background-color:           transparent;
+    text-color:                 @text;
+}
+
+entry {
+    padding:                    1em;
+    background-color:           transparent;
+    text-color:                 @text;
+}
+
+/* ---------------------- THUMBNAIL GRID ---------------- */
+listview {
+    padding:                    1em;
+    spacing:                    1em;
+
+    columns:                    3;      /* number of thumbnails per row */
+    fixed-columns:              true;
+    lines:                      3;       /* rows visible */
+    fixed-height:               true;
+
+    dynamic:                    true;
+    cycle:                      true;
+    scrollbar:                  false;
+    layout:                     vertical;
+    background-color:           transparent;
+}
+
+/* ---------------------- ELEMENT (THUMBNAIL TILE) ---------------- */
+element {
+    padding:                    0.5em;
+    spacing:                    0.4em;
+    border-radius:              0.8em;
+    cursor:                     pointer;
+    background-color:           @shade-bg;
+    /* IMPORTANT: show text */
+    text-color:                 @text;
+    orientation:                vertical;
+}
+
+element selected {
+    background-color:           @shade-bg;
+    text-color:                 @text;
+}
+
+/* Thumbnail image */
+element-icon {
+    size:                       10em;
+    border-radius:              0.6em;
+    background-color:           transparent;
+    text-color:                 inherit;
+}
+
+/* Visible filename under thumbnail */
+element-text {
+    padding:                    0.2em;
+    background-color:           transparent;
+    text-color:                 @text;
+
+    horizontal-align:           0.5;   /* center text */
+    vertical-align:             0.5;
+
+    font:                       "FiraCode Nerd Font 10";
+}
+
+/* ---------------------- ERROR MESSAGE ---------------- */
+error-message {
+    background-color:           transparent;
+    text-transform:             capitalize;
+}
+

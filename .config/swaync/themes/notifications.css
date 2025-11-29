@@ -1,6 +1,5 @@
 
 * {
-
 	color:        @text;
 	all:          unset;
 	font-size:    0.95rem;
@@ -24,7 +23,6 @@ blankwindow {
     border: 1px solid @border;
 	border-radius: 15px;
 	padding:       8px;
-	max-width:     360px;
     margin-top: 10px;
 }
 
@@ -47,18 +45,15 @@ blankwindow {
 	background-color:  @background-alt;
 	margin:            4px;
 	padding:           2px 6px;
-	/* No border */
 }
 
 .floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action:hover {
-	background-color:  @hover;
-	/* No border */
+	background:  @hover;
 }
 
 .floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action:active {
-	background-color:  @selected;
+	background:  @selected;
 	color:             @bg;
-	/* No border */
 }
 
 .image {

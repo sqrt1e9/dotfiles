@@ -1,5 +1,6 @@
 @import '../../.cache/wal/colors-waybar.css';
 
+@define-color bg              rgba(255, 255, 255, .14);
 @define-color text            rgba(255, 255, 255, 1);
 @define-color background-alt  alpha(@color1, .4);
 @define-color selected        @color6;
@@ -21,8 +22,8 @@
 
 window#waybar {
 	color: @text;
-    padding: 0.5em; /* 8px */
-    background: rgba(255, 255, 255, .14);
+    padding: 0.5em;
+    background: @bg;
 }
 
 tooltip {
@@ -49,7 +50,7 @@ tooltip {
 #backlight {
     color: @text;
 	opacity: 0.9;
-	padding: 0 0.625em; /* 10px */
+	padding: 0 0.625em;
 }
 
 #workspaces button {
@@ -105,7 +106,7 @@ tooltip {
 
 #clock {
 	margin-left: 0.3125em; /* 5px */
-	border-right: 0;
+	border-radius: 0em;
 	transition: 0.3s;
 	padding-left: 0.4375em; /* 7px */
 }
@@ -122,7 +123,7 @@ tooltip {
 #hyprland-workspace,
 #cpu {
 	margin-right: 0;
-	border-left: 0;
+    border: 0em;
 }
 
 #network {
