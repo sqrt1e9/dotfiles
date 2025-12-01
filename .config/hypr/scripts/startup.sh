@@ -18,9 +18,9 @@ env = HYPRCURSOR_SIZE, 24
 gsettings set org.gnome.desktop.interface gtk-theme "Adwaita"
 gsettings set org.gnome.desktop.interface icon-theme "Adwaita"
 
-gsettings set org.gnome.desktop.interface font-name "SF Pro Display 11"
-gsettings set org.gnome.desktop.interface monospace-font-name "SF Pro Display 11"
-gsettings set org.gnome.desktop.interface document-font-name "SF Pro Display 11"
+gsettings set org.gnome.desktop.interface font-name "Monolisa 11"
+gsettings set org.gnome.desktop.interface monospace-font-name "Monolisa 11"
+gsettings set org.gnome.desktop.interface document-font-name "Monolisa 11"
 
 gsettings set org.gnome.settings-daemon.plugins.xsettings antialiasing "rgba"
 gsettings set org.gnome.settings-daemon.plugins.xsettings hinting "slight"

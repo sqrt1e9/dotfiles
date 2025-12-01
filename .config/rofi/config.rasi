@@ -1,6 +1,6 @@
 configuration {
     modi:                       "drun,filebrowser,window,run";
-    font:                       "FiraCode Nerd Font 11";
+    font:                       "Monolisa 12";
     show-icons:                 true;
     display-drun:                " ";
     display-run:                 " ";
@@ -80,10 +80,11 @@ button selected {
 inputbar {
     enabled:                     true;
     background-color:            @shade-bg;
-    text-color:                  @text;
+    text-color:                  white;
     margin: 1em;
     children:                    [ "textbox-prompt-colon", "entry" ];
     border-radius:               1em;
+    color:                       white;
 }
 
 textbox-prompt-colon {
@@ -91,7 +92,7 @@ textbox-prompt-colon {
     expand:                      false;
     str:                         "  ";
     padding:                     1em 0.3em 0 0;
-    text-color:                  @text;
+    text-color:                  white;
     background-color:            transparent;
 }
 

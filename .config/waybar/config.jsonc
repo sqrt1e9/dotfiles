@@ -7,8 +7,8 @@
     "gtk-layer-shell": true,
     "height": 32,
     "modules-left": ["disk", "memory", "cpu", "hyprland/workspaces"],
-    "modules-center": [],
-    "modules-right": ["custom/swaync", "network", "bluetooth", "custom/weather", "battery", "clock"],
+    "modules-center": ["clock"],
+    "modules-right": ["custom/swaync", "network", "bluetooth", "custom/weather", "battery"],
     "hyprland/window": {
         "format": "{}"
     },
@@ -48,7 +48,7 @@
     },
     "cpu": {
         "interval": 1,
-        "format": "<span size='large'></span> {usage}%",
+        "format": "<span size='large'></span> {usage}%",
         "min-length": 6,
         "max-length": 6,
         "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
@@ -65,7 +65,7 @@
     },
     "clock": {
         "format": "<span size='large'></span> {0:%I:%M %p}  <span size='large'></span> {0:%a, %b %e}",
-        "font-family": "FiraCode Nerd Font",
+        "font-family": "Monolisa",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
     },
 
@@ -91,9 +91,9 @@
         "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
     },
     "pulseaudio": {
-        "format": "<span size = 'x-large'>{icon}</span> {volume}%",
+        "format": "<span size = 'large'>{icon}</span> {volume}%",
         "tooltip": false,
-        "format-muted": "<span size='x-large'></span> Muted",
+        "format-muted": "<span size='large'></span> Muted",
         "on-click": "pamixer -t",
         "on-scroll-up": "pamixer -i 5",
         "on-scroll-down": "pamixer -d 5",
@@ -127,9 +127,9 @@
         "format-alt": "{essid} {ipaddr}/{cidr}"
     },
     "bluetooth": {
-	    "format": " {status}",
+	    "format": "<span size='x-large'></span> {status}",
 	    "format-disabled": "", // an empty format will hide the module
-	    "format-connected": " {num_connections}",
+	    "format-connected": "<span size='x-large'></span> {num_connections}",
 	    "tooltip-format": "{device_alias}",
 	    "tooltip-format-connected": " {device_enumerate}",
 	    "tooltip-format-enumerate-connected": "{device_alias}"

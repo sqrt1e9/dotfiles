@@ -1,6 +1,6 @@
 configuration {
     modi:                       "drun,filebrowser,window,run";
-    font:                       "FiraCode Nerd Font 11";
+    font:                       "Monolisa 12";
     show-icons:                 true;
 
     display-drun:               " ";
@@ -42,7 +42,7 @@ mainbox {
 /* ---------------------- INPUT BAR --------------------- */
 inputbar {
     background-color:           @shade-bg;
-    text-color:                 @text;
+    text-color:                 white;
     margin:                     1em;
     border-radius:              1em;
     children:                   [ "textbox-prompt-colon", "entry" ];
@@ -53,13 +53,13 @@ textbox-prompt-colon {
     str:                        "  ";
     padding:                    1em 0.3em 0 0;
     background-color:           transparent;
-    text-color:                 @text;
+    text-color:                 white;
 }
 
 entry {
     padding:                    1em;
     background-color:           transparent;
-    text-color:                 @text;
+    text-color:                 white;
 }
 
 /* ---------------------- THUMBNAIL GRID ---------------- */
@@ -86,7 +86,6 @@ element {
     border-radius:              0.8em;
     cursor:                     pointer;
     background-color:           @shade-bg;
-    /* IMPORTANT: show text */
     text-color:                 @text;
     orientation:                vertical;
 }
@@ -109,11 +108,9 @@ element-text {
     padding:                    0.2em;
     background-color:           transparent;
     text-color:                 @text;
-
     horizontal-align:           0.5;   /* center text */
     vertical-align:             0.5;
-
-    font:                       "FiraCode Nerd Font 10";
+    font:                       "Monolisa 12";
 }
 
 /* ---------------------- ERROR MESSAGE ---------------- */

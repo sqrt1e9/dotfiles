@@ -11,19 +11,18 @@
 * {
 	border: none;
 	border-radius: 0;
-	font-family: "FiraCode Nerd Font";
+	font-family: "Monolisa";
 	font-weight: normal;
-	font-size: 0.9rem;
+	font-size: 1rem;
 	min-height: 0;
 	transition: 0.3s;
-    margin: 0 0.17em; /* 5px */
+    margin: 0 0.12em; /* 5px */
     background: transparent;
 }
 
 window#waybar {
 	color: @text;
     padding: 0.5em;
-    background: @bg;
 }
 
 tooltip {
@@ -51,32 +50,7 @@ tooltip {
     color: @text;
 	opacity: 0.9;
 	padding: 0 0.625em;
-}
-
-#workspaces button {
-	background: transparent;
-    padding: 0;
-}
-
-#workspaces button.active {
-	color: @text;
-}
-
-#workspaces button.focused {
-	color: @text;
-}
-
-#workspaces button.urgent {
-	color: @urgent;
-}
-
-#workspaces button:hover {
-	color: @hover;
-}
-
-#workspaces {
-	opacity: 0.9;
-	margin: 0;
+    background: @bg;
 }
 
 #temperature.critical {
@@ -85,17 +59,15 @@ tooltip {
 
 #backlight {
 	border-radius: 0;
-	padding-left: 0.4375em; /* 7px */
 }
 
 #tray {
 	border-radius: 1.25em; /* 20px */
 	margin-right: 0.3125em; /* 5px */
-	padding: 0 0.25em; /* 4px */
 }
 
 #workspaces {
-	border-radius: 0 0 1.25em 0; /* 20px */
+	border-radius: 0 1em 1em 0; /* 20px */
 }
 
 #window {
@@ -106,9 +78,9 @@ tooltip {
 
 #clock {
 	margin-left: 0.3125em; /* 5px */
-	border-radius: 0em;
+	border-radius: 1em;
 	transition: 0.3s;
-	padding-left: 0.4375em; /* 7px */
+    background: @bg;
 }
 
 #memory {
@@ -116,22 +88,20 @@ tooltip {
 }
 
 #battery {
-	margin-right: 0;
 	border-left: 0;
 }
 
 #hyprland-workspace,
 #cpu {
-	margin-right: 0;
     border: 0em;
 }
 
 #network {
-    padding: 0 .8em;
 }
 
 #custom-swaync {
-    margin-right: 0.3125em; /* 5px */
+    border-radius: 1em 0 0 1em;
+    padding: 0 1em;
 }
 
 

@@ -10,8 +10,8 @@
 
 * {
 	color:       @text;
-	font-size:   1rem;
-	font-family: "FiraCode Nerd Font";
+	font-size:   1.1rem;
+	font-family: "Monolisa";
 	transition:  200ms;
 }
 
@@ -25,7 +25,7 @@ blankwindow {
 
 .control-center {
 	background:    @bg; 
-	border-radius: 0.9375em;    
+	border-radius: 1em;    
 	margin:        1.2em;        
 	padding:       0.625em;     
 }
@@ -145,7 +145,7 @@ progressbar {
 }
 
 .notification-row .notification-background .notification .notification-default-action .notification-content .text-box .time {
-	font-size:   0.8rem;
+	font-size:   1.0rem;
 	background:  transparent;
 	color:       @text;
 	text-shadow: none;
