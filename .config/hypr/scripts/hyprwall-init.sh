@@ -7,7 +7,7 @@ exec >>"$LOG_FILE" 2>&1
 
 echo "--- hypr-refresh-all start $(date) ---"
 
-WALL_DIR="$HOME/Pictures/Wallpapers"
+WALL_DIR="$HOME/.local/share/backgrounds"
 URL_CACHE_DIR="$HOME/.cache/hypr-wall-url"
 mkdir -p "$URL_CACHE_DIR"
 

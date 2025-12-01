@@ -3,7 +3,7 @@
 # This script for selecting wallpapers (SUPER W)
 
 # Wallpapers Path
-wallpaperDir="$HOME/Pictures/Wallpapers"
+wallpaperDir="$HOME/.local/share/backgrounds"
 themesDir="$HOME/.config/rofi"
 
 # Transition config
