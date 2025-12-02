@@ -73,7 +73,7 @@ listview {
     fixed-height:               true;
 
     dynamic:                    true;
-    cycle:                      true;
+    cycle:                      false;
     scrollbar:                  false;
     layout:                     vertical;
     background-color:           transparent;
