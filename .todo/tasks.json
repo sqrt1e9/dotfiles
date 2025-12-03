@@ -1,0 +1,10 @@
+[
+  {
+    "task": "Hello, world!",
+    "completed": true
+  },
+  {
+    "task": "Nothing, like anything",
+    "completed": false
+  }
+]

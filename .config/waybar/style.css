@@ -6,7 +6,7 @@
 @define-color selected        @color6;
 @define-color hover           alpha(@selected, .4);
 @define-color urgent          @color2;
-@define-color border          rgba(255, 255, 255, .28);
+@define-color border          rgba(255, 255, 255, .24);
 
 * {
 	border: none;
@@ -29,11 +29,13 @@ tooltip {
 	border-radius: 0.625em; /* 10px */
 	border: 0.0625em solid @border; /* 1px */
 	transition: 0.3s;
+    background: @border;
 }
 
 #custom-power_profile,
 #custom-weather,
 #custom-swaync,
+#custom-todo,
 #window,
 #clock,
 #battery,
@@ -46,6 +48,12 @@ tooltip {
 #memory,
 #cpu,
 #workspaces,
+#custom-expand-center-ext,
+#custom-expand-right-ext,
+#custom-todo,
+#custom-countdown,
+#custom-stopwatch,
+#hyprland-workspace,
 #backlight {
     color: @text;
 	opacity: 0.9;
@@ -78,9 +86,16 @@ tooltip {
 
 #clock {
 	margin-left: 0.3125em; /* 5px */
-	border-radius: 1em;
+	border-radius: 1em 0em 0em 1em;
 	transition: 0.3s;
     background: @bg;
+}
+
+#custom-expand-center-ext {
+	border-radius: 0em 1em 1em 0em;
+	transition: 0.3s;
+    background: @bg;
+    padding: 0em 1em;
 }
 
 #memory {
@@ -99,7 +114,12 @@ tooltip {
 #network {
 }
 
+#custom-todo,
 #custom-swaync {
+    padding: 0 1em;
+}
+
+#custom-expand-right-ext {
     border-radius: 1em 0 0 1em;
     padding: 0 1em;
 }

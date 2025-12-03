@@ -7,8 +7,8 @@
     "gtk-layer-shell": true,
     "height": 32,
     "modules-left": ["disk", "memory", "cpu", "hyprland/workspaces"],
-    "modules-center": ["clock"],
-    "modules-right": ["custom/swaync", "network", "bluetooth", "custom/weather", "battery"],
+    "modules-center": ["clock", "group/center-ext"],
+    "modules-right": ["group/right-ext", "network", "bluetooth", "custom/weather", "battery"],
     "hyprland/window": {
         "format": "{}"
     },
@@ -22,20 +22,68 @@
             "4": "4",
         }
     },
-    "custom/logo": {
-        "format": "<span size='x-large'></span>",
-        "tooltip": false,
-        "on-click": "wofi --show drun --prompt \"Search\""
+    "custom/expand-center-ext": {
+        "format": "<span size='x-large'>›</span>",
+        "tooltip": false
+    },
+    "custom/expand-right-ext": {
+        "format": "<span size='x-large'>‹</span>",
+        "tooltip": false
+    },
+    "custom/todo": {
+        "return-type": "json",
+        "exec": "~/.config/waybar/scripts/todo.sh",
+        "interval": 5,
+        "on-click": "~/.local/bin/todo.sh &"
     },
     "custom/swaync": {
         "tooltip": false,
-        "format": "<span size='x-large'></span>",
-        "exec": "echo 'ok'",
-        "interval": 60,
-        "on-click": "bash -lc 'sleep 0.1; swaync-client -t -c'",
-        "on-scroll-up": "swaync-client -d -inc",
-        "on-scroll-down": "swaync-client -d -dec",
-        "interval": 60
+        "format": "{icon}",
+        "format-icons": {
+            "notification": "<span size='x-large'></span><span foreground='red'><sup></sup></span>",
+            "none": "<span size='x-large'></span>",
+            "dnd-notification": "<span size='x-large></span><span foreground='red'><sup></sup></span>",
+            "dnd-none": "<span size='x-large'></span>"
+        },
+        "return-type": "json",
+        "exec-if": "which swaync-client",
+        "exec": "swaync-client -swb",
+        "on-click": "sleep 0.15 && swaync-client -t -sw",
+        "on-click-right": "sleep 0.15 && swaync-client -d -sw",
+        "escape": true
+    },
+    "group/right-ext": {
+          "orientation": "inherit",
+          "drawer": {
+              "transition-duration": 500,
+              "children-class": "other-apps",
+              "transition-left-to-right": true
+          },
+          "modules": [
+              "custom/expand-right-ext",
+              "custom/swaync",
+              "custom/todo"
+          ]
+    },
+    "group/center-ext": {
+          "orientation": "inherit",
+          "drawer": {
+              "transition-duration": 500,
+              "children-class": "other-apps",
+              "transition-left-to-right": false
+          },
+          "modules": [
+              "custom/expand-center-ext",
+              "custom/stopwatch"
+          ]
+    },
+    "custom/stopwatch": {
+        "format": "{}",
+        "exec": "~/.config/waybar/scripts/stopwatch.sh",
+        "return-type": "json",
+        "interval": 1,
+        "on-click": "~/.config/waybar/scripts/stopwatch.sh --toggle",
+        "on-click-right": "~/.config/waybar/scripts/stopwatch.sh --reset"
     },
     "tray": {
         "icon-size": 15,
@@ -57,14 +105,14 @@
         "format": "<span size='large'></span> {percentage}%"
     },
     "custom/weather": {
-        "exec": "python3 ~/.config/waybar/wttr.py",
+        "exec": "python3 ~/.config/waybar/scripts/wttr.py",
         "interval": 900,
         "format": "{}",
         "tooltip": true,
         "return-type": "json"
     },
     "clock": {
-        "format": "<span size='large'></span> {0:%I:%M %p}  <span size='large'></span> {0:%a, %b %e}",
+        "format": "<span size='large'></span> {0:%I:%M %p}  <span size='large'></span> {0:%a, %b%e}",
         "font-family": "Monolisa",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
     },
