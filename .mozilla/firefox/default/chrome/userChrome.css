@@ -1,11 +1,21 @@
-/* userChrome.css - makes Firefox UI 80% transparent */
+
+@import "includes/cascade-config.css";
+@import "includes/cascade-colours.css";
+@import "includes/cascade-layout.css";
+@import "includes/cascade-floating-panel.css";
+@import "includes/cascade-nav-bar.css";
 
 :root {
 
-    --uc-highlight-colour: rgba(255, 255, 255, 0.14);
-    --uc-inverted-colour: rgba(255, 255, 255, 0.14);
-    --uc-muted-colour: rgba(255, 255, 255, 0.14);
-    --uc-accent-colour: rgba(255, 255, 255, .14); /* purple accent */
+    --uc-base-colour: rgba(0, 0, 0, 0.1);   
+    --uc-highlight-colour: rgba(255, 255, 255, 0.12);
+    --uc-inverted-colour: rgba(255, 255, 255, 0.95);
+    --uc-muted-colour: rgba(255, 255, 255, 0.7);
+    --uc-accent-colour: rgba(147, 112, 219, 0.45); 
+
+}
+
+:root {
 
 	--toolbar-bg-opacity: 0.4 !important;
     --urlbar-popup-url-color: var(--uc-accent-colour) !important;
@@ -14,7 +24,6 @@
     --urlbar-box-hover-bgcolor: var(--uc-highlight-colour) !important;
     --urlbar-box-hover-text-color: var(--uc-inverted-colour) !important;
     --urlbar-box-focus-bgcolor: var(--uc-highlight-colour) !important;
-
     --uc-urlbar-min-width: 15vw;
     --uc-urlbar-max-width: 15vw;
 
@@ -62,35 +71,6 @@
 	display: none !important;
 }
 
-.urlbarView {
-    display: none !important;
-}
-
-/* Transparent URL bar when focused or being typed */
-#urlbar {
-    background: transparent !important;
-    box-shadow: none !important;
-}
-
-/* Transparent background when selected/focused */
-#urlbar input {
-    background: transparent !important;
-    color: #fff !important; /* Text color */
-}
-
-.urlbarView {
-	display: none !important;
-}
-
-/*─────────────────────────────*/
-
-/* 
-┌─┐┌─┐┬  ┌─┐┬─┐┌─┐
-│  │ ││  │ │├┬┘└─┐
-└─┘└─┘┴─┘└─┘┴└─└─┘ 
-*/
-
-/* Tabs colors  */
 #tabbrowser-tabs:not([movingtab])
 	> #tabbrowser-arrowscrollbox
 	> .tabbrowser-tab
@@ -123,17 +103,6 @@
 .sidebar-placesTree {
 	background-color: var(--sfwindow) !important;
 }
-
-/* 
-
-┌┬┐┌─┐┬  ┌─┐┌┬┐┌─┐            
- ││├┤ │  ├┤  │ ├┤             
-─┴┘└─┘┴─┘└─┘ ┴ └─┘            
-┌─┐┌─┐┌┬┐┌─┐┌─┐┌┐┌┌─┐┌┐┌┌┬┐┌─┐
-│  │ ││││├─┘│ ││││├┤ │││ │ └─┐
-└─┘└─┘┴ ┴┴  └─┘┘└┘└─┘┘└┘ ┴ └─┘
-
-*/
 
 /* Tabs elements  */
 .tab-close-button {
@@ -179,53 +148,6 @@
 	padding-left: 0 !important;
 }
 
-/* Url Bar  */
-#urlbar-input-container {
-	background-color: rgba(255, 255, 255, .14) !important;
-	border: 1px solid rgba(0, 0, 0, 0) !important;
-}
-
-#urlbar-container {
-	margin-left: 0 !important;
-}
-
-#urlbar[focused='true'] > #urlbar-background {
-	box-shadow: none !important;
-}
-
-#urlbar,
-#urlbar * {
-  outline: none !important;
-  box-shadow: none !important;
-}
-
-#urlbar-background {
-  border: transparent !important;
-}
-
-#urlbar[focused="true"] > #urlbar-background,
-#urlbar:not([open]) > #urlbar-background {
-  background: rgba(255, 255, 255, .14) !important;
-}
-
-#urlbar[open] > #urlbar-background {
-  background: rgba(255, 255, 255, .14) !important;
-}
-
-.urlbarView-row:hover > .urlbarView-row-inner,
-.urlbarView-row[selected] > .urlbarView-row-inner {
-  background: rgba(255, 255, 255, .14) !important;
-}
-
-.urlbar-icon,
-#urlbar-go-button {
-  margin: auto;
-}
-
-.urlbar-page-action {
-  padding: 0 inherit !important;
-}
-
 #navigator-toolbox {
 	border: none !important;
 }
@@ -240,7 +162,6 @@ toolbarbutton.bookmark-item:not(.subviewbutton) {
 
 /* Toolbar  */
 #tracking-protection-icon-container,
-#urlbar-zoom-button,
 #star-button-box,
 #pageActionButton,
 #pageActionSeparator,
@@ -250,10 +171,6 @@ toolbarbutton.bookmark-item:not(.subviewbutton) {
 #forward-button,
 .tab-secondary-label {
 	display: none !important;
-}
-
-.urlbarView-url {
-	color: #dedede !important;
 }
 
 /* Disable elements  */
