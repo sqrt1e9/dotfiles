@@ -1,3 +1,0 @@
-"chatgpt.com" "chatgpt.com" "/" "oai-did" "48d2f052-c16b-433b-9ffa-e6d6173f972a" 0 "Wed Apr  2 14:40:30 2025" "Sat Mar 28 14:40:30 2026"
-"google.com" "www.google.com" "/" "AEC" "AaJma5tMz8qqKJAoIf5_CiGYZLFo4EbfQMlx94k0XEcad4hoEpsI20bI7EY" 1 "Sat Oct 18 01:28:52 2025" "Thu Apr 16 01:28:52 2026"
-"google.com" "support.google.com" "/" "NID" "525=m7PCINaO2YMx0cfU-DtTJm2JeykAGKPEkfbWsP_as3j6O5ushyjbCLz4XslZukNyqJVRNIr8QV2zSF8j_PISfSEPqIQMszZElKL0UowLeAqq-PmHsCWX5bEu49ORW_mStcy45H0jzmR74SrbIFugpPIYpIFhBFfymIrkVTFNFRUCFZXFsApHFnXM9dn6y5dJZ39Mnh4a_d-0vmoHt0LQOls" 0 "Sat Oct 18 01:28:58 2025" "Sun Apr 19 01:28:52 2026"
