@@ -395,3 +395,5 @@ please create an issue with it! I would love to see your results.
 - Originally inspired by <https://github.com/vinceliuice/grub2-themes>
 - Icons from <https://materialdesignicons.com/>
 - Fonts mainly from <https://fonts.google.com>
+
+sudo ./matter.py -i arch penguin cogs -hl FFFFFF -fg FFFFFF -bg 000000 -ff ~/.local/share/fonts/MonoLisa/MonoLisa-Regular.ttf -fn 'Monolisa'
