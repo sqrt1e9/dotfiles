@@ -27,3 +27,13 @@
 	border: none !important;
 }
 
+/* Popovers / Menus */
+	[role="menu"],
+	[data-radix-popper-content-wrapper] > div,
+	[class*="popover"],
+	[class*="dropdown"] {
+		background: rgba(0, 0, 0, 0.5) !important;
+		border-radius: 10px !important;
+}
+
+

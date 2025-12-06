@@ -1,33 +1,11 @@
 
-@import "includes/cascade-config.css";
 @import "includes/cascade-colours.css";
-@import "includes/cascade-layout.css";
-@import "includes/cascade-floating-panel.css";
-@import "includes/cascade-nav-bar.css";
-
-:root {
-
-    --uc-base-colour: rgba(0, 0, 0, 0.1);   
-    --uc-highlight-colour: rgba(255, 255, 255, 0.12);
-    --uc-inverted-colour: rgba(255, 255, 255, 0.95);
-    --uc-muted-colour: rgba(255, 255, 255, 0.7);
-    --uc-accent-colour: rgba(147, 112, 219, 0.45); 
-
-}
-
-:root {
-
-	--toolbar-bg-opacity: 0.4 !important;
-    --urlbar-popup-url-color: var(--uc-accent-colour) !important;
-    --urlbar-box-bgcolor: var(--uc-highlight-colour) !important;
-    --urlbar-box-text-color: var(--uc-muted-colour) !important;
-    --urlbar-box-hover-bgcolor: var(--uc-highlight-colour) !important;
-    --urlbar-box-hover-text-color: var(--uc-inverted-colour) !important;
-    --urlbar-box-focus-bgcolor: var(--uc-highlight-colour) !important;
-    --uc-urlbar-min-width: 15vw;
-    --uc-urlbar-max-width: 15vw;
-
-}
+@import "includes/cascade-tabs.css"
+@import "includes/cascade-config.css"
+@import "includes/cascade-config-mouse.css"
+@import "includes/cascade-nav-bar.css"
+@import "includes/cascade-responsive.css"
+@import "includes/cascade-floating-panel.css"
 
 #navigator-toolbox,
 #TabsToolbar,
@@ -36,8 +14,7 @@
 #PersonalToolbar,
 #titlebar,
 #browser {
-	background-color: rgba(0, 0, 0, 0.2) !important; /* dark gray with 0.2 opacity */
-	backdrop-filter: blur(6px) !important; /* optional blur */
+	background-color: transparent !important; /* dark gray with 0.2 opacity */
 	-moz-appearance: none !important;
 	border: none !important;
 	box-shadow: none !important;
@@ -51,9 +28,10 @@
 .tabbrowser-tab .tab-background {
 	background-color: rgba(255, 255, 255, .14) !important;
 	background-image: none !important;
-	box-shadow: none !important;
-	border: none !important;
+	border: 1px solid rgba(255, 255, 255, .28) !important;
 	outline: none !important;
+    box-shadow: 0 .5em .5em rgba(0, 0, 0, 0.2) !important;
+    border-radius: .5em .5em 0 0 !important; /* Adjust '4px' to your desired roundness */
 }
 
 /* Active tab slightly transparent (~0.2 opacity) */
@@ -165,7 +143,6 @@ toolbarbutton.bookmark-item:not(.subviewbutton) {
 #star-button-box,
 #pageActionButton,
 #pageActionSeparator,
-#tabs-newtab-button,
 #back-button,
 #PanelUI-button,
 #forward-button,
@@ -189,17 +166,13 @@ toolbarbutton.bookmark-item:not(.subviewbutton) {
 #context-sendlinktodevice,
 #context-searchselect,
 #context-sendimage,
-#context-print-selection {
-	display: none !important;
-}
-
 #context_bookmarkTab,
 #context_moveTabOptions,
 #context_sendTabToDevice,
 #context_reopenInContainer,
 #context_selectAllTabs,
-#context_closeTabOptions {
+#context_closeTabOptions,
+#context-print-selection {
 	display: none !important;
 }
-
 
