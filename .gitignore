@@ -17,6 +17,7 @@ Notes/
 .lesshst
 .local/*
 .m2/
+.mozilla/
 .pki/
 .python_history
 .redhat/
@@ -172,3 +173,30 @@ Notes/
 !.config/.zen/compatibility.ini
 !.config/.zen/profiles.ini
 
+!.mozilla/
+.mozilla/*
+!.mozilla/firefox/
+.mozilla/firefox/*
+
+# === Start of Profile-Specific Exceptions ===
+
+# --- Profile: default ---
+# Re-include files within the 'default' profile directory.
+!.mozilla/firefox/default/prefs.js
+!.mozilla/firefox/default/user.js
+!.mozilla/firefox/default/chrome/
+!.mozilla/firefox/default/chrome/**
+
+# --- Profile: GitHub ---
+# Re-include files within the 'GitHub' profile directory.
+!.mozilla/firefox/GitHub/prefs.js
+!.mozilla/firefox/GitHub/user.js
+!.mozilla/firefox/GitHub/chrome/
+!.mozilla/firefox/GitHub/chrome/**
+
+# --- Profile: ChatGPT ---
+# Re-include files within the 'ChatGPT' profile directory.
+!.mozilla/firefox/ChatGPT/prefs.js
+!.mozilla/firefox/ChatGPT/user.js
+!.mozilla/firefox/ChatGPT/chrome/
+!.mozilla/firefox/ChatGPT/chrome/**
