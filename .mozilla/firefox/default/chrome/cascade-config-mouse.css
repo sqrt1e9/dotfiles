@@ -1,0 +1,47 @@
+
+.titlebar-buttonbox-container {
+	display: none !important;
+}
+
+#pageActionButton {
+	display: none !important;
+}
+
+/* Encryption and Permissions icons */
+/* Only hides permission items */
+#identity-permission-box {
+	display: none !important;
+}
+
+/* Hides extension page box */
+#identity-box.extensionPage {
+	display: none !important;
+}
+
+/* Adjust margin of the urlbar buttons. */
+.urlbar-page-action > image {
+	margin-top: var(--uc-page-action-margin) !important;
+}
+
+/* Hide Container Tab labels inside the URL bar */
+#userContext-icons {
+	display: none !important;
+}
+
+/* Hide the »Go«-arrow in the URL Bar */
+#urlbar-go-button {
+	display: none !important;
+}
+
+/* Hides the Extensions Menu Icon */
+/* #unified-extensions-button { display: none !important; } */
+#alltabs-button {
+	margin-top: 5px !important;
+}
+
+/* Hide the secondary Tab Label
+ * e.g. playing indicator (the text, not the icon) */
+.tab-secondary-label {
+	display: none !important;
+}
+

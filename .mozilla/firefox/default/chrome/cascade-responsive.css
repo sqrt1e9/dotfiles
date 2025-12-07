@@ -1,0 +1,35 @@
+/* Ensure the address bar, tabs, and controls are in one row */
+#navigator-toolbox {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+}
+
+#nav-bar, #TabsToolbar {
+    display: flex !important;
+    flex-grow: 1;
+    justify-content: flex-start !important;
+    align-items: center !important;
+}
+
+#urlbar-container {
+    min-width: 0 !important;
+    width: auto !important;
+}
+
+#TabsToolbar {
+    margin-left: 8px !important;  /* Small gap between URL bar and tabs */
+}
+
+/* Ensure all toolbar buttons (back, forward, refresh) align in the same line */
+#navigator-toolbox #urlbar-container, #navigator-toolbox #TabsToolbar, #navigator-toolbox .toolbarbutton {
+    display: inline-flex !important;
+    align-items: center !important;
+}
+
+/* Optional: Make the toolbar height smaller */
+#navigator-toolbox {
+    height: 40px !important;
+}
+
