@@ -1,0 +1,16 @@
+#TabsToolbar,
+#nav-bar,
+#PersonalToolbar,
+#titlebar {
+	visibility: collapse !important;
+}
+
+#browser {
+	background-color: transparent !important; /* dark gray w/ 0.2 opacity */
+}
+
+#main-window,
+#tabbrowser-tabpanels {
+	background: transparent !important;
+}
+

@@ -17,7 +17,7 @@ Notes/
 .lesshst
 .local/*
 .m2/
-.mozilla/*
+.mozilla/**
 .pki/
 .python_history
 .redhat/
@@ -136,6 +136,11 @@ Notes/
 !/.local/bin/**
 
 # --- Profile: default ---
+!.mozilla/firefox/
+!.mozilla/firefox/default/
+!.mozilla/firefox/GitHub/
+!.mozilla/firefox/ChatGPT/
+
 # Re-include files within the 'default' profile directory.
 !.mozilla/firefox/default/prefs.js
 !.mozilla/firefox/default/user.js
