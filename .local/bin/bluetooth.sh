@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Bluetooth manager with rofi (HID-aware + actions menu + robust status)
+# Bluetooth manager with rofi (HID-aware + single-action manager + actions menu)
 
 # ========= Icons =========
 ICON_BT=""
@@ -92,43 +92,6 @@ toggle_discoverable() {
     fi
 }
 
-toggle_connection() {
-    mac="$1"
-
-    # Special handling for HID devices (keyboards/mice often auto-sleep)
-    if device_is_hid "$mac"; then
-        if device_connected "$mac"; then
-            notify "HID device disconnects when idle"
-        else
-            notify "Move/click device to reconnect"
-            bluetoothctl connect "$mac" >>"$LOGFILE" 2>&1
-        fi
-        return
-    fi
-
-    if device_connected "$mac"; then
-        log "Disconnecting $mac"; notify "Disconnecting..."
-        bluetoothctl disconnect "$mac" >>"$LOGFILE" 2>&1
-        sleep 2
-        if device_connected "$mac"; then
-            notify "Disconnect failed"
-        else
-            notify "Disconnected"
-        fi
-    else
-        log "Connecting $mac"; notify "Connecting..."
-        bluetoothctl connect "$mac" >>"$LOGFILE" 2>&1
-        for _ in 1 2 3; do
-            sleep 2
-            if device_connected "$mac"; then
-                notify "Connected"
-                return
-            fi
-        done
-        notify "Connection failed"
-    fi
-}
-
 toggle_paired_dev() {
     mac="$1"
     if device_paired "$mac"; then
@@ -158,6 +121,91 @@ toggle_trust_dev() {
         log "Trust $mac"; notify "Trusting..."
         bluetoothctl trust "$mac" >>"$LOGFILE" 2>&1
         notify "Trusted"
+    fi
+}
+
+# ========= Smart single-step manager =========
+smart_manage_device() {
+    mac="$1"
+
+    # If not paired -> pair + trust + connect
+    if ! device_paired "$mac"; then
+        log "Smart: pairing $mac"
+        notify "Pairing..."
+        bluetoothctl pair "$mac" >>"$LOGFILE" 2>&1
+        sleep 3
+        if ! device_paired "$mac"; then
+            notify "Pair failed"
+            return
+        fi
+        bluetoothctl trust "$mac" >>"$LOGFILE" 2>&1
+        notify "Paired + Trusted, connecting..."
+        bluetoothctl connect "$mac" >>"$LOGFILE" 2>&1
+        for _ in 1 2 3; do
+            sleep 2
+            if device_connected "$mac"; then
+                notify "Connected"
+                return
+            fi
+        done
+        notify "Connection failed after pairing"
+        return
+    fi
+
+    # If paired and HID, warn about sleep
+    if device_is_hid "$mac"; then
+        if device_connected "$mac"; then
+            # HID + connected → disconnect
+            log "Smart: disconnect HID $mac"
+            notify "Disconnecting HID..."
+            bluetoothctl disconnect "$mac" >>"$LOGFILE" 2>&1
+            sleep 2
+            if device_connected "$mac"; then
+                notify "Disconnect failed"
+            else
+                notify "Disconnected"
+            fi
+            return
+        else
+            # HID + not connected → attempt connect and hint to move device
+            log "Smart: connect HID $mac"
+            notify "Move/click device to reconnect..."
+            bluetoothctl connect "$mac" >>"$LOGFILE" 2>&1
+            for _ in 1 2 3; do
+                sleep 2
+                if device_connected "$mac"; then
+                    notify "Connected"
+                    return
+                fi
+            done
+            notify "Connection failed"
+            return
+        fi
+    fi
+
+    # Non-HID path: paired + connected -> disconnect, else connect
+    if device_connected "$mac"; then
+        log "Smart: disconnect $mac"
+        notify "Disconnecting..."
+        bluetoothctl disconnect "$mac" >>"$LOGFILE" 2>&1
+        sleep 2
+        if device_connected "$mac"; then
+            notify "Disconnect failed"
+        else
+            notify "Disconnected"
+        fi
+    else
+        log "Smart: connect $mac"
+        notify "Connecting..."
+        bluetoothctl connect "$mac" >>"$LOGFILE" 2>&1
+        for _ in 1 2 3; do
+            sleep 2
+            if device_connected "$mac"; then
+                notify "Connected"
+                return
+            fi
+        done
+        notify "Connection failed"
     fi
 }
 
@@ -193,6 +241,7 @@ actions_menu() {
     actions_menu
 }
 
+# (Old device_menu kept in case you want multi-action mode later, but unused)
 device_menu() {
     local device="$1"
     local name mac choice connected paired trusted items
@@ -224,7 +273,7 @@ device_menu() {
     choice="$(echo -e "$items" | eval "$ROFI_GENERIC -p '$name'")" || { run_scan_and_show; return; }
 
     case "$choice" in
-        *"Connected"*) toggle_connection "$mac" ;;
+        *"Connected"*) toggle_connection "$mac" ;;  # if you keep toggle_connection
         *"Paired"*)    toggle_paired_dev "$mac" ;;
         *"Trusted"*)   toggle_trust_dev "$mac" ;;
     esac
@@ -252,7 +301,7 @@ show_devices() {
     choice="$(echo "$rows" | eval "$ROFI_DEVICES")" || return
 
     mac=$(echo "$choice" | sed -n 's/.*\[\(.*\)\].*/\1/p')
-    [ -n "$mac" ] && device_menu "$(bluetoothctl devices | awk '!seen[$2]++' | grep "$mac" | head -n1)"
+    [ -n "$mac" ] && smart_manage_device "$mac"
 }
 
 # ========= Scan wrapper =========

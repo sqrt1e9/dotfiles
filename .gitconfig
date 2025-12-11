@@ -2,8 +2,10 @@
 	email = barvind.dev@outlook.com
     name = Arvind Badri
     signingkey = 7B033E12A4B6DF31
+
 [core]
     editor = /usr/bin/nvim
+
 [gpg]
     program = gpg
 

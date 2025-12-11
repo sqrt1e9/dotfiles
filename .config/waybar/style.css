@@ -32,6 +32,7 @@ tooltip {
     background: @border;
 }
 
+#custom-pomodoro,
 #custom-power_profile,
 #custom-weather,
 #custom-swaync,
@@ -53,7 +54,6 @@ tooltip {
 #custom-todo,
 #custom-countdown,
 #custom-stopwatch,
-#hyprland-workspace,
 #backlight {
     color: @text;
 	opacity: 0.9;
@@ -106,7 +106,6 @@ tooltip {
 	border-left: 0;
 }
 
-#hyprland-workspace,
 #cpu {
     border: 0em;
 }
@@ -124,4 +123,27 @@ tooltip {
     padding: 0 1em;
 }
 
+#custom-expand-center-ext.work,
+#custom-pomodoro.work {
+    color: #ff6b6b;
+}
 
+#custom-expand-center-ext.break,
+#custom-pomodoro.break {
+    color: #7ddb7d;
+}
+
+#custom-expand-center-ext.paused,
+#custom-pomodoro.paused {
+    color: #f8d66d;
+}
+
+#custom-expand-center-ext.idle,
+#custom-pomodoro.idle {
+    color: #ffffff;
+}
+
+#custom-expand-center-ext.done,
+#custom-pomodoro.done {
+    color: #a970ff;
+}

@@ -1,0 +1,64 @@
+#urlbar-container {
+    min-width: 0px !important;
+    flex: auto !important;
+}
+
+#navigator-toolbox {
+	background-color: var(--uc-base-colour) !important;
+}
+
+#nav-bar {
+	padding-block-start: 0px !important;
+	border: none !important;
+	box-shadow: none !important;
+	background: var(--uc-base-colour) !important;
+    margin-right: calc(
+      100vw - calc(1325px / 100 * var(--NavbarWidth))
+    ) !important;
+    vertical-align: center !important;
+    margin-top: calc(var(--TabsHeight) * -1px - var(--TabsBorder) * 1px)!important;
+    height: calc(var(--TabsHeight) * 1px + var(--TabsBorder) * 1px)
+}
+
+#urlbar,
+#urlbar * {
+	outline: none !important;
+	box-shadow: none !important;
+}
+
+#urlbar-input::placeholder {
+    opacity: 0 !important;
+}
+
+#urlbar-background {
+    background: var(--uc-base-colour);
+}
+
+#urlbar[focused="true"] > #urlbar-background,
+#urlbar:not([open]) > #urlbar-background {
+	background: rgba(45, 45, 48, .55) !important;
+}
+
+#urlbar[open] > #urlbar-background {
+	background: rgba(45, 45, 48, .55) !important;
+}
+
+.urlbarView-row {
+    background: rgba(29, 28, 29, .95) !important;
+    border-radius: 1em;
+}
+
+.urlbarView-row:hover > .urlbarView-row-inner,
+.urlbarView-row[selected] > .urlbarView-row-inner {
+	background: var(--uc-base-colour) !important;
+}
+
+.urlbar-icon,
+#urlbar-go-button {
+	margin: auto;
+}
+
+.urlbar-page-action {
+	padding: 0 inherit !important;
+}
+

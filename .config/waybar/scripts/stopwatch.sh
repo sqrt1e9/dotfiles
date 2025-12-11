@@ -73,7 +73,7 @@ print_state() {
 
 	formatted=$(format_time "$elapsed")
 
-	tooltip="Stopwatch\nState: $( [ "$state" -eq 1 ] && echo "running" || echo "stopped" )\nTime: $formatted\n\nLeft-click: start/stop\nRight-click: reset"
+	tooltip="Stopwatch\nState: $( [ "$state" -eq 1 ] && echo "running" || echo "stopped" )\nTime: $formatted"
 
 	# Single-line, compact JSON, no tabs/newlines formatting
 	printf '{"text":"%s","tooltip":"%s"}\n' "$icon $formatted" "$tooltip"
