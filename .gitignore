@@ -102,11 +102,12 @@ Notes/
 .config/go/**
 
 !.local/bin/
+!.local/bin/**
+
 !.local/share/
 !.local/share/fonts/
 !.local/share/backgrounds/
 
-!.local/bin/**
 !.local/share/fonts/**
 !.local/share/backgrounds/**
 
