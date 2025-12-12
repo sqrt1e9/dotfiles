@@ -131,9 +131,13 @@ Notes/
 .config/BraveSoftware/Crashpad/
 .config/BraveSoftware/ShaderCache/
 
-/.local/*
-!/.local/bin/
-!/.local/bin/**
+!.local/bin/
+!.local/bin/**
+!.local/share/
+!.local/share/fonts/
+!.local/share/fonts/**
+!.local/share/backgrounds/
+!.local/share/backgrounds/**
 
 # --- Profile: default ---
 !.mozilla/firefox/
