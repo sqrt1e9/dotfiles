@@ -112,6 +112,7 @@ Notes/
 !.local/share/backgrounds/**
 
 # --- Profile: default ---
+!.mozilla/firefox/profiles.ini
 !.mozilla/firefox/
 !.mozilla/firefox/default/
 !.mozilla/firefox/GitHub/
