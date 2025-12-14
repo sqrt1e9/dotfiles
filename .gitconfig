@@ -13,4 +13,7 @@
     gpgsign = false
 
 [tag]
-    gpgsign = true
+    gpgsign = false
+
+[pull]
+    rebase = true
