@@ -22,7 +22,7 @@ header=$(printf "Tasks: %d total, %d done" "$total" "$done")
 # Full tooltip: header + blank line + tasks
 tooltip=$(printf "%s\n\n%s\n" "$header" "$tasks" | jq -Rs .)
 
-icon="󰈙"  # paper pad icon
+icon="\uf15c"  # paper pad icon
 
 # tooltip is already JSON-escaped by jq -Rs
 printf '{"text":"%s","tooltip":%s}\n' "$icon" "$tooltip"

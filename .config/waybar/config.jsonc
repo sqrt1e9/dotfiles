@@ -13,7 +13,7 @@
         "format": "{}"
     },
     "hyprland/workspaces": {
-        "format": "<span size='x-large'>󰍹</span> {icon}",
+        "format": "󰍹  {icon}",
         "active-only": true,
         "format-icons": {
             "1": "1",
@@ -51,10 +51,10 @@
         "tooltip": false,
         "format": "{icon}",
         "format-icons": {
-            "notification": "<span size='x-large'></span><span foreground='red'><sup></sup></span>",
-            "none": "<span size='x-large'></span>",
-            "dnd-notification": "<span size='x-large></span><span foreground='red'><sup></sup></span>",
-            "dnd-none": "<span size='x-large'></span>"
+            "notification": "<span foreground='red'><sup></sup></span>",
+            "none": "",
+            "dnd-notification": "<span foreground='red'><sup></sup></span>",
+            "dnd-none": ""
         },
         "return-type": "json",
         "exec-if": "which swaync-client",
@@ -103,18 +103,18 @@
     },
     "disk": {
         "interval": 30,
-        "format": "<span size='large'></span> {percentage_used}%",
+        "format": "  {percentage_used}%",
         "path": "/"
     },
     "cpu": {
         "interval": 1,
-        "format": "<span size='large'></span> {usage}%",
+        "format": "  {usage}%",
         "min-length": 6,
         "max-length": 6,
         "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
     },
     "memory": {
-        "format": "<span size='large'></span> {percentage}%"
+        "format": "  {percentage}%"
     },
     "custom/weather": {
         "exec": "python3 ~/.config/waybar/scripts/wttr.py",
@@ -124,7 +124,7 @@
         "return-type": "json"
     },
     "clock": {
-        "format": "<span size='large'></span> {0:%I:%M %p}  <span size='large'></span> {0:%a, %b%e}",
+        "format": "  {0:%I:%M %p}    {0:%a, %b %e}",
         "font-family": "Monolisa",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
     },
@@ -179,7 +179,7 @@
         "scroll-step": 5
     },
     "network": {
-        "format-wifi": "<span size='x-large'></span> {signalStrength}%",
+        "format-wifi": "  {signalStrength}%",
         "format-ethernet": "{ipaddr}/{cidr} ",
         "tooltip-format": "{essid} - {ifname} via {gwaddr} ",
         "format-linked": "{ifname} (No IP) ",
@@ -187,7 +187,7 @@
         "format-alt": "{essid} {ipaddr}/{cidr}"
     },
     "bluetooth": {
-	    "format": "<span size='x-large'></span> {status}",
+	    "format": "  {status}",
 	    "format-disabled": "", // an empty format will hide the module
 	    "format-connected": "<span size='x-large'></span> {num_connections}",
 	    "tooltip-format": "{device_alias}",
