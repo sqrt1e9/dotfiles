@@ -58,7 +58,7 @@ export PATH="/usr/lib/qt6/bin:$PATH"
 
 export LIBVIRT_DEFAULT_URI=qemu:///system
 export QT_STYLE_OVERRIDE=dark
-export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+#export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 export GTK_THEME=Adwaita:dark
 export SYSTEMD_EDITOR=vim
 

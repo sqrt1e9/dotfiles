@@ -4,6 +4,7 @@
 
 @import '../../.cache/wal/colors-waybar.css';
 
+@define-color foreground:     white;
 @define-color text            white;
 @define-color background-alt  alpha(@color1, .4);
 @define-color selected        @color6;

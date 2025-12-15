@@ -19,7 +19,7 @@
             "1": "1",
             "2": "2",
             "3": "3",
-            "4": "4",
+            "4": "4"
         }
     },
     "custom/expand-center-ext": {
@@ -124,7 +124,7 @@
         "return-type": "json"
     },
     "clock": {
-        "format": "  {0:%I:%M %p}    {0:%a, %b %e}",
+        "format": "  {0:%I:%M %p}     {0:%a, %b %e}",
         "font-family": "Monolisa",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
     },
