@@ -7,37 +7,17 @@
 # ===== Starship prompt =====
 eval "$(starship init zsh)"
 
-# ===== Prompt (Starship overrides this, so optional) =====
-# PROMPT='[%n@%m %1~]$ '
-
-# ===== GPG / TTY =====
-export GPG_TTY=$(tty)
-
 # ===== Aliases =====
 alias neofetch="fastfetch"
-alias ls='ls --color=auto'
-
+alias ls='ls -lah --color=auto'
 alias dotfiles="/usr/bin/git --git-dir=$HOME/Devworx/dotfiles --work-tree=$HOME"
-
 alias vim="/usr/bin/nvim"
 alias vi="/usr/bin/nvim"
-
 alias tlp-stat="sudo tlp-stat"
 alias matrix="cmatrix"
 alias yt="yt-dlp"
 alias hostname="cat /etc/hostname"
-
 alias Notes='cd ~/Devworx/Notes && vim bootstrap.md'
-
-# mvnc function turned into proper zsh function
-mvnc() {
-    mvn archetype:generate \
-        -DgroupId=com.bigobrains \
-        -DartifactId="$1" \
-        -DarchetypeArtifactId=maven-archetype-quickstart \
-        -DinteractiveMode=false
-}
-
 alias kvmsh="kvmsh.sh"
 alias chatgpt="chatgpt.sh"
 alias kvmview="virt-viewer"
@@ -47,6 +27,15 @@ alias hi='cowsay "Hi Arthana"'
 alias fire="cacafire"
 alias sl="sl -le"
 alias fc-scan='fc-scan --format "%{family}\n"'
+
+# mvnc function turned into proper zsh function
+mvnc() {
+    mvn archetype:generate \
+        -DgroupId=com.bigobrains \
+        -DartifactId="$1" \
+        -DarchetypeArtifactId=maven-archetype-quickstart \
+        -DinteractiveMode=false
+}
 
 # ===== Environment Variables =====
 export CACA_DRIVER=ncurses cacafire
@@ -58,17 +47,21 @@ export PATH="/usr/lib/qt6/bin:$PATH"
 
 export LIBVIRT_DEFAULT_URI=qemu:///system
 export QT_STYLE_OVERRIDE=dark
-#export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 export GTK_THEME=Adwaita:dark
 export SYSTEMD_EDITOR=vim
-
-# ===== Run gpg unlock script =====
-~/.local/bin/gpg-unlock.sh
 
 # ===== Fastfetch when not in Neovim terminal =====
 if [[ -z "$NVIM" ]]; then
     fastfetch
 fi
+
+# ===== Configure shell to use gpg-agent =====
+unset SSH_AGENT_PID
+if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
+  export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+fi
+export GPG_TTY=$(tty)
+gpgconf --launch gpg-agent
 
 # ===== Auto-start ssh-agent if missing =====
 if [[ -z "$SSH_AUTH_SOCK" ]]; then
