@@ -19,7 +19,7 @@ pick_random_wallpaper() {
     fi
 
     local img
-    img="$(find "$WALL_DIR" -maxdepth 1 -type f \( \
+    img="$(find -L "$WALL_DIR" -maxdepth 1 -type f \( \
             -iname '*.jpg' -o -iname '*.jpeg' -o \
             -iname '*.png' -o -iname '*.webp' \
         \) | shuf -n 1)"
