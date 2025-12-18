@@ -106,10 +106,12 @@ Notes/
 
 !.local/share/fonts/
 !.local/share/backgrounds/
+!.local/share/applications/
 
 !.local/bin/**
 !.local/share/fonts/**
 !.local/share/backgrounds/**
+!.local/share/applications/**
 
 # --- Profile: default ---
 !.mozilla/firefox/profiles.ini

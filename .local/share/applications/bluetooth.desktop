@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Bluetooth
+Comment=Bluetooth
+Exec=/home/barvind/.local/bin/bluetooth.sh
+Icon=/home/barvind/.local/share/icons/bluetooth.svg
+Terminal=false
+Categories=Utility;Development;
+

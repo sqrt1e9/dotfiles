@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=GitHub
+Comment=GitHub
+Exec=/home/barvind/.local/bin/github.sh
+Icon=/home/barvind/.local/share/icons/github.svg
+Terminal=false
+Categories=Utility;Development;
+

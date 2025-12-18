@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Wifi
+Comment=Wifi
+Exec=/home/barvind/.local/bin/wifi.sh
+Icon=/home/barvind/.local/share/icons/wifi.svg
+Terminal=false
+Categories=Utility;Development;
+
