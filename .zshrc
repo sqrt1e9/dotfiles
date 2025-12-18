@@ -27,6 +27,7 @@ alias hi='cowsay "Hi Arthana"'
 alias fire="cacafire"
 alias sl="sl -le"
 alias fc-scan='fc-scan --format "%{family}\n"'
+alias gpg-refresh='export GPG_TTY=$(tty) && gpg-connect-agent updatestartuptty /bye'
 
 # mvnc function turned into proper zsh function
 mvnc() {
@@ -61,15 +62,7 @@ if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
   export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 fi
 export GPG_TTY=$(tty)
-gpgconf --launch gpg-agent
-
-# ===== Auto-start ssh-agent if missing =====
-if [[ -z "$SSH_AUTH_SOCK" ]]; then
-    eval "$(ssh-agent -s)"
-    ssh-add ~/.ssh/id_ed25519 &> /dev/null
-fi
-
-# ===== Zsh improvements =====
+gpg-connect-agent updatestartuptty /bye
 
 # Extended globbing (more powerful patterns)
 setopt EXTENDED_GLOB
