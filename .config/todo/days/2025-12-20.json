@@ -1,0 +1,20 @@
+[
+  {
+    "task": "Hello, World",
+    "must": false,
+    "verdict": null,
+    "debt": false
+  },
+  {
+    "task": "Nothing like anything",
+    "must": true,
+    "verdict": null,
+    "debt": true
+  },
+  {
+    "task": "Do the dishes",
+    "must": true,
+    "verdict": null,
+    "debt": true
+  }
+]

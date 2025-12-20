@@ -1,0 +1,11 @@
+DAY: 2025-12-19
+SCORE: -6
+TOTAL: 3
+DONE: 1
+FAILED: 0
+SKIPPED: 2
+MUST_MISSED: 0
+
+FAILED/SKIPPED:
+[-] Do the dishes
+[-] Nothing like anything

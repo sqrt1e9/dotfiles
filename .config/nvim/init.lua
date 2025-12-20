@@ -40,9 +40,6 @@ local options = {
     defaults = {
         lazy = true
     },
-    install = {
-        colorSchemes = "kanagawa"
-    },
     rtp = {
         dislabled_plugins = {
             "gzip",

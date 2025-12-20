@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=To-Do
+Comment=To-Do
+Exec=/home/barvind/.local/bin/todo.sh
+Icon=/home/barvind/.local/share/icons/todo.svg
+Terminal=false
+Categories=Utility;Development;
+
