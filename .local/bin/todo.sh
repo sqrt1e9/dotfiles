@@ -5,23 +5,25 @@ command -v rofi >/dev/null 2>&1 || { echo "Install 'rofi' first."; exit 1; }
 command -v python3 >/dev/null 2>&1 || { echo "Install 'python3' first."; exit 1; }
 
 ROFI_THEME="$HOME/.config/rofi/todo.rasi"
+TASKLIST_THEME="${TASKLIST_THEME:-$HOME/.config/rofi/todo_list.rasi}"
 PASSWORD_THEME="$HOME/.config/rofi/todo_task.rasi"
 
 XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 TODO_DIR="$XDG_CONFIG_HOME/todo"
 CORE_PY="$HOME/.config/hypr/scripts/todo.py"
 
-# --- Datepicker integration ---
-DATEPICKER_SH="${DATEPICKER_SH:-$HOME/.local/bin/todo-datepicker.sh}"
+DATEPICKER_SH="${DATEPICKER_SH:-$HOME/.local/bin/datepicker.sh}"
 
 rofi_menu() {
 	local prompt="$1"; shift
 	printf "%s\n" "$@" | rofi -dmenu -i -p "$prompt" -theme "$ROFI_THEME" || true
 }
 
+# Allow specifying a theme explicitly (so Add Task can use PASSWORD_THEME reliably)
 rofi_input() {
 	local prompt="$1"
-	printf "\n" | rofi -dmenu -i -p "$prompt" -theme "$ROFI_THEME" || true
+	local theme="${2:-$ROFI_THEME}"
+	printf "\n" | rofi -dmenu -i -p "$prompt" -theme "$theme" || true
 }
 
 rofi_msg() {
@@ -62,117 +64,124 @@ select_from_choices() {
 }
 
 pick_date() {
-	if [ ! -x "$DATEPICKER_SH" ]; then
-		rofi_msg "Error" "Missing datepicker: $DATEPICKER_SH"
-		return 1
-	fi
-
-	# todo-datepicker.sh prints YYYY-MM-DD on stdout
+	[ -x "$DATEPICKER_SH" ] || return 1
 	local d
 	d="$("$DATEPICKER_SH" 2>/dev/null || true)"
 	d="$(echo "${d:-}" | xargs || true)"
-	[[ "$d" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]] && echo "$d" || return 1
+	[[ "$d" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]] && echo "$d"
 }
 
-day_view() {
+add_task_for_day() {
 	local day="$1"
-	local lines
-	lines="$(core list-day "$day" 2>/dev/null || true)"
-	rofi_msg "Tasks ($day)" "$lines"
+
+	local raw
+	raw="$(rofi_input "New Task for $day (! for MUST)" "$PASSWORD_THEME")"
+	raw="$(echo "${raw:-}" | xargs || true)"
+
+	[ -z "$raw" ] && return 0
+	core add-day "$day" "$raw" >/dev/null 2>&1
 }
 
-master_view() {
-	local lines
-	lines="$(core list-master 2>/dev/null || true)"
-	rofi_msg "Master List" "$lines"
+task_actions_menu() {
+	local day="$1"
+	local task="$2"
+
+	while true; do
+		local c
+		c="$(rofi_menu "Task ($day)" \
+			"󰄬  Set Verdict" \
+			"  Remove Task")"
+
+		case "$c" in
+			"󰄬  Set Verdict")
+				local v
+				v="$(rofi_menu "Verdict" "DONE" "FAILED" "SKIPPED")"
+				[ -n "$v" ] && core set-verdict "$day" "$task" "$v" >/dev/null 2>&1
+				;;
+			"  Remove Task")
+				core remove-day "$day" "$task" >/dev/null 2>&1
+				return
+				;;
+			*)
+				return
+				;;
+		esac
+	done
 }
 
-day_menu() {
+day_screen() {
 	local day="$1"
 	core ensure-day "$day" >/dev/null 2>&1 || true
 
 	while true; do
-		local c
-		c="$(rofi_menu "Tasks ($day)" \
-			"  View Tasks" \
-			"  Add Task" \
-			"󰄬  Set Verdict" \
-			"  Remove Task" \
-			"󰌍  Back")"
+		local labels=()
+		local raws=()
+		local line label raw
 
-		case "$c" in
-			"  View Tasks")
-				day_view "$day"
-				;;
-			"  Add Task")
-				local OLD_THEME="$ROFI_THEME"
-				ROFI_THEME="$PASSWORD_THEME"
+		while IFS= read -r line; do
+			[ -z "$line" ] && continue
+			label="${line%%$'\t'*}"
+			raw="${line#*$'\t'}"
+			[ "$raw" = "$line" ] && raw="$line"
+			labels+=("$label")
+			raws+=("$raw")
+		done < <(core list-day "$day" --choices 2>/dev/null || true)
 
-				local raw
-				raw="$(rofi_input "New Task for $day (! for MUST)")"
-				raw="$(echo "${raw:-}" | xargs || true)"
-				ROFI_THEME="$OLD_THEME"
+		# 👉 NEW: no tasks → directly add task
+		if [ "${#labels[@]}" -eq 0 ]; then
+			add_task_for_day "$day"
+			return
+		fi
 
-				[ -z "$raw" ] && continue
-				core add-day "$day" "$raw" >/dev/null 2>&1 \
-					|| rofi_msg "Error" "Could not add task (day may be closed)."
-				;;
-			"󰄬  Set Verdict")
-				local task v
-				task="$(core list-day "$day" --choices | select_from_choices)" || continue
-				v="$(rofi_menu "Verdict" "DONE" "FAILED" "SKIPPED")"
-				[ -z "$v" ] && continue
-				core set-verdict "$day" "$task" "$v" >/dev/null 2>&1 \
-					|| rofi_msg "Error" "Could not set verdict."
-				;;
-			"  Remove Task")
-				local task
-				task="$(core list-day "$day" --choices | select_from_choices)" || continue
-				core remove-day "$day" "$task" >/dev/null 2>&1 \
-					|| rofi_msg "Error" "Could not remove task."
-				;;
-			*)
-				return
-				;;
-		esac
+		local idx rc
+		set +e
+		idx="$(
+			printf "%s\n" "${labels[@]}" \
+			| rofi -dmenu -i -p "Tasks ($day)" -theme "$TASKLIST_THEME" -format 'i' \
+				-kb-custom-1 "Alt+n"
+		)"
+		rc=$?
+		set -e
+
+		[ "$rc" -eq 1 ] && return
+
+		if [ "$rc" -eq 10 ]; then
+			add_task_for_day "$day"
+			continue
+		fi
+
+		[[ "${idx:-}" =~ ^[0-9]+$ ]] || continue
+		[ "$idx" -ge 0 ] && [ "$idx" -lt "${#raws[@]}" ] || continue
+
+		task_actions_menu "$day" "${raws[$idx]}"
 	done
 }
 
-master_menu() {
+# -------- Master screen (same UX as day_screen) --------
+add_master_task() {
+	local raw
+	raw="$(rofi_input "New Master Task (! for MUST)" "$PASSWORD_THEME")"
+	raw="$(echo "${raw:-}" | xargs || true)"
+	[ -z "$raw" ] && return 0
+	core add-master "$raw" >/dev/null 2>&1
+}
+
+master_actions_menu() {
+	local task="$1"
+
 	while true; do
 		local c
-		c="$(rofi_menu "Manage Tasks" \
+		c="$(rofi_menu "Master Task" \
 			"󰄬  Toggle Task" \
-			"  Add Task" \
-			"  Remove Task" \
-			"  View Tasks" \
-			"󰌍  Back")"
+			"  Remove Task")"
 
 		case "$c" in
 			"󰄬  Toggle Task")
-				local t
-				t="$(core list-master --choices | select_from_choices)" || continue
-				core toggle-master "$t" >/dev/null 2>&1 || rofi_msg "Error" "Toggle failed."
-				;;
-			"  Add Task")
-				local OLD_THEME="$ROFI_THEME"
-				ROFI_THEME="$PASSWORD_THEME"
-
-				local raw
-				raw="$(rofi_input "New Master Task (! for MUST)")"
-				raw="$(echo "${raw:-}" | xargs || true)"
-				ROFI_THEME="$OLD_THEME"
-
-				[ -z "$raw" ] && continue
-				core add-master "$raw" >/dev/null 2>&1 || rofi_msg "Error" "Add failed."
+				core toggle-master "$task" >/dev/null 2>&1
 				;;
 			"  Remove Task")
-				local t
-				t="$(core list-master --choices | select_from_choices)" || continue
-				core remove-master "$t" >/dev/null 2>&1 || rofi_msg "Error" "Remove failed."
-				;;
-			"  View Tasks")
-				master_view
+				core remove-master "$task" >/dev/null 2>&1
+				return
 				;;
 			*)
 				return
@@ -181,11 +190,52 @@ master_menu() {
 	done
 }
 
-# ---------------- Start ----------------
+master_screen() {
+	while true; do
+		local labels=()
+		local raws=()
+		local line label raw
+
+		while IFS= read -r line; do
+			[ -z "$line" ] && continue
+			label="${line%%$'\t'*}"
+			raw="${line#*$'\t'}"
+			[ "$raw" = "$line" ] && raw="$line"
+			labels+=("$label")
+			raws+=("$raw")
+		done < <(core list-master --choices 2>/dev/null || true)
+
+		# 👉 NEW: no master tasks → add one
+		if [ "${#labels[@]}" -eq 0 ]; then
+			add_master_task
+			return
+		fi
+
+		local idx rc
+		set +e
+		idx="$(
+			printf "%s\n" "${labels[@]}" \
+			| rofi -dmenu -i -p "Master Tasks" -theme "$TASKLIST_THEME" -format 'i' \
+				-kb-custom-1 "Alt+n"
+		)"
+		rc=$?
+		set -e
+
+		[ "$rc" -eq 1 ] && return
+
+		if [ "$rc" -eq 10 ]; then
+			add_master_task
+			continue
+		fi
+
+		[[ "${idx:-}" =~ ^[0-9]+$ ]] || continue
+		[ "$idx" -ge 0 ] && [ "$idx" -lt "${#raws[@]}" ] || continue
+
+		master_actions_menu "${raws[$idx]}"
+	done
+}
+
 mkdir -p "$TODO_DIR"
-
-[ ! -f "$CORE_PY" ] && { rofi_msg "Error" "Missing core: $CORE_PY"; exit 1; }
-
 core auto-reckon >/dev/null 2>&1 || true
 
 while true; do
@@ -199,24 +249,25 @@ while true; do
 		"  Exit")"
 
 	case "$choice" in
-		"  Today") day_menu "$local_today" ;;
-		"󰈙  Past / Future Day") d="$(pick_date)" && day_menu "$d" ;;
-		"󱌣  Manage Tasks") master_menu ;;
+		"  Today")
+			day_screen "$local_today"
+			;;
+		"󰈙  Past / Future Day")
+			d="$(pick_date)" && day_screen "$d"
+			;;
+		"󱌣  Manage Tasks")
+			master_screen
+			;;
 		"  View Stats")
 			rofi_msg "Stats" "$(core stats 2>/dev/null || true)"
 			;;
 		"  Close Today")
 			out="$(core close "$local_today" 2>/dev/null || true)"
-			if echo "$out" | grep -q "ALREADY_CLOSED"; then
-				rofi_msg "Error" "Already closed."
-			elif [ -n "$out" ]; then
-				score="$(echo "$out" | python3 -c 'import sys,json; print(json.loads(sys.stdin.read()).get("score",""))')"
-				rofi_msg "Closed" "Day finalized. Score: $score"
-			else
-				rofi_msg "Closed" "Day finalized."
-			fi
+			echo "$out" | grep -q "ALREADY_CLOSED" && rofi_msg "Error" "Already closed."
 			;;
-		*) exit 0 ;;
+		*)
+			exit 0
+			;;
 	esac
 done
 

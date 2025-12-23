@@ -4,14 +4,7 @@ set -euo pipefail
 PICKER="${PICKER:-$HOME/.config/hypr/scripts/datepicker.py}"
 THEME="${THEME:-$HOME/.config/rofi/datepicker.rasi}"
 
-rofi_msg() {
-	local title="$1"
-	local text="${2:-}"
-	[ -z "$text" ] && text="(none)"
-	rofi -e "$(printf "%s\n\n%s" "$title" "$text")" -theme "$THEME" >/dev/null 2>&1 || true
-}
-
-# Capture the selection once.
+# Run the picker and capture the selected date
 day="$(
 	rofi -show daypicker \
 		-modi "daypicker:python3 $PICKER" \
@@ -24,13 +17,14 @@ day="$(
 		2>&1 >/dev/null
 )"
 
-# Cancel/Escape
+# Cancel / Escape → no output
 [[ -z "${day}" ]] && exit 0
 
-# Validate and display
+# Validate and return
 if [[ "${day}" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
-	rofi_msg "Selected date" "${day}"
+	printf '%s\n' "${day}"
+	exit 0
 fi
 
-exit 0
+exit 1
 

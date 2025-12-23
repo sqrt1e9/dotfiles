@@ -1,6 +1,6 @@
 configuration {
     modi:                       "drun,filebrowser,window,run";
-    font:                       "Symbols Nerd Font 13, Monolisa 12";
+    font:                       "Monolisa 12";
     show-icons:                 true;
     display-drun:                " ";
     display-run:                 " ";
@@ -12,6 +12,7 @@ configuration {
     me-select-entry:            "";
     me-accept-entry:            "MousePrimary";
     window-format:              "{w} · {c} · {t}";
+    auto-select:                false;
 }
 
 @import "default.rasi"
@@ -35,14 +36,14 @@ mainbox {
     enabled:                     true;
     spacing:                     0em;
     padding:                     0em;
-    orientation:                 horizontal;
-    children:                    [ "imagebox" , "listbox" ];
+    orientation:                 vertical;
+    children:                    [ "inputbar" , "listbox" ];
     background-color:            white / 14%;
 }
 
 imagebox {
     padding:                     0.5em;
-    background-color:            white / 5%;
+    background-color:            white / 14%;
     border-radius:               1em;
     orientation:                 vertical;
     children:                    [ "inputbar", "dummy", "mode-switcher" ];
@@ -81,7 +82,7 @@ inputbar {
     enabled:                     true;
     background-color:            transparent;
     text-color:                  white;
-    margin: 1em;
+    margin:                      1em 1em 0em 1em;
     children:                    [ "textbox-prompt-colon", "entry" ];
     border-radius:               1em;
     color:                       white;

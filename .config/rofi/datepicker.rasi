@@ -38,9 +38,9 @@ mainbox {
 /* ---------------- Input bar ---------------- */
 inputbar {
 	enabled:                    true;
-	background-color:           @shade-bg;
+	background-color:           transparent;
 	text-color:                 white;
-	margin:                     1em;
+	margin:                     1em 1em 0em 1em;
 	border-radius:              1em;
 
 	/* Icon + month/year (prompt) + filter entry */

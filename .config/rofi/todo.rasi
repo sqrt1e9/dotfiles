@@ -1,6 +1,6 @@
 configuration {
     modi:                       "drun,filebrowser,window,run";
-    font:                       "Monolisa 12";
+    font:                       "Symbols Nerd Font 13, Monolisa 12";
     show-icons:                 true;
     display-drun:                " ";
     display-run:                 " ";
@@ -80,7 +80,7 @@ button selected {
 
 inputbar {
     enabled:                     true;
-    background-color:            @shade-bg;
+    background-color:            transparent;
     text-color:                  white;
     margin: 1em;
     children:                    [ "textbox-prompt-colon", "entry" ];
