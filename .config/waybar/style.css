@@ -119,27 +119,17 @@ tooltip {
     padding: 0 1em;
 }
 
-#custom-expand-center-ext.work,
-#custom-pomodoro.work {
+#custom-expand-center-ext.running,
+#custom-stopwatch.running {
     color: #ff6b6b;
 }
 
-#custom-expand-center-ext.break,
-#custom-pomodoro.break {
-    color: #7ddb7d;
-}
-
 #custom-expand-center-ext.paused,
-#custom-pomodoro.paused {
+#custom-stopwatch.paused {
     color: #f8d66d;
 }
 
 #custom-expand-center-ext.idle,
-#custom-pomodoro.idle {
+#custom-stopwatch.idle {
     color: #ffffff;
-}
-
-#custom-expand-center-ext.done,
-#custom-pomodoro.done {
-    color: #a970ff;
 }

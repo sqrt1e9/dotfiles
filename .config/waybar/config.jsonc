@@ -26,19 +26,7 @@
         "format": "{}",
         "tooltip": false,
         "interval": 1,
-        "exec": "~/.config/hypr/scripts/pomodoro.py status",
-        "return-type": "json"
-    },
-    "custom/expand-right-ext": {
-        "format": "<span size='x-large'>‹</span>",
-        "tooltip": false
-    },
-    "custom/pomodoro": {
-        "exec": "~/.config/hypr/scripts/pomodoro.py",
-        "interval": 1,
-        "on-click": "~/.config/hypr/scripts/pomodoro.py toggle",
-        "on-click-right": "~/.config/hypr/scripts/pomodoro.py reset",
-        "tooltip": true,
+        "exec": "~/.config/hypr/scripts/stopwatch.py status",
         "return-type": "json"
     },
     "custom/swaync": {
@@ -57,19 +45,6 @@
         "on-click-right": "sleep 0.15 && swaync-client -d -sw",
         "escape": true
     },
-    "group/right-ext": {
-          "orientation": "inherit",
-          "drawer": {
-              "transition-duration": 500,
-              "children-class": "other-apps",
-              "transition-left-to-right": true
-          },
-          "modules": [
-              "custom/expand-right-ext",
-              "custom/swaync",
-              "custom/todo"
-          ]
-    },
     "group/center-ext": {
           "orientation": "inherit",
           "drawer": {
@@ -79,17 +54,16 @@
           },
           "modules": [
               "custom/expand-center-ext",
-              "custom/stopwatch",
-              "custom/pomodoro"
+              "custom/stopwatch"
           ]
     },
     "custom/stopwatch": {
         "format": "{}",
-        "exec": "~/.local/bin/stopwatch.sh",
+        "exec": "~/.config/hypr/scripts/stopwatch.py",
         "return-type": "json",
         "interval": 1,
-        "on-click": "~/.local/bin/stopwatch.sh --toggle",
-        "on-click-right": "~/.local/bin/stopwatch.sh --reset"
+        "on-click": "~/.config/hypr/scripts/stopwatch.py toggle",
+        "on-click-right": "~/.config/hypr/scripts/stopwatch.py reset"
     },
     "tray": {
         "icon-size": 15,

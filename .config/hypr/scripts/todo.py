@@ -197,7 +197,51 @@ def save_day(day: str, tasks: List[DayTask]) -> None:
 	write_json(day_file(day), [t.__dict__ for t in normalize_day([t.__dict__ for t in tasks])])
 
 # ---------------- Core behaviors ----------------
+def is_day_closed(day: str) -> bool:
+	scores = load_scores()
+	return any(r["day"] == day for r in scores)
+
+def ensure_closed_day_snapshot(day: str) -> List[DayTask]:
+	"""
+	If scores.json says the day is closed, never treat it as editable.
+	Self-heal by recreating the day file from master + existing day-only tasks,
+	and force everything to SKIPPED.
+	"""
+	master = load_master()
+	day_tasks = load_day(day)  # may be missing/corrupt; load_day normalizes
+
+	out: List[DayTask] = []
+	active_set = set()
+
+	# All active master tasks are present and SKIPPED
+	for mt in master:
+		if not mt.active:
+			continue
+		active_set.add(mt.task)
+		out.append(DayTask(task=mt.task, must=mt.must, verdict="SKIPPED", debt=False))
+
+	# Preserve day-only tasks (also forced to SKIPPED)
+	for t in day_tasks:
+		if t.task not in active_set:
+			out.append(DayTask(task=t.task, must=t.must, verdict="SKIPPED", debt=t.debt))
+
+	# stable dedupe
+	seen = set()
+	final: List[DayTask] = []
+	for t in out:
+		if t.task in seen:
+			continue
+		seen.add(t.task)
+		final.append(t)
+
+	save_day(day, final)
+	return final
+
 def ensure_day_ready(day: str) -> List[DayTask]:
+	# NEW: closed day is always read-only and always self-healed as SKIPPED snapshot
+	if is_day_closed(day):
+		return ensure_closed_day_snapshot(day)
+
 	master = load_master()
 	day_tasks = load_day(day)
 
@@ -234,10 +278,6 @@ def ensure_day_ready(day: str) -> List[DayTask]:
 
 	save_day(day, final)
 	return final
-
-def is_day_closed(day: str) -> bool:
-	scores = load_scores()
-	return any(r["day"] == day for r in scores)
 
 def score_day(tasks: List[DayTask]) -> Dict[str, int]:
 	done = sum(1 for t in tasks if t.verdict == "DONE")
@@ -335,6 +375,8 @@ def carry_forward_failures(day: str, closed_tasks: List[DayTask]) -> None:
 
 def close_day(day: str, silent: bool) -> Dict[str, Any]:
 	if is_day_closed(day):
+		# also self-heal snapshot if user deleted the day file
+		ensure_closed_day_snapshot(day)
 		return {"already_closed": True}
 
 	tasks = ensure_day_ready(day)
@@ -359,6 +401,7 @@ def close_day(day: str, silent: bool) -> Dict[str, Any]:
 
 def force_close_day_as_skipped(day: str) -> None:
 	if is_day_closed(day):
+		ensure_closed_day_snapshot(day)
 		return
 	tasks = ensure_day_ready(day)
 	skipped = [DayTask(task=t.task, must=t.must, verdict="SKIPPED", debt=t.debt) for t in tasks]
@@ -430,6 +473,7 @@ def cmd_list_day(ns: argparse.Namespace) -> int:
 
 def cmd_add_day(ns: argparse.Namespace) -> int:
 	if is_day_closed(ns.day):
+		ensure_closed_day_snapshot(ns.day)
 		sys.stdout.write("ERROR: Day closed\n")
 		return 2
 	must, task = parse_must_prefix(ns.raw)
@@ -444,6 +488,7 @@ def cmd_add_day(ns: argparse.Namespace) -> int:
 
 def cmd_remove_day(ns: argparse.Namespace) -> int:
 	if is_day_closed(ns.day):
+		ensure_closed_day_snapshot(ns.day)
 		sys.stdout.write("ERROR: Day closed\n")
 		return 2
 	task = trim(ns.task)
@@ -455,6 +500,7 @@ def cmd_remove_day(ns: argparse.Namespace) -> int:
 
 def cmd_set_verdict(ns: argparse.Namespace) -> int:
 	if is_day_closed(ns.day):
+		ensure_closed_day_snapshot(ns.day)
 		sys.stdout.write("ERROR: Day closed\n")
 		return 2
 	task = trim(ns.task)

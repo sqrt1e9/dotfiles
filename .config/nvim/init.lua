@@ -34,6 +34,7 @@ vim.cmd [[
     hi PmenuSbar     guibg=none	ctermbg=none
     hi PmenuThumb    guibg=none	ctermbg=none
 ]]
+vim.cmd.colorscheme("mocha")
 
 
 local options = {

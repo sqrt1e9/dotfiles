@@ -93,32 +93,9 @@ return {
 		end,
 	},
 	{
-		"simrat39/rust-tools.nvim",
-		lazy = false,
-		ft = "rust",
-		config = function()
-			local rt = require("rust-tools")
-			local capabilities = require("cmp_nvim_lsp").default_capabilities()
-			local util = require("lspconfig.util")
-
-			rt.setup({
-				server = {
-					capabilities = capabilities,
-					root_dir = util.root_pattern("Cargo.toml"),
-					on_attach = function(_, bufnr)
-						local map = vim.keymap.set
-						local opts = { buffer = bufnr, silent = true, noremap = true }
-
-						map("n", "<leader>rr", "<cmd>!cargo run<CR>", vim.tbl_extend("force", opts, { desc = "cargo_run" }))
-						map("n", "<leader>rt", "<cmd>!cargo test<CR>", vim.tbl_extend("force", opts, { desc = "cargo_test" }))
-						map("n", "<leader>rf", "<cmd>!cargo fmt<CR>", vim.tbl_extend("force", opts, { desc = "cargo_fmt" }))
-
-						map("n", "<leader>rh", rt.hover_actions.hover_actions, vim.tbl_extend("force", opts, { desc = "hover_actions" }))
-						map("n", "<leader>ra", rt.code_action_group.code_action_group, vim.tbl_extend("force", opts, { desc = "code_actions" }))
-					end,
-				},
-			})
-		end,
+		"mrcjkb/rustaceanvim",
+		version = "^5", -- or omit to track latest
+		ft = { "rust" },
 	},
 	{
 		"preservim/vim-markdown",

@@ -4,6 +4,5 @@ if hyprctl monitors -j | grep -q '"HDMI-A-1"'; then
     hyprctl keyword monitor "eDP-1, disable"
 else
     hyprctl keyword monitor "eDP-1, 3200x2000@165, 0x0, 1.6666"
-    hyprctl keyword monitor "eDP-1, 1920x1080@60, 0x0, 1"
 fi
 

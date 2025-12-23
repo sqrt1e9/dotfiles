@@ -32,7 +32,7 @@ rofiCommand="rofi -show -dmenu -theme ${themesDir}/wallpaper-select.rasi"
 executeCommand() {
 	file="$1"
 	if command -v hyprctl >/dev/null 2>&1; then
-	    ~/.config/hypr/scripts/hyprwall-init.sh "$file"
+	    ~/.local/bin/hyprwall-init.sh "$file"
 	else
 		echo "No supported wallpaper setter found (swaybg or Hyprpaper)."
 		exit 1

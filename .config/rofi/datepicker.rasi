@@ -1,0 +1,146 @@
+configuration {
+	font:                       "Symbols Nerd Font 13, Monolisa 12";
+	show-icons:                 false;
+	hover-select:               false;
+	scroll-method:              1;
+	me-select-entry:            "";
+	me-accept-entry:            "MousePrimary";
+	auto-select:                false;
+}
+
+@import "default.rasi"
+
+/* ---------------- Window ---------------- */
+window {
+	height:                     32em;
+	width:                      45%;
+	fullscreen:                 false;
+	enabled:                    true;
+	cursor:                     "default";
+	spacing:                    0em;
+	padding:                    0em;
+	location:                   center;
+	anchor:                     center;
+	border:                     0.1em;
+	border-radius:              1em;
+}
+
+/* ---------------- Main layout ---------------- */
+mainbox {
+	enabled:                    true;
+	orientation:                vertical;
+	spacing:                    0em;
+	padding:                    0em;
+	children:                   [ "inputbar", "listview" ];
+	background-color:           white / 14%;
+}
+
+/* ---------------- Input bar ---------------- */
+inputbar {
+	enabled:                    true;
+	background-color:           @shade-bg;
+	text-color:                 white;
+	margin:                     1em;
+	border-radius:              1em;
+
+	/* Icon + month/year (prompt) + filter entry */
+	children:                   [ "textbox-prompt-colon", "prompt", "entry" ];
+}
+
+/* Calendar icon */
+textbox-prompt-colon {
+	enabled:                    true;
+	expand:                     false;
+	str:                        "   ";
+	padding:                    1em 0.25em 0 0;
+	text-color:                 white;
+	background-color:           transparent;
+	font:                       "Symbols Nerd Font 12";
+}
+
+/* Month/Year label (populated by your python via \0prompt) */
+prompt {
+	enabled:                    true;
+	expand:                     false;
+	min-width:                  12em;
+	padding:                    1em 0.25em 0 0;
+	background-color:           transparent;
+	text-color:                 white;
+	font:                       "Monolisa Bold 12";
+}
+
+/* Filter entry */
+entry {
+	enabled:                    true;
+	expand:                     true;
+	spacing:                    1em;
+	padding:                    1em;
+	cursor:                     text;
+	placeholder:                "";
+	background-color:           transparent;
+	placeholder-color:          inherit;
+}
+
+/* ---------------- Calendar grid ---------------- */
+listview {
+	enabled:                    true;
+	padding:                    1.5em;
+	spacing:                    0.6em;
+	columns:                    7;
+	lines:                      7;
+	fixed-columns:              true;
+	fixed-height:               true;
+	layout:                     vertical;
+	cycle:                      true;
+	dynamic:                    true;
+	scrollbar:                  false;
+	background-color:           transparent;
+}
+
+/* ---------------- Calendar cells ---------------- */
+element {
+	enabled:                    true;
+	cursor:                     pointer;
+	padding:                    0.8em 1.2em;
+	min-width:                  4.4em;
+	border-radius:              1em;
+	background-color:           transparent;
+	text-color:                 white;
+}
+
+element selected {
+	background-color:           @shade-bg;
+	text-color:                 @text;
+}
+
+/* Weekday header cells (Mo Tu We...) */
+element.normal {
+	text-color:                 white / 80%;
+}
+
+/* ---------------- Cell text ---------------- */
+element-text {
+	horizontal-align:           0.5;
+	vertical-align:             0.5;
+	padding:                    0.2em;
+	background-color:           transparent;
+	text-color:                 inherit;
+}
+
+element-icon {
+	font:                       "Symbols Nerd Font 11";
+}
+
+/* ---------------- Error / messages ---------------- */
+error-message {
+	background-color:           transparent;
+	children:                   [ "textbox" ];
+}
+
+textbox {
+	text-color:                 inherit;
+	background-color:           inherit;
+	vertical-align:             0.5;
+	horizontal-align:           0.5;
+}
+
