@@ -3,7 +3,7 @@
 # Power menu script using wofi --dmenu
 
 options=" Lock
- Suspend
+☾ Suspend
    Logout
    Reboot
  Shutdown
@@ -18,7 +18,7 @@ case "$choice" in
         sleep 0.2
         hyprlock
         ;;
-    " Suspend")
+    "☾ Suspend")
         systemctl suspend
         ;;
     "   Logout")

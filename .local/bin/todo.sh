@@ -1,269 +1,399 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-command -v rofi >/dev/null 2>&1 || { echo "Install 'rofi' first."; exit 1; }
-command -v python3 >/dev/null 2>&1 || { echo "Install 'python3' first."; exit 1; }
+MENU_THEME="$HOME/.config/rofi/todo.rasi"
+LIST_THEME="$HOME/.config/rofi/todo_list.rasi"
+INPUT_THEME="$HOME/.config/rofi/todo_task.rasi"
+MEETING_INPUT_THEME="$HOME/.config/rofi/meeting_task.rasi"
 
-ROFI_THEME="$HOME/.config/rofi/todo.rasi"
-TASKLIST_THEME="${TASKLIST_THEME:-$HOME/.config/rofi/todo_list.rasi}"
-PASSWORD_THEME="$HOME/.config/rofi/todo_task.rasi"
-
-XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
-TODO_DIR="$XDG_CONFIG_HOME/todo"
 CORE_PY="$HOME/.config/hypr/scripts/todo.py"
-
 DATEPICKER_SH="${DATEPICKER_SH:-$HOME/.local/bin/datepicker.sh}"
-
-rofi_menu() {
-	local prompt="$1"; shift
-	printf "%s\n" "$@" | rofi -dmenu -i -p "$prompt" -theme "$ROFI_THEME" || true
-}
-
-# Allow specifying a theme explicitly (so Add Task can use PASSWORD_THEME reliably)
-rofi_input() {
-	local prompt="$1"
-	local theme="${2:-$ROFI_THEME}"
-	printf "\n" | rofi -dmenu -i -p "$prompt" -theme "$theme" || true
-}
-
-rofi_msg() {
-	local title="$1"
-	local text="${2:-}"
-	[ -z "$text" ] && text="(none)"
-	rofi -e "$(printf "%s\n\n%s" "$title" "$text")" -theme "$ROFI_THEME" || true
-}
 
 core() {
 	python3 "$CORE_PY" "$@"
 }
 
-select_from_choices() {
-	local lines=()
-	local line
+rofi_menu() {
+	local mesg=""
+	if [ "${1:-}" = "--mesg" ]; then
+		mesg="${2:-}"
+		shift 2
+	fi
 
-	while IFS= read -r line; do
-		[ -n "$line" ] && lines+=("$line")
-	done
+	if [ -n "$mesg" ]; then
+		printf "%s\n" "$@" | rofi -no-config -dmenu -i -theme "$MENU_THEME" -mesg "$mesg"
+	else
+		printf "%s\n" "$@" | rofi -no-config -dmenu -i -theme "$MENU_THEME"
+	fi
+}
 
-	[ "${#lines[@]}" -eq 0 ] && return 1
-
-	local idx
-	idx="$(
-		printf "%s\n" "${lines[@]%%$'\t'*}" \
-		| rofi -dmenu -i -p "Select" -theme "$ROFI_THEME" -format 'i'
-	)" || true
-
-	[ -z "${idx:-}" ] && return 1
-	[[ "$idx" =~ ^[0-9]+$ ]] || return 1
-	[ "$idx" -ge 0 ] && [ "$idx" -lt "${#lines[@]}" ] || return 1
-
-	local sel="${lines[$idx]}"
-	local raw="${sel#*$'\t'}"
-	[ "$raw" = "$sel" ] && raw="$sel"
-	printf "%s\n" "$raw"
+# IMPORTANT: keep this form. Rofi -dmenu needs at least 1 line on stdin
+# so you can type freely. Redirecting stdin breaks input.
+rofi_input() {
+	printf "\n" | rofi -no-config -dmenu -i -p "$1" -theme "$INPUT_THEME"
 }
 
 pick_date() {
 	[ -x "$DATEPICKER_SH" ] || return 1
-	local d
-	d="$("$DATEPICKER_SH" 2>/dev/null || true)"
-	d="$(echo "${d:-}" | xargs || true)"
-	[[ "$d" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]] && echo "$d"
+	"$DATEPICKER_SH" 2>/dev/null || true
 }
 
-add_task_for_day() {
-	local day="$1"
-
-	local raw
-	raw="$(rofi_input "New Task for $day (! for MUST)" "$PASSWORD_THEME")"
-	raw="$(echo "${raw:-}" | xargs || true)"
-
-	[ -z "$raw" ] && return 0
-	core add-day "$day" "$raw" >/dev/null 2>&1
+nth_line() {
+	local n="$1"
+	sed -n "${n}p"
 }
 
-task_actions_menu() {
-	local day="$1"
-	local task="$2"
+# ---------------- MASTER TASKS (Manage Tasks) ----------------
 
-	while true; do
-		local c
-		c="$(rofi_menu "Task ($day)" \
-			"󰄬  Set Verdict" \
-			"  Remove Task")"
+build_master_active_csv() {
+	local i=0 line
+	local active=()
 
-		case "$c" in
-			"󰄬  Set Verdict")
-				local v
-				v="$(rofi_menu "Verdict" "DONE" "FAILED" "SKIPPED")"
-				[ -n "$v" ] && core set-verdict "$day" "$task" "$v" >/dev/null 2>&1
-				;;
-			"  Remove Task")
-				core remove-day "$day" "$task" >/dev/null 2>&1
-				return
-				;;
-			*)
-				return
-				;;
+	while IFS= read -r line; do
+		case "$line" in
+			*"●"*) active+=("$i") ;;
+			*) : ;;
 		esac
+		i=$((i+1))
 	done
+
+	(IFS=,; echo "${active[*]}")
 }
 
-day_screen() {
-	local day="$1"
-	core ensure-day "$day" >/dev/null 2>&1 || true
+rofi_pick_index_master() {
+	local active_csv="${1:-}"
 
-	while true; do
-		local labels=()
-		local raws=()
-		local line label raw
-
-		while IFS= read -r line; do
-			[ -z "$line" ] && continue
-			label="${line%%$'\t'*}"
-			raw="${line#*$'\t'}"
-			[ "$raw" = "$line" ] && raw="$line"
-			labels+=("$label")
-			raws+=("$raw")
-		done < <(core list-day "$day" --choices 2>/dev/null || true)
-
-		# 👉 NEW: no tasks → directly add task
-		if [ "${#labels[@]}" -eq 0 ]; then
-			add_task_for_day "$day"
-			return
-		fi
-
-		local idx rc
-		set +e
-		idx="$(
-			printf "%s\n" "${labels[@]}" \
-			| rofi -dmenu -i -p "Tasks ($day)" -theme "$TASKLIST_THEME" -format 'i' \
-				-kb-custom-1 "Alt+n"
-		)"
-		rc=$?
-		set -e
-
-		[ "$rc" -eq 1 ] && return
-
-		if [ "$rc" -eq 10 ]; then
-			add_task_for_day "$day"
-			continue
-		fi
-
-		[[ "${idx:-}" =~ ^[0-9]+$ ]] || continue
-		[ "$idx" -ge 0 ] && [ "$idx" -lt "${#raws[@]}" ] || continue
-
-		task_actions_menu "$day" "${raws[$idx]}"
-	done
-}
-
-# -------- Master screen (same UX as day_screen) --------
-add_master_task() {
-	local raw
-	raw="$(rofi_input "New Master Task (! for MUST)" "$PASSWORD_THEME")"
-	raw="$(echo "${raw:-}" | xargs || true)"
-	[ -z "$raw" ] && return 0
-	core add-master "$raw" >/dev/null 2>&1
-}
-
-master_actions_menu() {
-	local task="$1"
-
-	while true; do
-		local c
-		c="$(rofi_menu "Master Task" \
-			"󰄬  Toggle Task" \
-			"  Remove Task")"
-
-		case "$c" in
-			"󰄬  Toggle Task")
-				core toggle-master "$task" >/dev/null 2>&1
-				;;
-			"  Remove Task")
-				core remove-master "$task" >/dev/null 2>&1
-				return
-				;;
-			*)
-				return
-				;;
-		esac
-	done
+	rofi -no-config -dmenu -i -theme "$LIST_THEME" -format i \
+		-kb-custom-1 "Alt+n" \
+		-kb-custom-2 "Alt+t" \
+		-kb-custom-3 "Alt+r"
 }
 
 master_screen() {
 	while true; do
-		local labels=()
-		local raws=()
-		local line label raw
+		local choices display_list raw_list sel_idx rc raw_task action t
+		local active_csv
 
-		while IFS= read -r line; do
-			[ -z "$line" ] && continue
-			label="${line%%$'\t'*}"
-			raw="${line#*$'\t'}"
-			[ "$raw" = "$line" ] && raw="$line"
-			labels+=("$label")
-			raws+=("$raw")
-		done < <(core list-master --choices 2>/dev/null || true)
+		choices="$(core list-master --choices 2>/dev/null || true)"
 
-		# 👉 NEW: no master tasks → add one
-		if [ "${#labels[@]}" -eq 0 ]; then
-			add_master_task
-			return
-		fi
-
-		local idx rc
-		set +e
-		idx="$(
-			printf "%s\n" "${labels[@]}" \
-			| rofi -dmenu -i -p "Master Tasks" -theme "$TASKLIST_THEME" -format 'i' \
-				-kb-custom-1 "Alt+n"
-		)"
-		rc=$?
-		set -e
-
-		[ "$rc" -eq 1 ] && return
-
-		if [ "$rc" -eq 10 ]; then
-			add_master_task
+		if [ -z "$(echo "${choices:-}" | xargs || true)" ]; then
+			t="$(rofi_input "New Master Task")" || true
+			t="$(echo "${t:-}" | xargs || true)"
+			[ -z "$t" ] && return 0
+			core add-master "$t" >/dev/null 2>&1 || true
 			continue
 		fi
 
-		[[ "${idx:-}" =~ ^[0-9]+$ ]] || continue
-		[ "$idx" -ge 0 ] && [ "$idx" -lt "${#raws[@]}" ] || continue
+		display_list="$(printf "%s\n" "$choices" | cut -f1)"
+		raw_list="$(printf "%s\n" "$choices" | cut -f2- )"
 
-		master_actions_menu "${raws[$idx]}"
+		active_csv="$(printf "%s\n" "$display_list" | build_master_active_csv)"
+
+		set +e
+		sel_idx="$(printf "%s\n" "$display_list" | rofi_pick_index_master "$active_csv")"
+		rc=$?
+		set -e
+
+		[ "$rc" -eq 1 ] && return 0
+
+		if [ "$rc" -eq 10 ]; then
+			t="$(rofi_input "New Master Task")" || true
+			t="$(echo "${t:-}" | xargs || true)"
+			[ -n "$t" ] && core add-master "$t" >/dev/null 2>&1 || true
+			continue
+		fi
+
+		sel_idx="$(echo "${sel_idx:-}" | xargs || true)"
+		[ -z "$sel_idx" ] && return 0
+
+		raw_task="$(
+			printf "%s\n" "$raw_list" | nth_line "$((sel_idx + 1))"
+		)"
+		raw_task="$(echo "${raw_task:-}" | xargs || true)"
+		[ -z "$raw_task" ] && return 0
+
+		if [ "$rc" -eq 11 ]; then
+			core toggle-master "$raw_task" >/dev/null 2>&1 || true
+			continue
+		fi
+
+		if [ "$rc" -eq 12 ]; then
+			core remove-master "$raw_task" >/dev/null 2>&1 || true
+			continue
+		fi
+
+		action="$(rofi_menu \
+			"Toggle Task" \
+			"Remove Task"
+		)" || true
+
+		case "$action" in
+			"Toggle Task") core toggle-master "$raw_task" >/dev/null 2>&1 || true ;;
+			"Remove Task") core remove-master "$raw_task" >/dev/null 2>&1 || true ;;
+		esac
 	done
 }
 
-mkdir -p "$TODO_DIR"
-core auto-reckon >/dev/null 2>&1 || true
+# ---------------- DAY TASKS (Today / any date) ----------------
 
+build_day_state_csvs() {
+	local i=0 line
+	local active=() urgent=()
+
+	while IFS= read -r line; do
+		case "$line" in
+			*"✔"*) : ;;               # DONE
+			*"✘"*) urgent+=("$i") ;;  # SKIPPED
+			*)      active+=("$i") ;; # TODO
+		esac
+		i=$((i+1))
+	done
+
+	(IFS=,; echo "${active[*]}")
+	(IFS=,; echo "${urgent[*]}")
+}
+
+rofi_pick_index_day() {
+	local active_csv="${1:-}"
+	local urgent_csv="${2:-}"
+
+	rofi -no-config -dmenu -i -theme "$LIST_THEME" -format i \
+		-kb-custom-1 "Alt+n" \
+		-kb-custom-2 "Alt+d" \
+		-kb-custom-3 "Alt+s" \
+		-kb-custom-4 "Alt+r"
+}
+
+day_screen() {
+	local day="$1"
+
+	core sync-day "$day" >/dev/null 2>&1 || true
+
+	while true; do
+		local choices display_list raw_list sel_idx rc raw_task action verdict t
+		local active_csv urgent_csv
+		local -a csvs
+
+		choices="$(core list-day "$day" --choices 2>/dev/null || true)"
+
+		if [ -z "$(echo "${choices:-}" | xargs || true)" ]; then
+			t="$(rofi_input "New Task for $day (! for MUST)")" || true
+			t="$(echo "${t:-}" | xargs || true)"
+			[ -z "$t" ] && return 0
+			core add-day "$day" "$t" >/dev/null 2>&1 || true
+			core sync-day "$day" >/dev/null 2>&1 || true
+			continue
+		fi
+
+		display_list="$(printf "%s\n" "$choices" | cut -f1)"
+		raw_list="$(printf "%s\n" "$choices" | cut -f2- )"
+
+		mapfile -t csvs < <(printf "%s\n" "$display_list" | build_day_state_csvs)
+		active_csv="${csvs[0]:-}"
+		urgent_csv="${csvs[1]:-}"
+
+		set +e
+		sel_idx="$(printf "%s\n" "$display_list" | rofi_pick_index_day "$active_csv" "$urgent_csv")"
+		rc=$?
+		set -e
+
+		[ "$rc" -eq 1 ] && return 0
+
+		if [ "$rc" -eq 10 ]; then
+			t="$(rofi_input "New Task for $day (! for MUST)")" || true
+			t="$(echo "${t:-}" | xargs || true)"
+			[ -n "$t" ] && core add-day "$day" "$t" >/dev/null 2>&1 || true
+			core sync-day "$day" >/dev/null 2>&1 || true
+			continue
+		fi
+
+		sel_idx="$(echo "${sel_idx:-}" | xargs || true)"
+		[ -z "$sel_idx" ] && return 0
+
+		raw_task="$(
+			printf "%s\n" "$raw_list" | nth_line "$((sel_idx + 1))"
+		)"
+		raw_task="$(echo "${raw_task:-}" | xargs || true)"
+		[ -z "$raw_task" ] && return 0
+
+		if [ "$rc" -eq 11 ]; then
+			core set-verdict "$day" "$raw_task" "DONE" >/dev/null 2>&1 || true
+			continue
+		fi
+
+		if [ "$rc" -eq 12 ]; then
+			core set-verdict "$day" "$raw_task" "SKIPPED" >/dev/null 2>&1 || true
+			continue
+		fi
+
+		if [ "$rc" -eq 13 ]; then
+			core remove-day "$day" "$raw_task" >/dev/null 2>&1 || true
+			continue
+		fi
+
+		action="$(rofi_menu \
+			"Set Verdict" \
+			"Remove Task"
+		)" || true
+
+		case "$action" in
+			"Set Verdict")
+				verdict="$(rofi_menu \
+					"DONE" \
+					"FAILED / SKIPPED"
+				)" || true
+				case "$verdict" in
+					"DONE") core set-verdict "$day" "$raw_task" "DONE" >/dev/null 2>&1 || true ;;
+					"FAILED / SKIPPED") core set-verdict "$day" "$raw_task" "SKIPPED" >/dev/null 2>&1 || true ;;
+				esac
+				;;
+			"Remove Task")
+				core remove-day "$day" "$raw_task" >/dev/null 2>&1 || true
+				;;
+		esac
+	done
+}
+
+# ---------------- MEETINGS (per-day files) ----------------
+
+MEET_PAST_ICON="󰥔"
+MEET_UPCOMING_ICON="󰥗"
+MEET_PAST_COLOR="#999999"
+
+meetings_choices_with_icons_markup() {
+	local day="$1"
+	local now_hm
+	now_hm="$(date +%H:%M)"
+
+	core list-meetings "$day" --choices 2>/dev/null | awk -v now="$now_hm" -v pastc="$MEET_PAST_COLOR" -F'\t' '
+	BEGIN { OFS="\t" }
+	NF>=2 {
+		label=$1; raw=$2;
+		tm=substr(label,1,5);
+		icon = (tm < now) ? "'"$MEET_PAST_ICON"'" : "'"$MEET_UPCOMING_ICON"'";
+		if (tm < now) {
+			print "<span color=\"" pastc "\">" icon "  " label "</span>", raw
+		} else {
+			print icon "  " label, raw
+		}
+	}'
+}
+
+rofi_pick_index_meetings() {
+	rofi -no-config -dmenu -i -theme "$LIST_THEME" -format i -markup-rows \
+		-kb-custom-1 "Alt+m" \
+		-kb-custom-2 "Alt+r"
+}
+
+rofi_input_meeting() {
+	printf "\n" | rofi -no-config -dmenu -i -p "$1" -theme "$MEETING_INPUT_THEME"
+}
+
+meetings_add_flow() {
+	local day="$1"
+	local raw time title code
+
+	raw="$(rofi_input_meeting "HH:MM | Title | Link (optional)")" || return 1
+	raw="$(echo "${raw:-}" | xargs || true)"
+	[ -z "$raw" ] && return 1
+
+	IFS='|' read -r time title code <<< "$raw"
+	time="$(echo "${time:-}" | xargs || true)"
+	title="$(echo "${title:-}" | xargs || true)"
+	code="$(echo "${code:-}" | xargs || true)"
+
+	if [[ "$time" =~ ^[0-9]{1}:[0-9]{2}$ ]]; then
+		time="0$time"
+	fi
+	[[ "$time" =~ ^[0-9]{2}:[0-9]{2}$ ]] || return 1
+	[ -n "$title" ] || return 1
+
+	core add-meeting "$day" "$time" "$title" "${code:-}" >/dev/null 2>&1 || return 1
+	return 0
+}
+
+meetings_screen() {
+	local day="$1"
+
+	while true; do
+		local choices display_list raw_list sel_idx rc raw_idx action
+
+		choices="$(meetings_choices_with_icons_markup "$day" || true)"
+
+		if [ -z "$(echo "${choices:-}" | xargs || true)" ]; then
+			meetings_add_flow "$day" || return 0
+			continue
+		fi
+
+		display_list="$(printf "%s\n" "$choices" | cut -f1)"
+		raw_list="$(printf "%s\n" "$choices" | cut -f2-)"
+
+		set +e
+		sel_idx="$(printf "%s\n" "$display_list" | rofi_pick_index_meetings)"
+		rc=$?
+		set -e
+
+		[ "$rc" -eq 1 ] && return 0
+
+		if [ "$rc" -eq 10 ]; then
+			meetings_add_flow "$day" || true
+			continue
+		fi
+
+		sel_idx="$(echo "${sel_idx:-}" | xargs || true)"
+		[ -z "$sel_idx" ] && return 0
+
+		raw_idx="$(printf "%s\n" "$raw_list" | nth_line "$((sel_idx + 1))")"
+		raw_idx="$(echo "${raw_idx:-}" | xargs || true)"
+		[ -z "$raw_idx" ] && return 0
+
+		if [ "$rc" -eq 11 ]; then
+			core remove-meeting "$day" "$raw_idx" >/dev/null 2>&1 || true
+			continue
+		fi
+
+		action="$(rofi_menu "Remove Meeting")" || true
+		case "$action" in
+			"Remove Meeting") core remove-meeting "$day" "$raw_idx" >/dev/null 2>&1 || true ;;
+		esac
+	done
+}
+
+# ---------------- MAIN MENU ----------------
 while true; do
-	local_today="$(date +%F)"
-	choice="$(rofi_menu "Todo Menu ($local_today)" \
-		"  Today" \
-		"󰈙  Past / Future Day" \
-		"󱌣  Manage Tasks" \
-		"  View Stats" \
-		"  Close Today" \
-		"  Exit")"
+	python3 "$CORE_PY" auto-reckon >/dev/null 2>&1 || true
+	today="$(date +%F)"
+
+	sparkline="$(core week-bars --days 14 2>/dev/null | tr -d '\n' || true)"
+	if [ "${sparkline:-}" = "·" ]; then
+		sparkline=""
+	fi
+
+	choice="$(rofi_menu --mesg "$sparkline" \
+		" Today" \
+		"󰈙 Past / Future Day" \
+		"󱌣 Manage Tasks" \
+		"󰗽 Manage Meetings" \
+		" Close Today" \
+		" Exit"
+	)" || true
 
 	case "$choice" in
-		"  Today")
-			day_screen "$local_today"
+		" Today")
+			day_screen "$today"
 			;;
-		"󰈙  Past / Future Day")
-			d="$(pick_date)" && day_screen "$d"
+		"󰈙 Past / Future Day")
+			d="$(pick_date)"
+			[ -n "${d:-}" ] && day_screen "$d"
 			;;
-		"󱌣  Manage Tasks")
+		"󱌣 Manage Tasks")
 			master_screen
 			;;
-		"  View Stats")
-			rofi_msg "Stats" "$(core stats 2>/dev/null || true)"
+		"󰗽 Manage Meetings")
+			meetings_screen "$today"
 			;;
-		"  Close Today")
-			out="$(core close "$local_today" 2>/dev/null || true)"
-			echo "$out" | grep -q "ALREADY_CLOSED" && rofi_msg "Error" "Already closed."
+		" Close Today")
+			core close "$today" >/dev/null 2>&1 || true
 			;;
 		*)
 			exit 0

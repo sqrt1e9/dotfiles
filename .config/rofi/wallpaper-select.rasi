@@ -1,121 +1,79 @@
-configuration {
-    modi:                       "drun,filebrowser,window,run";
-    font:                       "Monolisa 12";
-    show-icons:                 true;
+/* ===========================
+   6) wallpaper-select.rasi (updated)
+   (Grid layout – overrides listview/element styles heavily)
+   =========================== */
 
-    display-drun:               " ";
-    display-run:                " ";
-    display-filebrowser:        "";
-    display-window:             "";
+@import "common.rasi"
 
-    drun-display-format:        "{name}";
-    hover-select:               false;
-    scroll-method:              1;
-    me-select-entry:            "";
-    me-accept-entry:            "MousePrimary";
-
-    window-format:              "{w} · {c} · {t}";
-}
-
-@import "default.rasi"
-
-/* ---------------------- WINDOW ----------------------- */
 window {
-    height:                     35em;
-    width:                      55%;
-    border-radius:              1em;
-    border:                     0.1em;
-    padding:                    0em;
-    spacing:                    0em;
-    location:                   center;
-    anchor:                     center;
+    height:        35em;
+    width:         55%;
+    border-radius: 1em;
+    border:        0.1em;
+    padding:       0em;
+    spacing:       0em;
+    location:      center;
+    anchor:        center;
 }
 
-/* ---------------------- MAIN ------------------------- */
+/* Override main layout */
 mainbox {
-    spacing:                    0em;
-    padding:                    0em;
-    children:                   [ "inputbar", "listview" ];
-    background-color:           white / 14%;
+    spacing:          0em;
+    padding:          0em;
+    children:         [ "inputbar", "listview" ];
+    background-color: white / 14%;
 }
 
-/* ---------------------- INPUT BAR --------------------- */
-inputbar {
-    background-color:           transparent;
-    text-color:                 white;
-    margin:                     1em;
-    border-radius:              1em;
-    children:                   [ "textbox-prompt-colon", "entry" ];
-}
-
-textbox-prompt-colon {
-    expand:                     false;
-    str:                        "  ";
-    padding:                    1em 0.3em 0 0;
-    background-color:           transparent;
-    text-color:                 white;
-}
-
-entry {
-    padding:                    1em;
-    background-color:           transparent;
-    text-color:                 white;
-}
-
-/* ---------------------- THUMBNAIL GRID ---------------- */
+/* Grid listview */
 listview {
-    padding:                    1em;
-    spacing:                    1em;
+    padding:        1em;
+    spacing:        1em;
 
-    columns:                    3;      /* number of thumbnails per row */
-    fixed-columns:              true;
-    lines:                      3;       /* rows visible */
-    fixed-height:               true;
+    columns:        3;
+    fixed-columns:  true;
+    lines:          3;
+    fixed-height:   true;
 
-    dynamic:                    true;
-    cycle:                      false;
-    scrollbar:                  false;
-    layout:                     vertical;
-    background-color:           transparent;
+    dynamic:        true;
+    cycle:          false;
+    scrollbar:      false;
+    layout:         vertical;
+    background-color: transparent;
 }
 
-/* ---------------------- ELEMENT (THUMBNAIL TILE) ---------------- */
 element {
-    padding:                    0.5em;
-    spacing:                    0.4em;
-    border-radius:              0.8em;
-    cursor:                     pointer;
-    background-color:           @shade-bg;
-    text-color:                 @text;
-    orientation:                vertical;
+    padding:          0.5em;
+    spacing:          0.4em;
+    border-radius:    0.8em;
+    cursor:           pointer;
+    background-color: @shade-bg;
+    text-color:       @text;
+    orientation:      vertical;
 }
 
 element selected {
-    background-color:           @shade-bg;
-    text-color:                 @text;
+    background-color: @shade-bg;
+    text-color:       @text;
 }
 
-/* Thumbnail image */
 element-icon {
-    size:                       10em;
-    border-radius:              0.6em;
-    background-color:           transparent;
-    text-color:                 inherit;
+    size:            10em;
+    border-radius:   0.6em;
+    background-color: transparent;
+    text-color:      inherit;
 }
 
-/* Visible filename under thumbnail */
 element-text {
-    padding:                    0.2em;
-    background-color:           transparent;
-    text-color:                 @text;
-    horizontal-align:           0.5;   /* center text */
-    vertical-align:             0.5;
-    font:                       "Monolisa 12";
+    padding:          0.2em;
+    background-color: transparent;
+    text-color:       @text;
+    horizontal-align: 0.5;
+    vertical-align:   0.5;
+    font:             "Monolisa 12";
 }
 
-/* ---------------------- ERROR MESSAGE ---------------- */
 error-message {
-    background-color:           transparent;
-    text-transform:             capitalize;
+    background-color: transparent;
+    text-transform:   capitalize;
 }
 

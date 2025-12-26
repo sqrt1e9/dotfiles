@@ -1,146 +1,96 @@
+/* ===========================
+   7) datepicker.rasi (updated)
+   (Keep separate; it diverges a lot)
+   =========================== */
+
+@import "common.rasi"
+
 configuration {
-	font:                       "Symbols Nerd Font 13, Monolisa 12";
-	show-icons:                 false;
-	hover-select:               false;
-	scroll-method:              1;
-	me-select-entry:            "";
-	me-accept-entry:            "MousePrimary";
-	auto-select:                false;
+    /* If rofi ignores comma fallbacks, keep primary font sane here */
+    font: "Monolisa 12";
+    show-icons: false;
+    me-accept-entry: "MousePrimary";
 }
 
-@import "default.rasi"
-
-/* ---------------- Window ---------------- */
 window {
-	height:                     32em;
-	width:                      45%;
-	fullscreen:                 false;
-	enabled:                    true;
-	cursor:                     "default";
-	spacing:                    0em;
-	padding:                    0em;
-	location:                   center;
-	anchor:                     center;
-	border:                     0.1em;
-	border-radius:              1em;
+    height:        28em;
+    width:         30em;
+    border:        0.1em;
+    border-radius: 1em;
 }
 
-/* ---------------- Main layout ---------------- */
+/* Datepicker layout differs: vertical */
 mainbox {
-	enabled:                    true;
-	orientation:                vertical;
-	spacing:                    0em;
-	padding:                    0em;
-	children:                   [ "inputbar", "listview" ];
-	background-color:           white / 14%;
+    enabled:          true;
+    orientation:      vertical;
+    spacing:          0em;
+    padding:          0em;
+    children:         [ "inputbar", "listview" ];
+    background-color: white / 14%;
 }
 
-/* ---------------- Input bar ---------------- */
 inputbar {
-	enabled:                    true;
-	background-color:           transparent;
-	text-color:                 white;
-	margin:                     1em 1em 0em 1em;
-	border-radius:              1em;
-
-	/* Icon + month/year (prompt) + filter entry */
-	children:                   [ "textbox-prompt-colon", "prompt", "entry" ];
+    margin: 1em 1em 0em 1em;
+    children: [ "textbox-prompt-colon", "prompt", "entry" ];
 }
 
 /* Calendar icon */
 textbox-prompt-colon {
-	enabled:                    true;
-	expand:                     false;
-	str:                        "   ";
-	padding:                    1em 0.25em 0 0;
-	text-color:                 white;
-	background-color:           transparent;
-	font:                       "Symbols Nerd Font 12";
+    str: "   ";
+    /* if glyphs are tiny in rofi, make this bigger explicitly */
+    font: "Symbols Nerd Font 18";
 }
 
-/* Month/Year label (populated by your python via \0prompt) */
+/* Month/Year label */
 prompt {
-	enabled:                    true;
-	expand:                     false;
-	min-width:                  12em;
-	padding:                    1em 0.25em 0 0;
-	background-color:           transparent;
-	text-color:                 white;
-	font:                       "Monolisa Bold 12";
+    enabled:          true;
+    expand:           false;
+    min-width:        12em;
+    padding:          1em 0.25em 0 0;
+    background-color: transparent;
+    text-color:       white;
+    font:             "Monolisa Bold 12";
 }
 
-/* Filter entry */
-entry {
-	enabled:                    true;
-	expand:                     true;
-	spacing:                    1em;
-	padding:                    1em;
-	cursor:                     text;
-	placeholder:                "";
-	background-color:           transparent;
-	placeholder-color:          inherit;
-}
-
-/* ---------------- Calendar grid ---------------- */
+/* Calendar grid */
 listview {
-	enabled:                    true;
-	padding:                    1.5em;
-	spacing:                    0.6em;
-	columns:                    7;
-	lines:                      7;
-	fixed-columns:              true;
-	fixed-height:               true;
-	layout:                     vertical;
-	cycle:                      true;
-	dynamic:                    true;
-	scrollbar:                  false;
-	background-color:           transparent;
+    enabled:          true;
+    padding:          1.5em 1em;
+    spacing:          0.6em;
+    columns:          7;
+    lines:            7;
+    fixed-columns:    true;
+    fixed-height:     true;
+    layout:           vertical;
+    scrollbar:        false;
+    background-color: transparent;
+    width:            20em;
 }
 
-/* ---------------- Calendar cells ---------------- */
 element {
-	enabled:                    true;
-	cursor:                     pointer;
-	padding:                    0.8em 1.2em;
-	min-width:                  4.4em;
-	border-radius:              1em;
-	background-color:           transparent;
-	text-color:                 white;
+    cursor:        pointer;
+    padding:       0.5em 0.8em;
+    min-width:     4.4em;
+    border-radius: 1em;
 }
 
 element selected {
-	background-color:           @shade-bg;
-	text-color:                 @text;
+    background-color: @shade-bg;
+    text-color:       @text;
 }
 
-/* Weekday header cells (Mo Tu We...) */
 element.normal {
-	text-color:                 white / 80%;
+    text-color: white / 80%;
 }
 
-/* ---------------- Cell text ---------------- */
 element-text {
-	horizontal-align:           0.5;
-	vertical-align:             0.5;
-	padding:                    0.2em;
-	background-color:           transparent;
-	text-color:                 inherit;
+    horizontal-align: 0.5;
+    vertical-align:   0.5;
+    padding:          0.2em;
 }
 
+/* Make the per-cell icon font larger, if you use icons there */
 element-icon {
-	font:                       "Symbols Nerd Font 11";
-}
-
-/* ---------------- Error / messages ---------------- */
-error-message {
-	background-color:           transparent;
-	children:                   [ "textbox" ];
-}
-
-textbox {
-	text-color:                 inherit;
-	background-color:           inherit;
-	vertical-align:             0.5;
-	horizontal-align:           0.5;
+    font: "Symbols Nerd Font 16";
 }
 

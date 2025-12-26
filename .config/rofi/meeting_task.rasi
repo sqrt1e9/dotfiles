@@ -26,7 +26,7 @@ inputbar {
 }
 
 textbox-prompt-colon {
-    str:        "  To-Do";
+    str:        "  Meeting";
     text-color: @text;
 }
 

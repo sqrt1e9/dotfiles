@@ -21,7 +21,7 @@
 	[data-radix-popper-content-wrapper] > div,
 	[class*="popover"],
 	[class*="dropdown"] {
-		background: rgba(0, 0, 0, 0.5) !important;
+		background: rgba(0, 0, 0, .85) !important;
 		border-radius: 10px !important;
 }
 

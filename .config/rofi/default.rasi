@@ -133,7 +133,7 @@ element-text {
 /* Listview ---------------------------------------------------- */
 
 listview {
-  border:                        0em;
+    border:                        0em;
 }
 
 /* Scrollbar ---------------------------------------------------- */
@@ -153,6 +153,7 @@ message {
     border-radius:               0.75em; /* 12px */
     padding:                     1.5em; /* 24px */
 }
+
 error-message {
     padding:                     6.25em; /* 100px */
     border:                      0em solid;
@@ -160,6 +161,7 @@ error-message {
     background-color:            black / 10%;
     text-color:                  @text;
 }
+
 textbox {
     background-color:            transparent;
     text-color:                  @text;
