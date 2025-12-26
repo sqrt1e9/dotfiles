@@ -375,7 +375,7 @@ while true; do
 		"󱌣 Manage Tasks" \
 		"󰗽 Manage Meetings" \
 		" Close Today" \
-		" Exit"
+		"⌧ Exit"
 	)" || true
 
 	case "$choice" in

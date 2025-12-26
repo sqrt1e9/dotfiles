@@ -92,7 +92,7 @@ listview {
 
 element {
     enabled:                    true;
-    spacing:                    0.5em;
+    spacing:                    0.2em;
     padding:                    0.5em;
     cursor:                     pointer;
     background-color:           transparent;

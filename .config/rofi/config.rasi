@@ -10,14 +10,6 @@ configuration {
     window-format: "{w} · {c} · {t}";
 }
 
-window {
-    height: 30em;
-    width: 46em;
-    border: 0.1em;
-    border-radius: 1em;
-    width: 55%;
-}
-
 mainbox {
     enabled:          true;
     spacing:          0em;
