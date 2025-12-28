@@ -38,7 +38,7 @@ window {
  * ------------------------------------------------------------------ */
 .osd {
     background-color: rgba(255, 255, 255, .14);
-    border-radius:    0.9375em;      /* 15px */
+    border-radius:    0.5em;      /* 15px */
     border:           0.0625em solid @border; /* 1px */
     padding:          0.0625em 0.5em; /* 1px 3px */
     margin:           0.125em;       /* 2px */
@@ -78,13 +78,13 @@ window {
 /* Track */
 .osd scale trough {
     min-height:    0.1875em;         /* 3px */
-    border-radius: 1em;
+    border-radius: 0.5em;
     background-color: rgba(255, 255, 255, 0.3);
 }
 
 /* Filled */
 .osd scale highlight {
-    border-radius: 1em;
+    border-radius: 0.5em;
     background-color: @text;
     box-shadow:
         0 0 0.1875em 0.05em @text,   /* 3px 0.8px */
@@ -95,12 +95,12 @@ window {
 progressbar,
 progressbar trough {
     min-height: 0.1875em;            /* 3px */
-    border-radius: 1em;
+    border-radius: 0.5em;
     background-color: rgba(255, 255, 255, 0.3);
 }
 
 progressbar progress {
-    border-radius: 1em;
+    border-radius: 0.5em;
     background-color: @text;
     box-shadow:
         0 0 0.1875em 0.05em @text,

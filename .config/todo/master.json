@@ -1,1 +1,8 @@
-[]
+[
+  {
+    "task": "Nothing like anything",
+    "active": true,
+    "must": false,
+    "tags": []
+  }
+]

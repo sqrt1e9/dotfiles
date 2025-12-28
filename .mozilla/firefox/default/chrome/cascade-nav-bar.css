@@ -45,7 +45,7 @@
 
 .urlbarView-row {
     background: rgba(29, 28, 29, .95) !important;
-    border-radius: 1em;
+    border-radius: 0.5em;
 }
 
 .urlbarView-row:hover > .urlbarView-row-inner,

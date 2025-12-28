@@ -26,7 +26,7 @@ window#waybar {
 }
 
 tooltip {
-	border-radius: 0.625em; /* 10px */
+	border-radius: 0.5em; /* 10px */
 	border: 0.0625em solid @border; /* 1px */
 	transition: 0.3s;
     background: @border;
@@ -70,29 +70,29 @@ tooltip {
 }
 
 #tray {
-	border-radius: 1.25em; /* 20px */
+	border-radius: 0.5em; /* 20px */
 	margin-right: 0.3125em; /* 5px */
 }
 
 #workspaces {
-	border-radius: 0 1em 1em 0; /* 20px */
+	border-radius: 0 0.5em 0.5em 0; /* 20px */
 }
 
 #window {
-	border-radius: 1.25em; /* 20px */
+	border-radius: 0.5em; /* 20px */
 	margin-left: 0.3125em; /* 5px */
 	margin-right: 0.3125em; /* 5px */
 }
 
 #clock {
 	margin-left: 0.3125em; /* 5px */
-	border-radius: 1em 0em 0em 1em;
+	border-radius: 0.5em 0em 0em 0.5em;
 	transition: 0.3s;
     background: @bg;
 }
 
 #custom-expand-center-ext {
-	border-radius: 0em 1em 1em 0em;
+	border-radius: 0em 0.5em 0.5em 0em;
 	transition: 0.3s;
     background: @bg;
     padding: 0em 1em;
@@ -115,7 +115,7 @@ tooltip {
 
 #custom-swaync,
 #custom-expand-right-ext {
-    border-radius: 1em 0 0 1em;
+    border-radius: 0.5em 0 0 0.5em;
     padding: 0 1em;
 }
 

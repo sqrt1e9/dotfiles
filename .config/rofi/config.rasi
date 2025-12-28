@@ -1,5 +1,5 @@
 /* ===========================
-   1) config.rasi (updated)
+   config.rasi (FULL, MODIFIED)
    =========================== */
 
 @import "common.rasi"
@@ -15,55 +15,82 @@ mainbox {
     spacing:          0em;
     padding:          0em;
     orientation:      horizontal;
-    children:         [ "imagebox", "listbox" ];
+    children:         [ "imagebox" ];
     background-color: white / 14%;
 }
 
 imagebox {
     padding:          0.5em;
     background-color: white / 5%;
-    border-radius:    1em;
     orientation:      vertical;
-    children:         [ "inputbar", "dummy", "mode-switcher" ];
+    children:         [ "inputbar", "listview", "mode-switcher" ];
 }
 
-dummy { background-color: transparent; }
-
-mode-switcher {
-    orientation:      horizontal;
-    width:            6.6em;
-    enabled:          true;
-    padding:          1.5em;
-    spacing:          1.5em;
-    background-color: transparent;
-}
-
-button {
-    padding:          1em;
-    border-radius:    1em;
-    border:           0;
-    cursor:           pointer;
-    background-color: black / 10%;
-    text-color:       @text;
-}
-
-button selected {
-    padding:          1em;
-    border-radius:    1em;
-    background-color: @shade-bg;
-    text-color:       @text;
+/* make listview take remaining space */
+listview {
+    expand:           true;
 }
 
 inputbar {
-    margin: 1em;
     children: [ "textbox-prompt-colon", "entry" ];
 }
 
-listbox {
-    padding:          0em;
-    spacing:          0em;
+/* ===========================
+   Bottom row (50 / 50 split, compact)
+   =========================== */
+bottomrow {
     orientation:      horizontal;
-    children:         [ "listview" ];
+    expand:           false;        /* prevent stealing height */
+    height:           2.2em;        /* tune if needed */
+    spacing:          0em;
+    padding:          0em;
+    margin:           0.25em 0em 0em 0em;
+    children:         [ "leftslot", "rightslot" ];
     background-color: transparent;
+}
+
+/* LEFT 50% */
+leftslot {
+    orientation:      horizontal;
+    expand:           true;         /* 50% */
+    padding:          0em;
+    children:         [ "mode-switcher" ];
+    background-color: transparent;
+}
+
+/* RIGHT 50% (empty) */
+rightslot {
+    orientation:      horizontal;
+    expand:           true;         /* 50% */
+    padding:          0em;
+    background-color: transparent;
+}
+
+/* ===========================
+   Mode switcher (compact)
+   =========================== */
+mode-switcher {
+    orientation:      horizontal;
+    enabled:          true;
+    expand:           false;
+    padding:          0.2em;
+    spacing:          1em;
+    background-color: transparent;
+    border-radius:    0.5em;
+}
+
+button { 
+    padding: 0.5em 1.8em; 
+    border: 0; 
+    cursor: pointer; 
+    background-color: black / 10%; 
+    text-color: @text; 
+    border-radius: 0.5em;
+}
+
+button selected {
+    padding:          0.18em 0.40em;
+    background-color: @shade-bg;
+    text-color:       @text;
 }
 

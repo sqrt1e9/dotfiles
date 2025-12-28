@@ -5,6 +5,11 @@
 
 @import "common.rasi"
 
+window {
+    width: 30em;
+    height: 25em;
+}
+
 configuration {
     /* If rofi ignores comma fallbacks, keep primary font sane here */
     font: "Monolisa 12";
@@ -12,33 +17,39 @@ configuration {
     me-accept-entry: "MousePrimary";
 }
 
-window {
-    height:        28em;
-    width:         30em;
-    border:        0.1em;
-    border-radius: 1em;
-}
-
-/* Datepicker layout differs: vertical */
 mainbox {
     enabled:          true;
     orientation:      vertical;
     spacing:          0em;
-    padding:          0em;
+    padding:          0.5em;
     children:         [ "inputbar", "listview" ];
     background-color: white / 14%;
 }
 
 inputbar {
-    margin: 1em 1em 0em 1em;
     children: [ "textbox-prompt-colon", "prompt", "entry" ];
+}
+
+/* Textbox for month-year placeholder */
+textbox {
+    text-color: #888888;   /* light gray */
+    font: "Monolisa Bold 12";
+    padding: 0.25em 0.5em;
+    background-color: transparent;
+}
+
+entry {
+    enabled:                    true;
+    padding:                    1em 0 0.5em 0;
+    cursor:                     text;
+    background-color:           transparent;
+    placeholder-color:          #888888;
 }
 
 /* Calendar icon */
 textbox-prompt-colon {
-    str: "   ";
-    /* if glyphs are tiny in rofi, make this bigger explicitly */
-    font: "Symbols Nerd Font 18";
+    str: "";
+    font: "Symbols Nerd Font 12";
 }
 
 /* Month/Year label */
@@ -55,8 +66,8 @@ prompt {
 /* Calendar grid */
 listview {
     enabled:          true;
-    padding:          1.5em 1em;
-    spacing:          0.6em;
+    padding:                    0em 0.5em;
+    spacing:                    0.5em;
     columns:          7;
     lines:            7;
     fixed-columns:    true;
@@ -64,14 +75,12 @@ listview {
     layout:           vertical;
     scrollbar:        false;
     background-color: transparent;
-    width:            20em;
 }
 
 element {
     cursor:        pointer;
     padding:       0.5em 0.8em;
     min-width:     4.4em;
-    border-radius: 1em;
 }
 
 element selected {

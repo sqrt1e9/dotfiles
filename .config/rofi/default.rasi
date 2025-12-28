@@ -59,7 +59,6 @@ scrollbar {
     handle-width:                0.5em; /* 8px */
     handle-color:                white;
     background-color:            @shade-shadow;
-    border-radius:               0.25em; /* 4px */
 }
 
 /* Message ------------------------------------------------------ */
@@ -67,13 +66,11 @@ message {
     background-color:            @shade-bg;
     border:                      0.0625em solid; /* 1px */
     border-color:                transparent;
-    border-radius:               0.75em; /* 12px */
     padding:                     1.5em; /* 24px */
 }
 error-message {
     padding:                     6.25em; /* 100px */
     border:                      0em solid;
-    border-radius:               0em;
     background-color:            black / 10%;
     text-color:                  @text;
 }
@@ -142,7 +139,6 @@ scrollbar {
     handle-width:                0.5em; /* 8px */
     handle-color:                white;
     background-color:            @shade-shadow;
-    border-radius:               0.25em; /* 4px */
 }
 
 /* Message ------------------------------------------------------ */
@@ -150,14 +146,12 @@ message {
     background-color:            @shade-bg;
     border:                      0.0625em solid; /* 1px */
     border-color:                transparent;
-    border-radius:               0.75em; /* 12px */
     padding:                     1.5em; /* 24px */
 }
 
 error-message {
     padding:                     6.25em; /* 100px */
     border:                      0em solid;
-    border-radius:               0em;
     background-color:            black / 10%;
     text-color:                  @text;
 }

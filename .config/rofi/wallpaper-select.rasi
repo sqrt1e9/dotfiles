@@ -8,7 +8,6 @@
 window {
     height:        35em;
     width:         55%;
-    border-radius: 1em;
     border:        0.1em;
     padding:       0em;
     spacing:       0em;
@@ -44,7 +43,6 @@ listview {
 element {
     padding:          0.5em;
     spacing:          0.4em;
-    border-radius:    0.8em;
     cursor:           pointer;
     background-color: @shade-bg;
     text-color:       @text;
@@ -58,7 +56,6 @@ element selected {
 
 element-icon {
     size:            10em;
-    border-radius:   0.6em;
     background-color: transparent;
     text-color:      inherit;
 }

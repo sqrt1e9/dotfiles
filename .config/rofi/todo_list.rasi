@@ -17,15 +17,10 @@ configuration {
 
 mainbox {
     enabled:          true;
-    spacing:          0em;
-    padding:          0em;
+    padding:          0.5em;
     orientation:      vertical;
     children:         [ "inputbar", "listbox" ];
     background-color: white / 14%;
-}
-
-inputbar {
-    margin: 1em 1em 0em 1em;
 }
 
 listbox {
@@ -51,17 +46,6 @@ listview {
     fixed-columns:              true;
     cursor:                     "default";
     background-color:           transparent;
-}
-
-element {
-    enabled:                    true;
-    spacing:                    0.5em;
-    padding:                    0.2em;
-    margin:                     0em 0.8em;
-    cursor:                     pointer;
-    background-color:           transparent;
-    text-color:                 white;
-    border-radius:              1em;
 }
 
 /* Overrides: cursor behavior for list selection */

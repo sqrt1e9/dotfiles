@@ -9,22 +9,61 @@ MEETING_INPUT_THEME="$HOME/.config/rofi/meeting_task.rasi"
 CORE_PY="$HOME/.config/hypr/scripts/todo.py"
 DATEPICKER_SH="${DATEPICKER_SH:-$HOME/.local/bin/datepicker.sh}"
 
+# Persist selected day when using "Past / Future Day"
+STATE_DIR="$HOME/.config/todo"
+SELECTED_DAY_FILE="$STATE_DIR/selected_day"
+mkdir -p "$STATE_DIR"
+
+cleanup() {
+	rm -f "$SELECTED_DAY_FILE" 2>/dev/null || true
+}
+trap cleanup EXIT INT TERM HUP
+
 core() {
 	python3 "$CORE_PY" "$@"
 }
 
-rofi_menu() {
-	local mesg=""
-	if [ "${1:-}" = "--mesg" ]; then
-		mesg="${2:-}"
-		shift 2
-	fi
+set_selected_day() {
+	printf '%s\n' "$1" >"$SELECTED_DAY_FILE"
+}
 
-	if [ -n "$mesg" ]; then
-		printf "%s\n" "$@" | rofi -no-config -dmenu -i -theme "$MENU_THEME" -mesg "$mesg"
+get_selected_day() {
+	[ -f "$SELECTED_DAY_FILE" ] && head -n 1 "$SELECTED_DAY_FILE" | tr -d '\r' | xargs || true
+}
+
+clear_selected_day() {
+	rm -f "$SELECTED_DAY_FILE"
+}
+
+fmt_mmddyyyy() {
+	local iso="$1"
+	if [[ "$iso" =~ ^([0-9]{4})-([0-9]{2})-([0-9]{2})$ ]]; then
+		printf '%s-%s-%s' "${BASH_REMATCH[2]}" "${BASH_REMATCH[3]}" "${BASH_REMATCH[1]}"
 	else
-		printf "%s\n" "$@" | rofi -no-config -dmenu -i -theme "$MENU_THEME"
+		printf '%s' "$iso"
 	fi
+}
+
+# Now supports:
+#   rofi_menu --prompt "..." --mesg "..." -- <items...>
+rofi_menu() {
+	local prompt=""
+	local mesg=""
+
+	while [ $# -gt 0 ]; do
+		case "$1" in
+			--prompt) prompt="${2:-}"; shift 2 ;;
+			--mesg)   mesg="${2:-}"; shift 2 ;;
+			--) shift; break ;;
+			*) break ;;
+		esac
+	done
+
+	local -a cmd=(rofi -no-config -dmenu -i -theme "$MENU_THEME")
+	[ -n "$prompt" ] && cmd+=(-p "$prompt")
+	[ -n "$mesg" ] && cmd+=(-mesg "$mesg")
+
+	printf "%s\n" "$@" | "${cmd[@]}"
 }
 
 # IMPORTANT: keep this form. Rofi -dmenu needs at least 1 line on stdin
@@ -35,7 +74,10 @@ rofi_input() {
 
 pick_date() {
 	[ -x "$DATEPICKER_SH" ] || return 1
-	"$DATEPICKER_SH" 2>/dev/null || true
+	local out
+	out="$("$DATEPICKER_SH" 2>/dev/null | tr -d '\r' | head -n 1 | xargs || true)"
+	printf '%s pick_date="%s"\n' "$(date -Is)" "$out" >>"$HOME/.config/todo/pick_date.debug.log"
+	printf '%s\n' "$out"
 }
 
 nth_line() {
@@ -122,7 +164,7 @@ master_screen() {
 			continue
 		fi
 
-		action="$(rofi_menu \
+		action="$(rofi_menu -- \
 			"Toggle Task" \
 			"Remove Task"
 		)" || true
@@ -156,8 +198,9 @@ build_day_state_csvs() {
 rofi_pick_index_day() {
 	local active_csv="${1:-}"
 	local urgent_csv="${2:-}"
+	local prompt="${3:-Day}"
 
-	rofi -no-config -dmenu -i -theme "$LIST_THEME" -format i \
+	rofi -no-config -dmenu -i -theme "$LIST_THEME" -format i -p "$prompt" \
 		-kb-custom-1 "Alt+n" \
 		-kb-custom-2 "Alt+d" \
 		-kb-custom-3 "Alt+s" \
@@ -193,7 +236,7 @@ day_screen() {
 		urgent_csv="${csvs[1]:-}"
 
 		set +e
-		sel_idx="$(printf "%s\n" "$display_list" | rofi_pick_index_day "$active_csv" "$urgent_csv")"
+		sel_idx="$(printf "%s\n" "$display_list" | rofi_pick_index_day "$active_csv" "$urgent_csv" "$day")"
 		rc=$?
 		set -e
 
@@ -231,14 +274,14 @@ day_screen() {
 			continue
 		fi
 
-		action="$(rofi_menu \
+		action="$(rofi_menu -- \
 			"Set Verdict" \
 			"Remove Task"
 		)" || true
 
 		case "$action" in
 			"Set Verdict")
-				verdict="$(rofi_menu \
+				verdict="$(rofi_menu -- \
 					"DONE" \
 					"FAILED / SKIPPED"
 				)" || true
@@ -352,7 +395,7 @@ meetings_screen() {
 			continue
 		fi
 
-		action="$(rofi_menu "Remove Meeting")" || true
+		action="$(rofi_menu -- "Remove Meeting")" || true
 		case "$action" in
 			"Remove Meeting") core remove-meeting "$day" "$raw_idx" >/dev/null 2>&1 || true ;;
 		esac
@@ -364,13 +407,22 @@ while true; do
 	python3 "$CORE_PY" auto-reckon >/dev/null 2>&1 || true
 	today="$(date +%F)"
 
+	# Compute current working day (selected day if present, else today)
+	work_day="$today"
+	d_sel="$(get_selected_day)"
+	if [[ "${d_sel:-}" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
+		work_day="$d_sel"
+	fi
+
 	sparkline="$(core week-bars --days 14 2>/dev/null | tr -d '\n' || true)"
 	if [ "${sparkline:-}" = "·" ]; then
 		sparkline=""
 	fi
 
-	choice="$(rofi_menu --mesg "$sparkline" \
-		" Today" \
+	work_human="$(fmt_mmddyyyy "$work_day")"
+
+	choice="$(rofi_menu --prompt "$work_day" --mesg "$sparkline" -- \
+		" Today ($work_human)" \
 		"󰈙 Past / Future Day" \
 		"󱌣 Manage Tasks" \
 		"󰗽 Manage Meetings" \
@@ -379,21 +431,29 @@ while true; do
 	)" || true
 
 	case "$choice" in
-		" Today")
-			day_screen "$today"
+		" Today"*)
+			d="$(get_selected_day)"
+			if [[ "${d:-}" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
+				day_screen "$d"
+			else
+				day_screen "$today"
+			fi
 			;;
-		"󰈙 Past / Future Day")
+		"󰈙 Past / Future Day"*)
 			d="$(pick_date)"
-			[ -n "${d:-}" ] && day_screen "$d"
+			if [[ "${d:-}" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
+				set_selected_day "$d"
+			fi
 			;;
-		"󱌣 Manage Tasks")
+		"󱌣 Manage Tasks"*)
 			master_screen
 			;;
-		"󰗽 Manage Meetings")
+		"󰗽 Manage Meetings"*)
 			meetings_screen "$today"
 			;;
-		" Close Today")
+		" Close Today"*)
 			core close "$today" >/dev/null 2>&1 || true
+			clear_selected_day
 			;;
 		*)
 			exit 0
