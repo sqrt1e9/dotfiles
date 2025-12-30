@@ -333,7 +333,7 @@ progressbar {
 .menu-button-bar text-button label,
 .menu-button-bar button label {
     font-size: 1.2rem;
-    color: @color7;
+    color: @text;
     transition: all .7s ease;
 }
 
@@ -481,7 +481,7 @@ progressbar {
 
 .widget-buttons-grid > flowbox > flowboxchild > button label {
     font-size: 1.2rem;
-    color: @color7;
+    color: @text;
     transition: all .7s ease;
 }
 

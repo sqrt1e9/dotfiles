@@ -34,7 +34,7 @@ local palette = {
 
 -- highlight groups
 local highlights = {
-	Normal         = { fg = palette.text, bg = palette.crust },
+	Normal         = { fg = palette.text, bg = "NONE" },
 	Comment        = { fg = palette.overlay2 },
 	Constant       = { fg = palette.peach },
 	String         = { fg = palette.green },
