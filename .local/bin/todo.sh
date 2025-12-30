@@ -85,6 +85,52 @@ nth_line() {
 	sed -n "${n}p"
 }
 
+# ---------------- Color rules (match meetings) ----------------
+
+MEET_PAST_ICON="󰥔"
+MEET_UPCOMING_ICON="󰥗"
+MEET_PAST_COLOR="#999999"
+
+# Apply grey to:
+# - inactive master tasks (□)
+# - DONE day tasks (✔)
+DIM_COLOR="$MEET_PAST_COLOR"
+
+# For now keep failed/skip white; you can change later
+FAILED_COLOR="#ffffff"
+
+colorize_master_choices_markup() {
+	# Input: "label<TAB>raw"
+	# Inactive master tasks print status '□' in the label (from todo.py)
+	awk -v dim="$DIM_COLOR" -F'\t' '
+	BEGIN { OFS="\t" }
+	NF>=2 {
+		label=$1; raw=$2;
+		# Inactive master task status is "□"
+		if (label ~ /^□[[:space:]]/) {
+			print "<span color=\"" dim "\">" label "</span>", raw
+		} else {
+			print label, raw
+		}
+	}'
+}
+
+colorize_day_choices_markup() {
+	# Input: "label<TAB>raw"
+	# DONE day tasks print status '✔' in the label (from todo.py)
+	# SKIPPED prints '✘' and TODO prints '■' -> remain white for now
+	awk -v dim="$DIM_COLOR" -F'\t' '
+	BEGIN { OFS="\t" }
+	NF>=2 {
+		label=$1; raw=$2;
+		if (label ~ /^✔[[:space:]]/) {
+			print "<span color=\"" dim "\">" label "</span>", raw
+		} else {
+			print label, raw
+		}
+	}'
+}
+
 # ---------------- MASTER TASKS (Manage Tasks) ----------------
 
 build_master_active_csv() {
@@ -105,7 +151,7 @@ build_master_active_csv() {
 rofi_pick_index_master() {
 	local active_csv="${1:-}"
 
-	rofi -no-config -dmenu -i -theme "$LIST_THEME" -format i \
+	rofi -no-config -dmenu -i -theme "$LIST_THEME" -format i -markup-rows \
 		-kb-custom-1 "Alt+n" \
 		-kb-custom-2 "Alt+t" \
 		-kb-custom-3 "Alt+r"
@@ -125,6 +171,9 @@ master_screen() {
 			core add-master "$t" >/dev/null 2>&1 || true
 			continue
 		fi
+
+		# Add markup coloring for inactive tasks
+		choices="$(printf "%s\n" "$choices" | colorize_master_choices_markup)"
 
 		display_list="$(printf "%s\n" "$choices" | cut -f1)"
 		raw_list="$(printf "%s\n" "$choices" | cut -f2- )"
@@ -200,7 +249,7 @@ rofi_pick_index_day() {
 	local urgent_csv="${2:-}"
 	local prompt="${3:-Day}"
 
-	rofi -no-config -dmenu -i -theme "$LIST_THEME" -format i -p "$prompt" \
+	rofi -no-config -dmenu -i -theme "$LIST_THEME" -format i -p "$prompt" -markup-rows \
 		-kb-custom-1 "Alt+n" \
 		-kb-custom-2 "Alt+d" \
 		-kb-custom-3 "Alt+s" \
@@ -227,6 +276,9 @@ day_screen() {
 			core sync-day "$day" >/dev/null 2>&1 || true
 			continue
 		fi
+
+		# Add markup coloring for DONE tasks
+		choices="$(printf "%s\n" "$choices" | colorize_day_choices_markup)"
 
 		display_list="$(printf "%s\n" "$choices" | cut -f1)"
 		raw_list="$(printf "%s\n" "$choices" | cut -f2- )"
@@ -298,10 +350,6 @@ day_screen() {
 }
 
 # ---------------- MEETINGS (per-day files) ----------------
-
-MEET_PAST_ICON="󰥔"
-MEET_UPCOMING_ICON="󰥗"
-MEET_PAST_COLOR="#999999"
 
 meetings_choices_with_icons_markup() {
 	local day="$1"

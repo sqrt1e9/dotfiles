@@ -25,7 +25,7 @@ return {
 						},
 					},
 					sorting_strategy = "ascending",
-					winblend = 5,
+					winblend = 0,
 					border = true,
 					file_ignore_patterns = {
 						"%.class$",

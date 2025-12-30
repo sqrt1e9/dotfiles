@@ -7,19 +7,15 @@ configuration {
     modi:                       "drun,filebrowser,window,run";
     font:                       "Monolisa 12";
     show-icons:                 false;
-
     display-drun:               " ";
     display-run:                " ";
     display-filebrowser:        "";
     display-window:             "";
-
     drun-display-format:        "{name}";
     hover-select:               false;
     scroll-method:              1;
-
     me-select-entry:            "";
     me-accept-entry:            "MousePrimary";
-
     window-format:              "{w} · {c} · {t}";
     auto-select:                false;
 }

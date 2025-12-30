@@ -34,7 +34,7 @@ local palette = {
 
 -- highlight groups
 local highlights = {
-	Normal         = { fg = palette.text, bg = "NONE" },
+	Normal         = { fg = palette.text, bg = palette.crust },
 	Comment        = { fg = palette.overlay2 },
 	Constant       = { fg = palette.peach },
 	String         = { fg = palette.green },
@@ -72,6 +72,10 @@ local highlights = {
 	StatusLine     = { fg = palette.text, bg = palette.crust },
 	StatusLineNC   = { fg = palette.text, bg = palette.crust },
 }
+
+-- Floating windows (Telescope uses these)
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "FloatBorder", { bg = "NONE", fg = palette.overlay2 })
 
 for group, opts in pairs(highlights) do
 	local cmd = "highlight " .. group

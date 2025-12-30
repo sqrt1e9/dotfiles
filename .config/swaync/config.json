@@ -98,7 +98,7 @@
                 "actions": [
                     {
                         "label": "󱄄",
-                        "command": "~/.config/hypr/scripts/hyprwall-init.sh"
+                        "command": "~/.local/bin/hyprwall-init.sh"
                     }
                 ]
             }

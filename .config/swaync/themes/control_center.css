@@ -11,7 +11,7 @@
 * {
 	color:       @text;
 	font-size:   1.1rem;
-	font-family: "Monolisa";
+	font-family: "Symbols Nerd Font";
 	transition:  200ms;
 }
 
@@ -375,6 +375,7 @@ progressbar {
 
 .widget-title {
 	margin: 0.375em;                           /* 6px */
+    color: @text;
 }
 
 .widget-title button {

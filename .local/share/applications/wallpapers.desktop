@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Wallpapers
+Comment=Wallpapers
+Exec=/home/barvind/.local/bin/wallpaper-select.sh
+Icon=/home/barvind/.local/share/icons/wifi.svg
+Terminal=false
+Categories=Utility;Development;
+

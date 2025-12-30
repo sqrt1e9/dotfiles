@@ -3,30 +3,5 @@
    (Input-only popup)
    =========================== */
 
-@import "common.rasi"
-
-window {
-    border:           0;
-    background-color: transparent;
-}
-
-mainbox {
-    enabled:          true;
-    spacing:          0em;
-    padding:          0em;
-    orientation:      vertical;
-    children:         [ "inputbar" ];
-    background-color: transparent;
-}
-
-inputbar {
-    background-color: @shade-bg;
-    text-color:       @text;
-    margin:           1em;
-}
-
-textbox-prompt-colon {
-    str:        "  Meeting";
-    text-color: @text;
-}
+@import "todo_task.rasi"
 

@@ -6,7 +6,7 @@
 @import "config.rasi"
 
 imagebox {
-    padding:          0.5em;
+    padding:          0em 0.5em;
     background-color: white / 5%;
     orientation:      vertical;
     children:         [ "inputbar", "listbox", "message" ];

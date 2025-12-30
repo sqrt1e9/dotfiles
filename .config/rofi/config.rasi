@@ -20,7 +20,7 @@ mainbox {
 }
 
 imagebox {
-    padding:          0.5em;
+    padding:          0em 0.5em;
     background-color: white / 5%;
     orientation:      vertical;
     children:         [ "inputbar", "listview", "mode-switcher" ];
@@ -35,45 +35,11 @@ inputbar {
     children: [ "textbox-prompt-colon", "entry" ];
 }
 
-/* ===========================
-   Bottom row (50 / 50 split, compact)
-   =========================== */
-bottomrow {
-    orientation:      horizontal;
-    expand:           false;        /* prevent stealing height */
-    height:           2.2em;        /* tune if needed */
-    spacing:          0em;
-    padding:          0em;
-    margin:           0.25em 0em 0em 0em;
-    children:         [ "leftslot", "rightslot" ];
-    background-color: transparent;
-}
-
-/* LEFT 50% */
-leftslot {
-    orientation:      horizontal;
-    expand:           true;         /* 50% */
-    padding:          0em;
-    children:         [ "mode-switcher" ];
-    background-color: transparent;
-}
-
-/* RIGHT 50% (empty) */
-rightslot {
-    orientation:      horizontal;
-    expand:           true;         /* 50% */
-    padding:          0em;
-    background-color: transparent;
-}
-
-/* ===========================
-   Mode switcher (compact)
-   =========================== */
 mode-switcher {
     orientation:      horizontal;
     enabled:          true;
     expand:           false;
-    padding:          0.2em;
+    padding:          0.5em;
     spacing:          1em;
     background-color: transparent;
     border-radius:    0.5em;

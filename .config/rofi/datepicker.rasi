@@ -1,17 +1,6 @@
-/* ===========================
-   7) datepicker.rasi (updated)
-   (Keep separate; it diverges a lot)
-   =========================== */
-
 @import "common.rasi"
 
-window {
-    width: 30em;
-    height: 25em;
-}
-
 configuration {
-    /* If rofi ignores comma fallbacks, keep primary font sane here */
     font: "Monolisa 12";
     show-icons: false;
     me-accept-entry: "MousePrimary";
@@ -21,53 +10,61 @@ mainbox {
     enabled:          true;
     orientation:      vertical;
     spacing:          0em;
-    padding:          0.5em;
-    children:         [ "inputbar", "listview" ];
+    padding:          0em 0.5em;
+    children:         [ "inputbar", "message", "listview" ];
     background-color: white / 14%;
 }
 
-inputbar {
-    children: [ "textbox-prompt-colon", "prompt", "entry" ];
+message {
+    enabled:          true;
+    background-color: black / 10%;
+    margin:           0.5em 0em 0.5em 0em;
+    padding:          0.5em 1em;
+    text-color:       #ffffff;
+    border-radius:    0.5em;
 }
 
-/* Textbox for month-year placeholder */
 textbox {
-    text-color: #888888;   /* light gray */
-    font: "Monolisa Bold 12";
-    padding: 0.25em 0.5em;
     background-color: transparent;
+    text-color:       inherit;
+    horizontal-align: 0.5;
+    vertical-align:   0.5;
+    padding:          0em;     /* no padding change */
+}
+
+/* (rest of your file unchanged) */
+inputbar {
+    enabled:                    true;
+    background-color:           transparent;
+    text-color:                 white;
+    children:                   [ "textbox-prompt-colon", "entry" ];
+    border-radius:              0.5em;
+    color:                      white;
+}
+
+textbox-prompt-colon {
+    enabled:                    true;
+    expand:                     false;
+    str:                        "➤ ";
+    padding:                    1em 0 0.5em 0;
+    text-color:                 white;
+    background-color:           transparent;
+    font:                       "Monolisa Bold 12";
 }
 
 entry {
     enabled:                    true;
     padding:                    1em 0 0.5em 0;
     cursor:                     text;
+    placeholder:                "";
     background-color:           transparent;
-    placeholder-color:          #888888;
+    placeholder-color:          inherit;
 }
 
-/* Calendar icon */
-textbox-prompt-colon {
-    str: "";
-    font: "Symbols Nerd Font 12";
-}
-
-/* Month/Year label */
-prompt {
-    enabled:          true;
-    expand:           false;
-    min-width:        12em;
-    padding:          1em 0.25em 0 0;
-    background-color: transparent;
-    text-color:       white;
-    font:             "Monolisa Bold 12";
-}
-
-/* Calendar grid */
 listview {
     enabled:          true;
-    padding:                    0em 0.5em;
-    spacing:                    0.5em;
+    padding:          0em 0.5em;
+    spacing:          0.5em;
     columns:          7;
     lines:            7;
     fixed-columns:    true;
@@ -75,6 +72,7 @@ listview {
     layout:           vertical;
     scrollbar:        false;
     background-color: transparent;
+    expand:           false;
 }
 
 element {
@@ -98,7 +96,6 @@ element-text {
     padding:          0.2em;
 }
 
-/* Make the per-cell icon font larger, if you use icons there */
 element-icon {
     font: "Symbols Nerd Font 16";
 }

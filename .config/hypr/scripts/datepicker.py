@@ -18,6 +18,7 @@ def month_grid_row_index(year: int, month: int, target_day: int) -> int | None:
 	idx = 7  # weekday headers are 0..6
 	for week in weeks:
 		for d in week:
+			# Count ALL cells (we print out-of-month blanks too)
 			if d.month == month and d.day == target_day:
 				return idx
 			idx += 1
@@ -53,6 +54,14 @@ def main() -> int:
 
 	retv = os.environ.get("ROFI_RETV", "0")
 
+	# IMPORTANT: On Enter, write selection to STDERR and exit (no stdout).
+	if retv == "1":
+		selection = (os.environ.get("ROFI_INFO") or "").strip()
+		if selection:
+			sys.stderr.write(selection + "\n")
+		return 0
+
+	# Navigation
 	if retv == "10":  # prev month
 		m -= 1
 		if m < 1:
@@ -69,17 +78,17 @@ def main() -> int:
 		y += 1
 	elif retv == "14":  # today
 		y, m = today.year, today.month
-	elif retv == "1":  # enter
-		selection = os.environ.get("ROFI_INFO")
-		if selection:
-			sys.stderr.write(f"{selection}\n")
-		return 0
+
+	mon_abbr = calendar.month_abbr[m].capitalize()
+	mmm_yy = f"{mon_abbr}-{y % 100:02d}"
 
 	print(f"\0data\x1f{y}-{m:02d}")
-	print(f"\0prompt\x1f{calendar.month_abbr[m].capitalize()}-{y % 100:02d}")
+	print(f"\0prompt\x1f{mmm_yy}")
+	print(f"\0message\x1f{mmm_yy}")
 	print("\0columns\x1f7")
 	print("\0markup-rows\x1ftrue")
 	print("\0use-hot-keys\x1ftrue")
+	print(f"\0selected-row\x1f{compute_default_selected_row(y, m, today)}")
 
 	cal = calendar.Calendar(firstweekday=FIRSTWEEKDAY)
 	weeks = cal.monthdatescalendar(y, m)
@@ -98,6 +107,7 @@ def main() -> int:
 			if d == today:
 				label = f"<span color=\"{TODAY_COLOR}\">{label}</span>"
 
+			# info is the ISO date; returned via stderr on Enter
 			print(f"{label}\0info\x1f{d.isoformat()}")
 
 	return 0
