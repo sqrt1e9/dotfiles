@@ -77,6 +77,14 @@ local highlights = {
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
 vim.api.nvim_set_hl(0, "FloatBorder", { bg = "NONE", fg = palette.overlay2 })
 
+-- Neo-tree folders: use the same “blue” from your Kitty config (color4/#89B4FA)
+vim.api.nvim_set_hl(0, "NeoTreeDirectoryName", { fg = palette.blue })
+vim.api.nvim_set_hl(0, "NeoTreeDirectoryIcon", { fg = palette.blue })
+vim.api.nvim_set_hl(0, "NeoTreeRootName", { fg = palette.blue, bold = true })
+
+vim.api.nvim_set_hl(0, "Visual", { bg = palette.rosewater, fg = palette.crust })
+vim.api.nvim_set_hl(0, "Cursor", { fg = palette.crust, bg = palette.rosewater })
+
 for group, opts in pairs(highlights) do
 	local cmd = "highlight " .. group
 	if opts.fg then

@@ -64,6 +64,7 @@ entry {
     placeholder:                "";
     background-color:           transparent;
     placeholder-color:          inherit;
+    text-color:                 white;
 }
 
 /* -------- Shared listview style (single column list) -------- */

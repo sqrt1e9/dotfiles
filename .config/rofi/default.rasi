@@ -1,166 +1,114 @@
-@import "~/.cache/wal/colors-rofi-dark.rasi"
-@import "~/.cache/wal/colors-rofi-dark.rasi"
+/* ~/.config/rofi/default.rasi (Mocha hover + selection only) */
 
 * {
-    foreground:                  white;
-    background-alt:              @selected-active-background; // Buttons background
-    selected:                    @selected-normal-background; // Button selected
-    active:                      @selected-urgent-background; // Window activated
-    urgent:                      @selected-normal-background; // When hovering the activated window (maybe more?)
-    text-selected:               @background;
-    text:                        @foreground;
-    shade-shadow:                white / 6%;
-    shade-bg:                    @color9;
-    shade-border:                white / 24%;
-    border-color:                white / 10%;
+	/* Mocha core */
+	text:			#CDD6F4;
+	foreground:		#CDD6F4;
+
+	/* Keep your existing glass language */
+	shade-shadow:	white / 6%;
+	shade-border:	white / 24%;
+	border-color:	white / 10%;
+
+	/* ONLY: hover + selection (solid, because your rofi build rejects alpha for hex/vars) */
+	hover-bg:		#89B4FA;	/* Mocha blue */
+	select-bg:		#B4BEFE;	/* Mocha lavender */
+	select-border:	#B4BEFE;	/* Mocha lavender */
+
+	/* Preserve your existing tokens */
+	shade-bg:		white / 12%;
+	background-alt:	@shade-bg;
+	selected:		@shade-bg;
+
+	active:			@hover-bg;
+	urgent:			@hover-bg;
+
+	selected-normal-background:	@shade-bg;
+	selected-active-background:	@shade-bg;
+	selected-urgent-background:	@shade-bg;
+
+	text-selected:	#11111B;
 }
 
 window {
-    fullscreen:                  false;
-    transparency:                "real";
-    cursor:                      "default";
-    background-color:            transparent;
-    border:                      0em;
-    border-color:                @border-color;
+	fullscreen:			false;
+	transparency:		"real";
+	cursor:				"default";
+
+	/* Liquid glass (restore your original) */
+	background-color:	white / 14%;
+
+	border:				0em;
+	border-color:		@border-color;
 }
 
 /* Elements ----------------------------------------------------- */
 element normal.normal,
 element alternate.normal {
-    background-color:            transparent;
-    text-color:                  @text;
+	background-color:	transparent;
+	text-color:			@text;
 }
 
+/* Hover */
+element normal.active,
+element alternate.active {
+	background-color:	@hover-bg;
+	text-color:			#11111B;
+	border:				0.0625em solid;
+	border-color:		@select-border;
+}
+
+/* Selected */
 element selected.normal {
-    background-color:            @shade-bg;
-    text-color:                  white;
-    border:                      0.0625em solid; /* 1px */
-    border-color:                @border-color;
+	background-color:	@select-bg;
+	text-color:			#11111B;
+	border:				0.0625em solid;
+	border-color:		@select-border;
 }
 
 element-text {
-    background-color:            transparent;
-    text-color:                  inherit;
-    highlight:                   inherit;
-    cursor:                      inherit;
-    vertical-align:              0.5;
-    horizontal-align:            0.5;
+	background-color:	transparent;
+	text-color:			inherit;
+	highlight:			inherit;
+	cursor:				inherit;
+	vertical-align:		0.5;
+	horizontal-align:	0.5;
 }
 
 /* Listview ---------------------------------------------------- */
-
 listview {
-  border:                        0em;
+	border:				0em;
 }
 
 /* Scrollbar ---------------------------------------------------- */
 scrollbar {
-    margin:                      0 0.25em; /* 4px */
-    handle-width:                0.5em; /* 8px */
-    handle-color:                white;
-    background-color:            @shade-shadow;
+	margin:				0 0.25em;
+	handle-width:		0.5em;
+	handle-color:		white;
+	background-color:	@shade-shadow;
 }
 
 /* Message ------------------------------------------------------ */
 message {
-    background-color:            @shade-bg;
-    border:                      0.0625em solid; /* 1px */
-    border-color:                transparent;
-    padding:                     1.5em; /* 24px */
-}
-error-message {
-    padding:                     6.25em; /* 100px */
-    border:                      0em solid;
-    background-color:            black / 10%;
-    text-color:                  @text;
-}
-textbox {
-    background-color:            transparent;
-    text-color:                  @text;
-    vertical-align:              0.5;
-    horizontal-align:            0.5;
-    highlight:                   none;
-}
-
-* {
-    background-alt:              @selected-active-background; // Buttons background
-    selected:                    @selected-normal-background; // Button selected
-    active:                      @selected-urgent-background; // Window activated
-    urgent:                      @selected-normal-background; // When hovering the activated window (maybe more?)
-    text-selected:               @background;
-    text:                        white;
-    shade-shadow:                white / 6%;
-    shade-bg:                    white / 12%;
-    shade-border:                white / 24%;
-    border-color:                white / 10%;
-}
-
-window {
-    fullscreen:                  false;
-    transparency:                "real";
-    cursor:                      "default";
-    background-color:            black / 10%;
-    border:                      0em;
-    border-color:                @border-color;
-}
-
-/* Elements ----------------------------------------------------- */
-element normal.normal,
-element alternate.normal {
-    background-color:            transparent;
-    text-color:                  @text;
-}
-
-element selected.normal {
-    background-color:            @shade-bg;
-    text-color:                  white;
-    border:                      0.0625em solid; /* 1px */
-    border-color:                @border-color;
-}
-
-element-text {
-    background-color:            transparent;
-    text-color:                  inherit;
-    highlight:                   inherit;
-    cursor:                      inherit;
-    vertical-align:              0.5;
-    horizontal-align:            0.5;
-}
-
-/* Listview ---------------------------------------------------- */
-
-listview {
-    border:                        0em;
-}
-
-/* Scrollbar ---------------------------------------------------- */
-scrollbar {
-    margin:                      0 0.25em; /* 4px */
-    handle-width:                0.5em; /* 8px */
-    handle-color:                white;
-    background-color:            @shade-shadow;
-}
-
-/* Message ------------------------------------------------------ */
-message {
-    background-color:            @shade-bg;
-    border:                      0.0625em solid; /* 1px */
-    border-color:                transparent;
-    padding:                     1.5em; /* 24px */
+	/* Liquid glass (restore your original style) */
+	background-color:	white / 14%;
+	border:				0.0625em solid;
+	border-color:		transparent;
+	padding:			1.5em;
 }
 
 error-message {
-    padding:                     6.25em; /* 100px */
-    border:                      0em solid;
-    background-color:            black / 10%;
-    text-color:                  @text;
+	padding:			6.25em;
+	border:				0em solid;
+	background-color:	white / 14%;
+	text-color:			@text;
 }
 
 textbox {
-    background-color:            transparent;
-    text-color:                  @text;
-    vertical-align:              0.5;
-    horizontal-align:            0.5;
-    highlight:                   none;
+	background-color:	transparent;
+	text-color:			@text;
+	vertical-align:		0.5;
+	horizontal-align:	0.5;
+	highlight:			none;
 }
 

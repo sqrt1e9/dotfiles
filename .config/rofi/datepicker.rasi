@@ -59,6 +59,7 @@ entry {
     placeholder:                "";
     background-color:           transparent;
     placeholder-color:          inherit;
+    text-color:                 white;
 }
 
 listview {

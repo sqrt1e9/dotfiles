@@ -1,7 +1,28 @@
+/* ---------------------------------------------------------------
+ *  Floating Notifications — Mocha + Liquid Glass
+ *  Wal removed, Mocha mapped
+ * --------------------------------------------------------------- */
 
+/* REMOVE wal import (recommended)
+@import '../../.cache/wal/colors-waybar.css';
+*/
+
+/* ---- Mocha token mapping (matches your kitty / nvim / waybar) ---- */
+@define-color text            #CDD6F4;   /* mocha text */
+@define-color bg              rgba(255, 255, 255, .14);  /* liquid glass */
+@define-color border          rgba(255, 255, 255, .24);
+
+@define-color background-alt  rgba(203, 166, 247, .35);  /* mauve glass */
+@define-color hover           rgba(137, 180, 250, .45);  /* blue hover */
+@define-color selected        rgba(180, 190, 254, .55);  /* lavender select */
+@define-color urgent          #A6E3A1;                   /* mocha green */
+
+/* ---------------------------------------------------------------
+ *  Global defaults
+ * --------------------------------------------------------------- */
 * {
-	color:        @text;
 	all:          unset;
+	color:        @text;
 	font-size:    0.95rem;
 	font-family:  "Monolisa";
 	transition:   200ms;
@@ -13,77 +34,132 @@ blankwindow {
 	background: transparent;
 }
 
-/* Margin for whole area */
+/* ---------------------------------------------------------------
+ *  Container spacing
+ * --------------------------------------------------------------- */
 .floating-notifications.background {
 	margin: 12px;
 }
 
-.floating-notifications.background .notification-row .notification-background {
+/* ---------------------------------------------------------------
+ *  Notification card
+ * --------------------------------------------------------------- */
+.floating-notifications.background
+.notification-row
+.notification-background {
 	background:    @bg;
-    border: 1px solid @border;
+	border:        1px solid @border;
 	border-radius: 0.5em;
 	padding:       8px;
-    margin-top: 10px;
+	margin-top:    10px;
 }
 
-.floating-notifications.background .notification-row .notification-background .notification,
-.floating-notifications.background .notification-row .notification-background .notification.critical {
+/* Inner notification */
+.floating-notifications.background
+.notification-row
+.notification-background
+.notification,
+.floating-notifications.background
+.notification-row
+.notification-background
+.notification.critical {
 	padding:       2px 3px;
 	border-radius: 0.5em;
 }
 
-.floating-notifications.background .notification-row .notification-background .notification .notification-content {
+/* Content */
+.floating-notifications.background
+.notification-row
+.notification-background
+.notification
+.notification-content {
 	margin: 2px 4px;
 }
 
-.floating-notifications.background .notification-row .notification-background .notification > *:last-child > * {
+/* Actions row height */
+.floating-notifications.background
+.notification-row
+.notification-background
+.notification > *:last-child > * {
 	min-height: 2.6em;
 }
 
-.floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action {
+/* ---------------------------------------------------------------
+ *  Buttons
+ * --------------------------------------------------------------- */
+.floating-notifications.background
+.notification-row
+.notification-background
+.notification > *:last-child > *
+.notification-action {
 	border-radius:     0.5em;
 	background-color:  @background-alt;
 	margin:            4px;
 	padding:           2px 6px;
 }
 
-.floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action:hover {
-	background:  @hover;
+.floating-notifications.background
+.notification-row
+.notification-background
+.notification > *:last-child > *
+.notification-action:hover {
+	background: @hover;
 }
 
-.floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action:active {
-	background:  @selected;
-	color:             @bg;
+.floating-notifications.background
+.notification-row
+.notification-background
+.notification > *:last-child > *
+.notification-action:active {
+	background: @selected;
+	color:      #11111B;
 }
 
+/* ---------------------------------------------------------------
+ *  Close button
+ * --------------------------------------------------------------- */
+.floating-notifications.background
+.notification-row
+.notification-background
+.close-button {
+	margin:           4px;
+	padding:          2px 4px;
+	border-radius:    0.5em;
+	background-color: transparent;
+}
+
+.floating-notifications.background
+.notification-row
+.notification-background
+.close-button:hover {
+	background-color: @hover;
+}
+
+.floating-notifications.background
+.notification-row
+.notification-background
+.close-button:active {
+	background-color: @selected;
+	color:            #11111B;
+}
+
+/* ---------------------------------------------------------------
+ *  Text
+ * --------------------------------------------------------------- */
 .image {
 	margin: 4px;
 }
 
 .summary {
-	font-weight:  800;
-	font-size:    1.1rem;
+	font-weight: 800;
+	font-size:   1.1rem;
 }
 
-.floating-notifications.background .notification-row .notification-background .close-button {
-	margin:            4px;
-	padding:           2px 4px;
-	border-radius:     0.5em;
-	background-color:  transparent;
-	/* No border */
-}
-
-.floating-notifications.background .notification-row .notification-background .close-button:hover {
-	background-color: @selected;
-}
-
-.floating-notifications.background .notification-row .notification-background .close-button:active {
-	background-color: @selected;
-	color:            @background;
-}
-
+/* ---------------------------------------------------------------
+ *  Progress bars
+ * --------------------------------------------------------------- */
 .notification.critical progress {
-	background-color: @selected;
+	background-color: @urgent;
 }
 
 .notification.low progress,

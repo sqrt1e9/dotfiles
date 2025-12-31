@@ -68,6 +68,7 @@ textbox-prompt-colon {
     text-color:                 white;
     background-color:           transparent;
     font:                       "Monolisa Bold 12";
+    text-color:                 white;
 }
 
 entry {
@@ -77,6 +78,7 @@ entry {
     placeholder:                "";
     background-color:           transparent;
     placeholder-color:          inherit;
+    text-color:                 white;
 }
 
 /* Grid listview */

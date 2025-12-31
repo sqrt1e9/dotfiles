@@ -1,8 +1,19 @@
+/* swayosd style.css — Mocha mapping, keep your liquid glass exactly
+   Only replaces wal @color* dependencies with Mocha equivalents.
+*/
+
+/* REMOVE wal dependency (recommended)
+@import '../../.cache/wal/colors-waybar.css';
+*/
+
+/* Mocha token mapping for the @color* names you used */
+@define-color color1   #cba6f7;  /* mauve */
+@define-color color2   #a6e3a1;  /* green */
+@define-color color6   #94e2d5;  /* teal */
+
 /* ------------------------------------------------------------------
  *  Base Colors (same scheme as swaync)
  * ------------------------------------------------------------------ */
-
-@import '../../.cache/wal/colors-waybar.css';
 
 @define-color foreground:     white;
 @define-color text            white;
