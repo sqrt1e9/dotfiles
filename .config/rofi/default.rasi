@@ -68,7 +68,7 @@ element selected.normal {
 
 element-text {
 	background-color:	transparent;
-	text-color:			inherit;
+	text-color:			@text-selected;
 	highlight:			inherit;
 	cursor:				inherit;
 	vertical-align:		0.5;

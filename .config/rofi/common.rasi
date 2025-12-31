@@ -41,7 +41,7 @@ window {
 inputbar {
     enabled:                    true;
     background-color:           transparent;
-    text-color:                 white;
+    text-color:                 @text;
     children:                   [ "textbox-prompt-colon", "entry" ];
     border-radius:              0.5em;
     color:                      white;
@@ -52,7 +52,7 @@ textbox-prompt-colon {
     expand:                     false;
     str:                        "➤ ";
     padding:                    1em 0 0.5em 0;
-    text-color:                 white;
+    text-color:                 @text;
     background-color:           transparent;
     font:                       "Monolisa Bold 12";
 }
@@ -64,7 +64,7 @@ entry {
     placeholder:                "";
     background-color:           transparent;
     placeholder-color:          inherit;
-    text-color:                 white;
+    text-color:                 @text;
 }
 
 /* -------- Shared listview style (single column list) -------- */
@@ -95,7 +95,7 @@ element {
     enabled:                    true;
     cursor:                     pointer;
     background-color:           transparent;
-    text-color:                 white;
+    text-color:                 @text;
     border-radius:              0.5em;
 }
 
@@ -104,7 +104,7 @@ element-icon {
     size:                       1.3em;
     cursor:                     inherit;
     background-color:           transparent;
-    text-color:                 inherit;
+    text-color:                 @text;
 }
 
 element-text {
@@ -113,7 +113,7 @@ element-text {
     padding:                    0.5em;
     cursor:                     inherit;
     background-color:           transparent;
-    text-color:                 inherit;
+    text-color:                 @text-selected;
 }
 
 error-message {
@@ -123,7 +123,7 @@ error-message {
 }
 
 textbox {
-    text-color:                 inherit;
+    text-color:                 @text;
     background-color:           inherit;
     vertical-align:             0.5;
     horizontal-align:           0.5;
