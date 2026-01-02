@@ -1,3 +1,7 @@
+:root {
+    --mocha-crust:   #11111B;
+}
+
 #TabsToolbar,
 #nav-bar,
 #PersonalToolbar,
@@ -6,12 +10,11 @@
 }
 
 #browser {
-	background-color: rgba(0, 0, 0, 0.2) !important; /* dark gray w/ 0.2 opacity */
-	backdrop-filter: blur(6px) !important; /* optional blur */
+	background-color: var(--mocha-crust) !important; /* dark gray w/ 0.2 opacity */
 }
 
 #main-window,
 #tabbrowser-tabpanels {
-	background: transparent !important;
+	background: var(--mocha-crust) !important;
 }
 
