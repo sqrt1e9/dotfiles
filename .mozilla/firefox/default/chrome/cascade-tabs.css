@@ -43,7 +43,7 @@
 
 /* container tabs indicator */
 #TabsToolbar {
-    margin-left: calc(1325px / 100 * (var(--NavbarWidth))) !important;
+	margin-left: calc(1325px / 100 * (var(--NavbarWidth))) !important;
 }
 
 #TabsToolbar .tab-context-line {
@@ -73,28 +73,28 @@
 	border-radius: 0.5em !important;
 }
 
-/* style and position speaker icon */
+/* style and position speaker icon (COLORS ONLY: Mocha-aligned) */
 .tab-icon-overlay:not([sharing], [crashed]):is(
 	[soundplaying],
 	[muted],
 	[activemedia-blocked]) {
-	stroke: var(--uc-base-colour) !important;
-	background: var(--uc-base-colour) !important;
 	opacity: 1 !important;
 	fill-opacity: 0.8 !important;
 	color: currentColor !important;
-	stroke: var(--toolbar-bgcolor) !important;
+
+	/* was mixing uc-base + toolbar vars; keep it consistent */
+	stroke: var(--toolbar-color) !important;
 	background-color: var(--toolbar-bgcolor) !important;
 }
 
-/* change the colours of the speaker icon on active tab to match tab colours */
+/* change the colours of the speaker icon on active tab to match tab colours (COLORS ONLY) */
 .tabbrowser-tab[selected]
 	.tab-icon-overlay:not([sharing], [crashed]):is(
 		[soundplaying],
 		[muted],
 		[activemedia-blocked]
 	) {
-	stroke: var(--toolbar-bgcolor) !important;
+	stroke: var(--toolbar-color) !important;
 	background-color: var(--toolbar-bgcolor) !important;
 }
 
@@ -148,19 +148,20 @@
 	color: var(--toolbar-bgcolor) !important;
 }
 
-/* selected tab colour fix */
+/* selected tab colour fix (COLORS ONLY: Mocha vars) */
 .tabbrowser-tab[selected] .tab-background {
-    background: var(--uc-tab-base-colour) !important; /* Active tab color */
+	background: var(--uc-tab-base-colour) !important; /* Active tab color */
 	outline: none !important;
 }
 
+/* hover on inactive tabs (COLORS ONLY) */
 .tabbrowser-tab:not([selected]):hover .tab-background {
-    background: var(--uc-accent-colour) !important; /* Inactive tab color */
+	background: var(--uc-hover-colour) !important; /* Hover tint */
 }
 
-/* Inactive tab color */
+/* Inactive tab color (COLORS ONLY) */
 .tabbrowser-tab:not([selected]) .tab-background {
-    background: transparent !important; /* Inactive tab color */
+	background: var(--uc-inactive-tab-colour) !important; /* Inactive fill */
 }
 
 /* tab group labels */
@@ -177,6 +178,6 @@
 }
 
 .tab-secondary-label {
-    display: none !important;
+	display: none !important;
 }
 

@@ -113,7 +113,7 @@ element-text {
     padding:                    0.5em;
     cursor:                     inherit;
     background-color:           transparent;
-    text-color:                 @text-selected;
+    text-color:                 inherit;
 }
 
 error-message {

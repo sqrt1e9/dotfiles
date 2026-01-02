@@ -20,7 +20,7 @@ mainbox {
     padding:          0em;
     orientation:      vertical;
     children:         [ "imagebox" ];
-    background-color: white / 14%;
+    background-color: @crust;
 }
 
 imagebox {

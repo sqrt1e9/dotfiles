@@ -56,19 +56,19 @@
                 "position": "right",
                 "actions": [
                     {
-                        "label": " Reboot",
+                        "label": "  Reboot",
                         "command": "systemctl reboot"
                     },
                     {
-                        "label": " Lock",
+                        "label": "  Lock",
                         "command": "hyprlock"
                     },
                     {
-                        "label": " Logout",
+                        "label": "  Logout",
                         "command": "hyprctl dispatch exit 0"
                     },
                     {
-                        "label": " Shut down",
+                        "label": "  Shut down",
                         "command": "systemctl poweroff"
                     }
                 ]
@@ -79,15 +79,15 @@
                 "position": "right",
                 "actions": [
                     {
-                        "label": "󰓅 Performance",
+                        "label": "󰓅  Performance",
                         "command": "powerprofilesctl set performance"
                     },
                     {
-                        "label": "󰾅 Balanced",
+                        "label": "󰾅  Balanced",
                         "command": "powerprofilesctl set balanced"
                     },
                     {
-                        "label": "󰾆 Power Saver",
+                        "label": "󰾆  Power Saver",
                         "command": "powerprofilesctl set power-saver"
                     }
                 ]

@@ -38,7 +38,7 @@ imagebox {
 
 inputbar {
     enabled:                    true;
-    background-color:           white / 14%;
+    background-color:           @crust;
     text-color:                 @text;
     children:                   [ "textbox-prompt-colon", "entry" ];
     border-radius:              0.5em;

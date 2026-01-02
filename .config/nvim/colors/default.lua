@@ -34,7 +34,7 @@ local palette = {
 
 -- highlight groups
 local highlights = {
-	Normal         = { fg = palette.text, bg = "NONE" },
+	Normal         = { fg = palette.text, bg = palette.crust },
 	Comment        = { fg = palette.overlay2 },
 	Constant       = { fg = palette.peach },
 	String         = { fg = palette.green },
@@ -74,8 +74,8 @@ local highlights = {
 }
 
 -- Floating windows (Telescope uses these)
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
-vim.api.nvim_set_hl(0, "FloatBorder", { bg = "NONE", fg = palette.overlay2 })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = palette.curst })
+vim.api.nvim_set_hl(0, "FloatBorder", { bg = palette.crust, fg = palette.overlay2 })
 
 -- Neo-tree folders: use the same “blue” from your Kitty config (color4/#89B4FA)
 vim.api.nvim_set_hl(0, "NeoTreeDirectoryName", { fg = palette.blue })

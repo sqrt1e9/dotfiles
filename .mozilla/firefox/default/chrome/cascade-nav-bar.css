@@ -1,6 +1,6 @@
 #urlbar-container {
-    min-width: 0px !important;
-    flex: auto !important;
+	min-width: 0px !important;
+	flex: auto !important;
 }
 
 #navigator-toolbox {
@@ -12,12 +12,12 @@
 	border: none !important;
 	box-shadow: none !important;
 	background: var(--uc-base-colour) !important;
-    margin-right: calc(
-      100vw - calc(1325px / 100 * var(--NavbarWidth))
-    ) !important;
-    vertical-align: center !important;
-    margin-top: calc(var(--TabsHeight) * -1px - var(--TabsBorder) * 1px)!important;
-    height: calc(var(--TabsHeight) * 1px + var(--TabsBorder) * 1px)
+	margin-right: calc(
+		100vw - calc(1325px / 100 * var(--NavbarWidth))
+	) !important;
+	vertical-align: center !important;
+	margin-top: calc(var(--TabsHeight) * -1px - var(--TabsBorder) * 1px) !important;
+	height: calc(var(--TabsHeight) * 1px + var(--TabsBorder) * 1px);
 }
 
 #urlbar,
@@ -27,30 +27,43 @@
 }
 
 #urlbar-input::placeholder {
-    opacity: 0 !important;
+	opacity: 0 !important;
 }
 
+/* URL bar background (uses your Mocha base token) */
 #urlbar-background {
-    background: var(--uc-base-colour);
+	background: var(--uc-base-colour) !important;
 }
 
+/* Focused URL bar background (COLORS ONLY -> Mocha highlight) */
 #urlbar[focused="true"] > #urlbar-background,
 #urlbar:not([open]) > #urlbar-background {
-	background: rgba(45, 45, 48, .55) !important;
+	background: var(--uc-highlight-colour) !important;
 }
 
 #urlbar[open] > #urlbar-background {
-	background: rgba(45, 45, 48, .55) !important;
+	background: var(--uc-highlight-colour) !important;
 }
 
+/* Dropdown row base background (COLORS ONLY -> Mocha surface) */
 .urlbarView-row {
-    background: rgba(29, 28, 29, .95) !important;
-    border-radius: 0.5em;
+	background: var(--uc-highlight-colour) !important;
+	border-radius: 0.5em;
 }
 
-.urlbarView-row:hover > .urlbarView-row-inner,
+/* Dropdown row hover/selected (COLORS ONLY -> match rofi/waybar selection tint) */
+.urlbarView-row:hover > .urlbarView-row-inner {
+	background: var(--uc-hover-colour) !important;   /* lavender-ish */
+}
+
 .urlbarView-row[selected] > .urlbarView-row-inner {
-	background: var(--uc-base-colour) !important;
+	background: var(--uc-accent-colour) !important;  /* blue-ish */
+}
+
+/* Ensure selected row text is readable (COLORS ONLY) */
+.urlbarView-row:hover,
+.urlbarView-row[selected] {
+	color: var(--lwt-text-color) !important;
 }
 
 .urlbar-icon,

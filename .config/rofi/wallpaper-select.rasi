@@ -41,7 +41,7 @@ mainbox {
     spacing:          0em;
     padding:          0em;
     children:         [ "imagebox" ];
-    background-color: white / 14%;
+    background-color: @crust;
 }
 
 imagebox {
@@ -133,7 +133,7 @@ mainbox {
     spacing:          0em;
     padding:          0em;
     children:         [ "imagebox" ];
-    background-color: white / 14%;
+    background-color: @crust;
 }
 
 imagebox {

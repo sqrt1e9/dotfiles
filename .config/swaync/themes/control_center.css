@@ -14,11 +14,12 @@
 @define-color color6   #94e2d5;  /* teal */
 @define-color color7   #bac2de;  /* subtext1 */
 @define-color color9   #f38ba8;  /* red */
+@define-color crust    #11111B;
 
 /* ===== Your original variables (kept), now resolved to Mocha ===== */
 @define-color text            rgba(255, 255, 255, 1);
 @define-color noti-bg         @color7;
-@define-color bg              rgba(255, 255, 255, .14);
+@define-color bg              @crust;
 @define-color background-alt  alpha(@color1, .4);
 @define-color hover           @color4;
 @define-color urgent          @color2;
@@ -28,8 +29,8 @@
 
 * {
 	color:       @text;
-	font-size:   1.1rem;
-	font-family: "Symbols Nerd Font";
+	font-size:   1rem;
+	font-family: "Symbols Nerd Font", "Monolisa";
 	transition:  200ms;
 }
 
@@ -270,14 +271,14 @@ progressbar {
 }
 
 .notification-group.collapsed .notification-row {
-	background: rgba(255, 255, 255, .14);
+	background: @crust;
 	border-radius: 0.5em;
 	opacity: 1;
 	filter: none; 
 }
 
 .notification-group.collapsed .notification-row:not(:last-child) {
-	background: rgba(255, 255, 255, .14);
+	background: @crust;
 	border-radius: 0.5em;
 }
 
@@ -313,7 +314,7 @@ progressbar {
 .wallpaper-switcher text-button label,
 .menu-button-bar text-button label,
 .menu-button-bar button label {
-	font-size: 1.2rem;
+	font-size: 0.9rem;
 	color: @text;
 	transition: all .7s ease;
 }
@@ -436,7 +437,7 @@ progressbar {
 }
 
 .widget-buttons-grid > flowbox > flowboxchild > button {
-	padding:     0.3em 1.2em;
+	padding:     0.5em 0.85em;
 	background: rgba(0, 0, 0, .2);
 	border-radius: 0.5em;
 	margin: .35em;

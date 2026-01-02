@@ -32,7 +32,7 @@
 @define-color crust       #11111b;
 
 /* ===== Liquid glass tokens (keep your look) ===== */
-@define-color bg              rgba(255, 255, 255, .14);
+@define-color bg              @crust;
 @define-color border          rgba(255, 255, 255, .24);
 @define-color hover           rgba(180, 190, 254, .22);
 @define-color selected        rgba(137, 180, 250, .22);

@@ -28,6 +28,7 @@
 	selected-urgent-background:	@shade-bg;
 
 	text-selected:	#11111B;
+    crust:          #11111B;
 }
 
 window {
@@ -36,7 +37,7 @@ window {
 	cursor:				"default";
 
 	/* Liquid glass (restore your original) */
-	background-color:	white / 14%;
+	background-color:	@crust;
 
 	border:				0em;
 	border-color:		@border-color;
@@ -53,7 +54,7 @@ element alternate.normal {
 element normal.active,
 element alternate.active {
 	background-color:	@hover-bg;
-	text-color:			#11111B;
+	text-color:			@text-selected;
 	border:				0.0625em solid;
 	border-color:		@select-border;
 }
@@ -61,14 +62,14 @@ element alternate.active {
 /* Selected */
 element selected.normal {
 	background-color:	@select-bg;
-	text-color:			#11111B;
+	text-color:			@text-selected;
 	border:				0.0625em solid;
 	border-color:		@select-border;
 }
 
 element-text {
 	background-color:	transparent;
-	text-color:			@text-selected;
+	text-color:			inherit;
 	highlight:			inherit;
 	cursor:				inherit;
 	vertical-align:		0.5;
@@ -91,7 +92,7 @@ scrollbar {
 /* Message ------------------------------------------------------ */
 message {
 	/* Liquid glass (restore your original style) */
-	background-color:	white / 14%;
+	background-color:	@crust;
 	border:				0.0625em solid;
 	border-color:		transparent;
 	padding:			1.5em;
@@ -100,7 +101,7 @@ message {
 error-message {
 	padding:			6.25em;
 	border:				0em solid;
-	background-color:	white / 14%;
+	background-color:	@crust;
 	text-color:			@text;
 }
 

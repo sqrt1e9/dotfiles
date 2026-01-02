@@ -1,78 +1,72 @@
-/* swayosd style.css — Mocha mapping, keep your liquid glass exactly
-   Only replaces wal @color* dependencies with Mocha equivalents.
+/* swayosd style.css — Mocha crust background (opaque)
+   Layout & behavior unchanged
 */
 
-/* REMOVE wal dependency (recommended)
-@import '../../.cache/wal/colors-waybar.css';
-*/
+/* ---- Mocha tokens ---- */
+@define-color crust   #11111b;
+@define-color text    #CDD6F4;
+@define-color border  #313244;
 
-/* Mocha token mapping for the @color* names you used */
-@define-color color1   #cba6f7;  /* mauve */
-@define-color color2   #a6e3a1;  /* green */
-@define-color color6   #94e2d5;  /* teal */
+@define-color color1  #cba6f7;  /* mauve */
+@define-color color2  #f38ba8;  /* red */
+@define-color color6  #89b4fa;  /* blue */
 
 /* ------------------------------------------------------------------
- *  Base Colors (same scheme as swaync)
+ *  Base Colors
  * ------------------------------------------------------------------ */
-
-@define-color foreground:     white;
-@define-color text            white;
-@define-color background-alt  alpha(@color1, .4);
+@define-color background-alt  @color1;
 @define-color selected        @color6;
-@define-color hover           alpha(@selected, .4);
+@define-color hover           @color6;
 @define-color urgent          @color2;
-@define-color border          rgba(255, 255, 255, .25);
 
 /* ------------------------------------------------------------------
  *  Global defaults
  * ------------------------------------------------------------------ */
 * {
-    color:         @text;
-    font-family:   "Monolisa";
-    transition:    0.2s;
+    color:       @text;
+    font-family: "Monolisa";
+    transition:  0.2s;
 }
 
 /* ------------------------------------------------------------------
- *  WINDOW – transparent (no outer box)
+ *  WINDOW – transparent (unchanged)
  * ------------------------------------------------------------------ */
 window {
-    background:         transparent;
-    background-color:   transparent;
-    border:             none;
-    box-shadow:         none;
-    padding:            0;
-    margin:             0;
+    background:       transparent;
+    border:           none;
+    box-shadow:       none;
+    padding:          0;
+    margin:           0;
 }
 
 /* ------------------------------------------------------------------
- *  OSD PILL
+ *  OSD PILL — THIS IS THE CHANGE
  * ------------------------------------------------------------------ */
 .osd {
-    background-color: rgba(255, 255, 255, .14);
-    border-radius:    0.5em;      /* 15px */
-    border:           0.0625em solid @border; /* 1px */
-    padding:          0.0625em 0.5em; /* 1px 3px */
-    margin:           0.125em;       /* 2px */
+    background-color: @crust;          /* ← opaque crust */
+    border-radius:    0.5em;
+    border:           0.0625em solid @border;
+    padding:          0.0625em 0.5em;
+    margin:           0.125em;
 }
 
 /* ------------------------------------------------------------------
  *  Icon + Text
  * ------------------------------------------------------------------ */
 .osd-icon {
-    margin-right: 0.25em;            /* 4px */
+    margin-right: 0.25em;
     font-size:    0.7em;
     color:        @text;
 }
 
 .osd-label {
     font-weight:  500;
-    margin-bottom: 0;
     font-size:    0.70em;
     color:        @text;
 }
 
 .osd-value {
-    margin-left:  0.25em;            /* 4px */
+    margin-left:  0.25em;
     font-size:    0.70em;
     font-weight:  600;
 }
@@ -83,46 +77,34 @@ window {
 }
 
 /* ------------------------------------------------------------------
- *  SCALE – compact
+ *  SCALE
  * ------------------------------------------------------------------ */
-
-/* Track */
 .osd scale trough {
-    min-height:    0.1875em;         /* 3px */
+    min-height:    0.1875em;
     border-radius: 0.5em;
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: #313244;
 }
 
-/* Filled */
 .osd scale highlight {
     border-radius: 0.5em;
     background-color: @text;
-    box-shadow:
-        0 0 0.1875em 0.05em @text,   /* 3px 0.8px */
-        inset 0 0 0.125em @text;     /* 2px */
 }
 
-/* Optional fallback for progressbar */
+/* Fallback progressbar */
 progressbar,
 progressbar trough {
-    min-height: 0.1875em;            /* 3px */
+    min-height: 0.1875em;
     border-radius: 0.5em;
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: #313244;
 }
 
 progressbar progress {
     border-radius: 0.5em;
     background-color: @text;
-    box-shadow:
-        0 0 0.1875em 0.05em @text,
-        inset 0 0 0.125em @text;
 }
 
 /* Muted */
 .osd-muted scale highlight {
     background-color: @urgent;
-    box-shadow:
-        0 0 0.1875em 0.05em @urgent,
-        inset 0 0 0.125em @urgent;
 }
 
