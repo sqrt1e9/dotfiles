@@ -21,7 +21,7 @@
     /* ===== Your theme tokens (now Mocha-aligned) ===== */
     /* Main surfaces */
     --uc-base-colour:          var(--mocha-crust);   /* was white glass */
-    --uc-tab-base-colour:      rgba(30, 30, 46, .92);/* crust with slight depth */
+    --uc-tab-base-colour:      rgba(137, 180, 250, .22);/* crust with slight depth */
     --uc-inactive-tab-colour:  rgba(17, 17, 27, .65);
 
     /* Focus/active panels */
