@@ -73,6 +73,10 @@
             "type": "swap"
         },
         {
+            "key": "│ {#35} battery {#keys}│",
+            "type": "battery"
+        },
+        {
             "key": "│ {#35}󰋊 disk    {#keys}│",
             "type": "disk"
         },
