@@ -27,6 +27,8 @@
 	selected-active-background:	@shade-bg;
 	selected-urgent-background:	@shade-bg;
 
+    placeholder-color:  #444444;
+
 	text-selected:	#11111B;
     crust:          #11111B;
 }

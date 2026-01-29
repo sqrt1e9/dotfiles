@@ -24,7 +24,7 @@
  * ------------------------------------------------------------------ */
 * {
     color:       @text;
-    font-family: "Monolisa";
+    font-family: "Fira Mono";
     transition:  0.2s;
 }
 

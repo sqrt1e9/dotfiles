@@ -45,6 +45,10 @@
             "type": "shell"
         },
         {
+            "key": "│ {#33} font    {#keys}│",
+            "type": "terminalfont"
+        },
+        {
             "key": "│ {#33}󰍛 cpu     {#keys}│",
             "type": "cpu",
             "showPeCoreCount": true

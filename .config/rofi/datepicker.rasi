@@ -1,7 +1,7 @@
 @import "common.rasi"
 
 configuration {
-    font: "Monolisa 12";
+    font: "FiraCode Nerd Font 12";
     show-icons: false;
     me-accept-entry: "MousePrimary";
 }
@@ -45,18 +45,18 @@ inputbar {
 textbox-prompt-colon {
     enabled:                    true;
     expand:                     false;
-    str:                        "➤ ";
+    str:                        "";
     padding:                    1em 0 0.5em 0;
     text-color:                 @text;
     background-color:           transparent;
-    font:                       "Monolisa Bold 12";
+    placeholder-color:          var(placeholder-color);
 }
 
 entry {
     enabled:                    true;
     padding:                    1em 0 0.5em 0;
     cursor:                     text;
-    placeholder:                "";
+    placeholder:                "Type to Search";
     background-color:           transparent;
     placeholder-color:          @text;
     text-color:                 @text;

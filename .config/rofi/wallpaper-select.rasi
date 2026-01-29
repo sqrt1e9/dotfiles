@@ -5,7 +5,7 @@
 
 configuration {
     modi:                       "drun,filebrowser,window,run";
-    font:                       "Monolisa 12";
+    font:                       "FiraCode Nerd Font 12";
     show-icons:                 true;
     display-drun:               " ";
     display-run:                " ";
@@ -41,7 +41,6 @@ mainbox {
     spacing:          0em;
     padding:          0em;
     children:         [ "imagebox" ];
-    background-color: @crust;
 }
 
 imagebox {
@@ -58,26 +57,6 @@ inputbar {
     children:                   [ "textbox-prompt-colon", "entry" ];
     border-radius:              0.5em;
     color:                      @text;
-}
-
-textbox-prompt-colon {
-    enabled:                    true;
-    expand:                     false;
-    str:                        "➤ ";
-    padding:                    1em 0 0.5em 0;
-    text-color:                 @text;
-    background-color:           transparent;
-    font:                       "Monolisa Bold 12";
-}
-
-entry {
-    enabled:                    true;
-    padding:                    1em 0 0.5em 0;
-    cursor:                     text;
-    placeholder:                "";
-    background-color:           transparent;
-    placeholder-color:          inherit;
-    text-color:                 @text;
 }
 
 /* Grid listview */
@@ -97,7 +76,7 @@ listview {
 
 configuration {
     modi:                       "drun,filebrowser,window,run";
-    font:                       "Monolisa 12";
+    font:                       "FiraCode Nerd Font 12";
     show-icons:                 true;
     display-drun:               " ";
     display-run:                " ";
@@ -155,20 +134,20 @@ inputbar {
 textbox-prompt-colon {
     enabled:                    true;
     expand:                     false;
-    str:                        "➤ ";
+    str:                        "";
     padding:                    1em 0 0.5em 0;
     text-color:                 @text;
     background-color:           transparent;
-    font:                       "Monolisa Bold 12";
 }
 
 entry {
     enabled:                    true;
     padding:                    1em 0 0.5em 0;
     cursor:                     text;
-    placeholder:                "";
+    placeholder:                "Type to Search";
     background-color:           transparent;
-    placeholder-color:          inherit;
+    placeholder-color:          var(placeholder-color);
+    text-color:                 @text;
 }
 
 /* Grid listview */
@@ -212,7 +191,6 @@ element-text {
     text-color:       @text;
     horizontal-align: 0.5;
     vertical-align:   0.5;
-    font:             "Monolisa 12";
 }
 
 error-message {
@@ -246,7 +224,6 @@ element-text {
     text-color:       @text;
     horizontal-align: 0.5;
     vertical-align:   0.5;
-    font:             "Monolisa 12";
 }
 
 error-message {
