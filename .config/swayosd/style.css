@@ -44,7 +44,7 @@ window {
  * ------------------------------------------------------------------ */
 .osd {
     background-color: @crust;          /* ← opaque crust */
-    border-radius:    0.5em;
+    border-radius:    0.1em;
     border:           0.0625em solid @border;
     padding:          0.0625em 0.5em;
     margin:           0.125em;
@@ -81,12 +81,12 @@ window {
  * ------------------------------------------------------------------ */
 .osd scale trough {
     min-height:    0.1875em;
-    border-radius: 0.5em;
+    border-radius: 0.1em;
     background-color: #313244;
 }
 
 .osd scale highlight {
-    border-radius: 0.5em;
+    border-radius: 0.1em;
     background-color: @text;
 }
 
@@ -94,12 +94,12 @@ window {
 progressbar,
 progressbar trough {
     min-height: 0.1875em;
-    border-radius: 0.5em;
+    border-radius: 0.1em;
     background-color: #313244;
 }
 
 progressbar progress {
-    border-radius: 0.5em;
+    border-radius: 0.1em;
     background-color: @text;
 }
 

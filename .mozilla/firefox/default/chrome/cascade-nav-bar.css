@@ -48,7 +48,7 @@
 /* Dropdown row base background (COLORS ONLY -> Mocha surface) */
 .urlbarView-row {
 	background: var(--uc-highlight-colour) !important;
-	border-radius: 0.5em;
+	border-radius: 0.1em;
 }
 
 /* Dropdown row hover/selected (COLORS ONLY -> match rofi/waybar selection tint) */

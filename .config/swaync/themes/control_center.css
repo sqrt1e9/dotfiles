@@ -44,7 +44,7 @@ blankwindow {
 
 .control-center {
 	background:    @bg; 
-	border-radius: 0.5em;    
+	border-radius: 0.1em;    
 	margin:        1.2em;        
 	padding:       0.625em;     
 }
@@ -52,7 +52,7 @@ blankwindow {
 /* Notifications  */
 .control-center .notification-row .notification-background,
 .control-center .notification-row .notification-background .notification.critical {
-	border-radius: 0.5em;                
+	border-radius: 0.1em;                
 	margin:        0.25em 0;                  
 	padding:       0.25em;                  
 	border:        0.0625em solid @border; 
@@ -74,7 +74,7 @@ blankwindow {
 .control-center .notification-row .notification-background .notification > *:last-child > * .notification-action {
 	background:    transparent;
 	color:         @text;
-	border-radius: 0.5em;                  /* 15px */
+	border-radius: 0.1em;
 	margin:        0.375em;                   /* 6px */
 	border:        0.0625em solid @border;    /* 1px */
 }
@@ -89,7 +89,7 @@ blankwindow {
 
 .control-center .notification-row .notification-background .close-button {
 	background:    transparent;
-	border-radius: 0.5em;                   /* 6px */
+	border-radius: 0.1em;
 	color:         @text;
 	margin:        0;
 	padding:       0.25em;                    /* 4px */
@@ -106,7 +106,7 @@ blankwindow {
 progressbar,
 progress,
 trough {
-	border-radius: 0.5em;                    /* 12px */
+	border-radius: 0.1em;
 }
 
 progressbar {
@@ -133,15 +133,15 @@ progressbar {
 
 .notification-row .notification-background .notification .notification-default-action .notification-content {
 	background:    transparent;
-	border-radius: 0.5em;                  /* 15px */
+	border-radius: 0.1em;
 	padding:       0;
 }
 
 .notification-row .notification-background .notification .notification-default-action .notification-content .image {
 	-gtk-icon-filter: none;
 	-gtk-icon-size:   343em;
-	border-radius:    6.25em;                 /* 100px, effectively fully round */
-	margin:           0.25em;                 /* 4px */
+	border-radius:    0.1em;
+	margin:           0.25em;
 }
 
 .notification-row .notification-background .notification .notification-default-action .notification-content .app-icon {
@@ -272,14 +272,14 @@ progressbar {
 
 .notification-group.collapsed .notification-row {
 	background: @crust;
-	border-radius: 0.5em;
+	border-radius: 0.1em;
 	opacity: 1;
 	filter: none; 
 }
 
 .notification-group.collapsed .notification-row:not(:last-child) {
 	background: @crust;
-	border-radius: 0.5em;
+	border-radius: 0.1em;
 }
 
 /* Keep your existing behavior; only Mocha token mapping above */
@@ -288,7 +288,7 @@ progressbar {
 	background:    @background-alt;
 	color:         @text;
 	margin:        0.25em;
-	border-radius: 0.5em;
+	border-radius: 0.1em;
 	padding:       0.25em;
 }
 
@@ -299,7 +299,7 @@ progressbar {
 
 .menu-button-bar {
 	padding:     0.3em 1em;
-	border-radius: 0.5em;
+	border-radius: 0.1em;
 }
 
 .menu-button-bar wallpaper-switcher text-button,
@@ -307,7 +307,7 @@ progressbar {
 .menu-button-bar button {
 	padding:     0.3em 1.5em;
 	background: rgba(0, 0, 0, .2);
-	border-radius: 0.5em;
+	border-radius: 0.1em;
 	margin: .35em;
 }
 
@@ -330,7 +330,7 @@ progressbar {
 .powermode-buttons {
 	padding: .5em;
 	margin: .5em;
-	border-radius: .5em;
+	border-radius: .1em;
 	background: @secondary_container;
 	border: 1px solid @secondary_container_border;
 }
@@ -339,7 +339,7 @@ progressbar {
 .power-buttons button {
 	padding: 8px;
 	margin: 8px 0;
-	border-radius: .5em;
+	border-radius: .1em;
 }
 
 .powermode-buttons button label,
@@ -362,7 +362,7 @@ progressbar {
 
 .widget-title button {
 	background:    @background-alt;
-	border-radius: 0.5em;
+	border-radius: 0.1em;
 	padding:       0.25em 1em;
 }
 
@@ -385,7 +385,7 @@ progressbar {
 }
 
 .widget-dnd switch {
-	border-radius: 0.5em;
+	border-radius: 0.1em;
 	padding:       0.125em;
 	margin:        0.625em;
 	background:    @background-alt;
@@ -398,14 +398,14 @@ progressbar {
 }
 
 .widget-dnd switch slider {
-	border-radius:    0.5em;
+	border-radius:    0.1em;
 	background-color: @text;
 }
 
 .widget-volume scale trough,
 .widget-backlight scale trough {
 	min-height:    0.125em;
-	border-radius: 0.5em;
+	border-radius: 0.1em;
 	background-color: rgba(255, 255, 255, 0.10);
 }
 
@@ -416,7 +416,7 @@ progressbar {
 .widget-volume scale trough progress,
 .widget-backlight scale trough progress {
 	min-height:    0.125em;
-	border-radius: 0.5em;
+	border-radius: 0.1em;
 	background-color: @text;
 }
 
@@ -424,7 +424,7 @@ progressbar {
 .widget-backlight scale slider {
 	min-width:      0.1875em;
 	min-height:     0.1875em;
-	border-radius:  0.5em;
+	border-radius:  0.1em;
 	background-color: @text;
 	border:         0.125em solid alpha(@foreground, 0.7);
 	box-shadow:     0 0 0.375em alpha(@foreground, 0.9);
@@ -432,14 +432,14 @@ progressbar {
 
 .widget-buttons-grid {
 	padding:     0.3em 1.2em;
-	border-radius: 0.5em;
+	border-radius: 0.1em;
 	margin: .5em;
 }
 
 .widget-buttons-grid > flowbox > flowboxchild > button {
 	padding:     0.5em 0.85em;
 	background: rgba(0, 0, 0, .2);
-	border-radius: 0.5em;
+	border-radius: 0.1em;
 	margin: .35em;
 }
 
@@ -463,21 +463,21 @@ progressbar {
 
 .widget-mpris {
 	background:   transparent;
-	border-radius: 0.5em;
+	border-radius: 0.1em;
 	color:        @text;
 	margin:       1.25em 0.375em;
 }
 
 .widget-mpris-player {
 	background-color: @background-alt;
-	border-radius:    0.5em;
+	border-radius:    0.1em;
 	padding:          0.375em 0.875em;
 	margin:           0.375em;
 }
 
 .widget-mpris > box > button {
 	color:        @text;
-	border-radius: 0.5em;
+	border-radius: 0.1em;
 }
 
 .widget-mpris button {
@@ -489,7 +489,7 @@ progressbar {
 }
 
 .widget-mpris-album-art {
-	border-radius: 0.5em;
+	border-radius: 0.1em;
 }
 
 .widget-mpris-title {

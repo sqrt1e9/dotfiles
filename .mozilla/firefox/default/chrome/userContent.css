@@ -22,7 +22,7 @@
 	[class*="popover"],
 	[class*="dropdown"] {
 		background: rgba(0, 0, 0, .85) !important;
-		border-radius: 0.5em !important;
+		border-radius: 0.1em !important;
 }
 
 

@@ -30,12 +30,12 @@
 
 	/* Input Bar */
 	form.group\/composer .bg-token-bg-primary,
-	form.group\/composer [style*="border-radius: 0.5em"],
+	form.group\/composer [style*="border-radius: 0.1em"],
 	form.group\/composer [class*="dark:bg"][class*="#303030"] {
 		background: rgba(0, 0, 0, 0.2) !important;
 		background-image: none !important;
 		border: 1px solid rgba(255, 255, 255, 0.06) !important;
-		border-radius: 0.5em !important;
+		border-radius: 0.1em !important;
 	}
 
 	/* Popovers / Menus */
@@ -44,7 +44,7 @@
 	[class*="popover"],
 	[class*="dropdown"] {
 		background: rgba(0, 0, 0, 0.8) !important;
-		border-radius: 0.5em !important;
+		border-radius: 0.1em !important;
 	}
 
 	/* Remove Default Fades / Blurs */

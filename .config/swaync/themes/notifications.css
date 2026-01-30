@@ -49,7 +49,7 @@ blankwindow {
 .floating-notifications.background .notification-row .notification-background {
 	background:    @bg;
 	border:        1px solid @border;
-	border-radius: 0.5em;
+	border-radius: 0.1em;
 	padding:       8px;
 	margin-top:    10px;
 }
@@ -58,7 +58,7 @@ blankwindow {
 .floating-notifications.background .notification-row .notification-background .notification,
 .floating-notifications.background .notification-row .notification-background .notification.critical {
 	padding:       2px 3px;
-	border-radius: 0.5em;
+	border-radius: 0.1em;
 }
 
 /* Content */
@@ -75,7 +75,7 @@ blankwindow {
  *  Buttons
  * --------------------------------------------------------------- */
 .floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action {
-	border-radius:     0.5em;
+	border-radius:     0.1em;
 	background-color:  @background-alt;
 	margin:            4px;
 	padding:           2px 6px;
@@ -96,7 +96,7 @@ blankwindow {
 .floating-notifications.background .notification-row .notification-background .close-button {
 	margin:           4px;
 	padding:          2px 4px;
-	border-radius:    0.5em;
+	border-radius:    0.1em;
 	background-color: transparent;
 }
 
