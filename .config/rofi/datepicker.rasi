@@ -1,7 +1,7 @@
 @import "common.rasi"
 
 configuration {
-    font: "FiraCode Nerd Font 12";
+    font: "Monolisa 11";
     show-icons: false;
     me-accept-entry: "MousePrimary";
 }

@@ -93,7 +93,7 @@
     },
     "clock": {
         "format": "  {0:%I:%M %p}     {0:%a, %b %e}",
-        "font-family": "FiraCode Nerd Font",
+        "font-family": "Monolisa",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
     },
 

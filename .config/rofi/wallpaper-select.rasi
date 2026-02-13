@@ -5,7 +5,7 @@
 
 configuration {
     modi:                       "drun,filebrowser,window,run";
-    font:                       "FiraCode Nerd Font 12";
+    font:                       "Monolisa 11";
     show-icons:                 true;
     display-drun:               " ";
     display-run:                " ";
@@ -76,7 +76,7 @@ listview {
 
 configuration {
     modi:                       "drun,filebrowser,window,run";
-    font:                       "FiraCode Nerd Font 12";
+    font:                       "Monolisa 11";
     show-icons:                 true;
     display-drun:               " ";
     display-run:                " ";
