@@ -1,135 +1,134 @@
 /* ---------------------------------------------------------------
- *  Floating Notifications — Mocha + Liquid Glass
- *  Keep your layout intact. Only color logic fixed + Mocha-aligned.
+ *  Floating Notifications — Mocha Inverse Block Style
+ *  Colors applied to backgrounds, text set to dark contrast.
  * --------------------------------------------------------------- */
 
-/* REMOVE wal import (recommended)
-@import '../../.cache/wal/colors-waybar.css';
-*/
+/* ---- Mocha palette ---- */
+@define-color text            #cdd6f4;
+@define-color subtext0        #a6adc8;
+@define-color crust           #11111b;
+@define-color base            #1e1e2e;
 
-/* ---- Mocha token mapping (matches kitty / nvim / waybar) ---- */
-@define-color text            #CDD6F4;                 /* mocha text */
-@define-color crust           #11111B;                 /* mocha crust */
-@define-color bg              @crust/* liquid glass */
-@define-color border          rgba(255, 255, 255, .24);
+/* Accents for backgrounds */
+@define-color mauve           #cba6f7;
+@define-color blue            #89b4fa;
+@define-color lavender        #b4befe;
+@define-color red             #f38ba8;
+@define-color sapphire        #74c7ec;
 
-/* accents (match your rofi/waybar: hover=lavender, selected=blue) */
-@define-color background-alt  rgba(203, 166, 247, .75);/* mauve glass */
-@define-color hover           rgba(180, 190, 254, .45);/* lavender hover */
-@define-color selected        rgba(137, 180, 250, .55);/* blue selected */
-@define-color urgent          #F38BA8;                 /* mocha red */
+/* Liquid Glass / UI Tokens */
+@define-color bg              @crust;
+@define-color border          rgba(255, 255, 255, .1);
 
 /* ---------------------------------------------------------------
  *  Global defaults
  * --------------------------------------------------------------- */
 * {
-	all:          unset;
-	color:        @text;
-	font-size:    .9rem;
+    all:          unset;
+    font-size:    .9rem;
     font-family: "Symbols Nerd Font", "Monolisa";
-	transition:   200ms;
+    transition:   200ms;
 }
 
 notificationwindow,
-blankwindow,
 blankwindow {
-	background: transparent;
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+/* This targets the container that often holds the secondary color */
+.notification-row {
+    background: transparent !important;
+    background-color: transparent !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.notification-group {
+    background: transparent !important;
 }
 
 /* ---------------------------------------------------------------
  *  Container spacing
  * --------------------------------------------------------------- */
 .floating-notifications.background {
-	margin: 12px;
+    margin: 12px;
 }
 
 /* ---------------------------------------------------------------
  *  Notification card
  * --------------------------------------------------------------- */
 .floating-notifications.background .notification-row .notification-background {
-	background:    @bg;
-	border:        1px solid @border;
-	border-radius: 0.1em;
-	padding:       8px;
-	margin-top:    10px;
+    background:    @lavender; /* Main card background */
+    color:         @crust;    /* Dark text on light background */
+    border-radius: 0.8em;
+    padding:       10px;
+    margin-top:    10px;
+    box-shadow:    none;
 }
 
-/* Inner notification */
-.floating-notifications.background .notification-row .notification-background .notification,
+/* Critical Notifications */
 .floating-notifications.background .notification-row .notification-background .notification.critical {
-	padding:       2px 3px;
-	border-radius: 0.1em;
+    background:    @red;
+    color:         @crust;
 }
 
-/* Content */
-.floating-notifications.background .notification-row .notification-background .notification .notification-content {
-	margin: 2px 4px;
+/* Content Text Styling */
+.floating-notifications.background .notification-row .notification-background .notification .notification-content .summary {
+    font-weight: 800;
+    font-size:   1rem;
+    color:       @crust;
 }
 
-/* Actions row height */
-.floating-notifications.background .notification-row .notification-background .notification > *:last-child > * {
-	min-height: 2.6em;
+.floating-notifications.background .notification-row .notification-background .notification .notification-content .body {
+    color:       @base; /* Slightly lighter dark for body text */
 }
 
 /* ---------------------------------------------------------------
- *  Buttons
+ *  Buttons (Actions)
  * --------------------------------------------------------------- */
 .floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action {
-	border-radius:     0.1em;
-	background-color:  @background-alt;
-	margin:            4px;
-	padding:           2px 6px;
+    border-radius:     0.5em;
+    background-color:  @sapphire; /* Distinct button color */
+    color:             @crust;
+    margin:            4px;
+    padding:           4px 8px;
+    font-weight:       bold;
 }
 
 .floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action:hover {
-	background: @hover;
-}
-
-.floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action:active {
-	background: @selected;
-	color:      @crust;
+    background-color:  @blue;
+    color:             @crust;
 }
 
 /* ---------------------------------------------------------------
  *  Close button
  * --------------------------------------------------------------- */
 .floating-notifications.background .notification-row .notification-background .close-button {
-	margin:           4px;
-	padding:          2px 4px;
-	border-radius:    0.1em;
-	background-color: transparent;
+    margin:           4px;
+    padding:          4px;
+    border-radius:    0.5em;
+    background-color: rgba(0, 0, 0, 0.1); /* Subtle dark overlay */
+    color:            @crust;
 }
 
 .floating-notifications.background .notification-row .notification-background .close-button:hover {
-	background-color: @hover;
-}
-
-.floating-notifications.background .notification-row .notification-background .close-button:active {
-	background-color: @selected;
-	color:            @crust;
-}
-
-/* ---------------------------------------------------------------
- *  Text
- * --------------------------------------------------------------- */
-.image {
-	margin: 4px;
-}
-
-.summary {
-	font-weight: 800;
-	font-size:   1rem;
+    background-color: @red;
+    color:            @text;
 }
 
 /* ---------------------------------------------------------------
  *  Progress bars
  * --------------------------------------------------------------- */
+.notification progress {
+    background-color: @crust; /* Darker track */
+}
+
 .notification.critical progress {
-	background-color: @urgent;
+    background-color: @base;
 }
 
-.notification.low progress,
-.notification.normal progress {
-	background-color: @selected;
+.image {
+    margin: 6px;
+    border-radius: 0.4em;
 }
-

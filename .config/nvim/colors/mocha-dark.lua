@@ -2,7 +2,6 @@ vim.cmd("highlight clear")
 vim.cmd("set termguicolors")
 vim.g.colors_name = "mocha"
 
--- palette
 local palette = {
 	rosewater = "#f5e0dc",
 	flamingo  = "#f2cdcd",
@@ -32,9 +31,23 @@ local palette = {
 	crust     = "#11111b",
 }
 
--- highlight groups
 local highlights = {
+	-- Main UI
 	Normal         = { fg = palette.text, bg = palette.crust },
+	Visual         = { fg = palette.crust, bg = palette.lavender }, -- Bright Block
+	Cursor         = { fg = palette.crust, bg = palette.rosewater },
+	Search         = { fg = palette.crust, bg = palette.yellow },   -- Bright Block
+	CurSearch      = { fg = palette.crust, bg = palette.peach },    -- Highlighted Match
+	
+	-- Statusline (The "Waybar" of Neovim)
+	StatusLine     = { fg = palette.crust, bg = palette.blue },     -- Solid Blue Block
+	StatusLineNC   = { fg = palette.overlay1, bg = palette.surface0 },
+	
+	-- Menus / Completion (Pills)
+	Pmenu          = { fg = palette.text, bg = palette.surface0 },
+	PmenuSel       = { fg = palette.crust, bg = palette.mauve },    -- Selected item block
+	
+	-- Syntax
 	Comment        = { fg = palette.overlay2 },
 	Constant       = { fg = palette.peach },
 	String         = { fg = palette.green },
@@ -69,33 +82,23 @@ local highlights = {
 	Underlined     = { style = "underline" },
 	Error          = { fg = palette.red },
 	Todo           = { fg = palette.teal, style = "bold" },
-	StatusLine     = { fg = palette.text, bg = palette.crust },
-	StatusLineNC   = { fg = palette.text, bg = palette.crust },
 }
 
--- Floating windows (Telescope uses these)
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = palette.curst })
-vim.api.nvim_set_hl(0, "FloatBorder", { bg = palette.crust, fg = palette.overlay2 })
+-- Apply Highlights
+for group, opts in pairs(highlights) do
+	local cmd = "highlight " .. group
+	if opts.fg then cmd = cmd .. " guifg=" .. opts.fg end
+	if opts.bg then cmd = cmd .. " guibg=" .. opts.bg end
+	if opts.style then cmd = cmd .. " gui=" .. opts.style end
+	vim.cmd(cmd)
+end
 
--- Neo-tree folders: use the same “blue” from your Kitty config (color4/#89B4FA)
+-- Floating windows (Telescope / Popups)
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = palette.mantle }) -- Slightly different dark to pop
+vim.api.nvim_set_hl(0, "FloatBorder", { bg = palette.mantle, fg = palette.blue })
+
+-- Neo-tree / File Tree
 vim.api.nvim_set_hl(0, "NeoTreeDirectoryName", { fg = palette.blue })
 vim.api.nvim_set_hl(0, "NeoTreeDirectoryIcon", { fg = palette.blue })
 vim.api.nvim_set_hl(0, "NeoTreeRootName", { fg = palette.blue, bold = true })
-
-vim.api.nvim_set_hl(0, "Visual", { bg = palette.rosewater, fg = palette.crust })
-vim.api.nvim_set_hl(0, "Cursor", { fg = palette.crust, bg = palette.rosewater })
-
-for group, opts in pairs(highlights) do
-	local cmd = "highlight " .. group
-	if opts.fg then
-		cmd = cmd .. " guifg=" .. opts.fg
-	end
-	if opts.bg then
-		cmd = cmd .. " guibg=" .. opts.bg
-	end
-	if opts.style then
-		cmd = cmd .. " gui=" .. opts.style
-	end
-	vim.cmd(cmd)
-end
 

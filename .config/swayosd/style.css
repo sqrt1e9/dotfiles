@@ -4,12 +4,12 @@
 
 /* ---- Mocha tokens ---- */
 @define-color crust   #11111b;
-@define-color text    #CDD6F4;
+@define-color text    #cdd6f4;
 @define-color border  #313244;
 
-@define-color color1  #cba6f7;  /* mauve */
+@define-color color1  #b4befe;  /* lavender */
 @define-color color2  #f38ba8;  /* red */
-@define-color color6  #89b4fa;  /* blue */
+@define-color color6  #74c7ec;  /* sapphire */
 
 /* ------------------------------------------------------------------
  *  Base Colors
@@ -40,10 +40,10 @@ window {
 }
 
 /* ------------------------------------------------------------------
- *  OSD PILL — THIS IS THE CHANGE
+ *  OSD PILL
  * ------------------------------------------------------------------ */
 .osd {
-    background-color: @crust;          /* ← opaque crust */
+    background-color: @crust;
     border-radius:    0.1em;
     border:           0.0625em solid @border;
     padding:          0.0625em 0.5em;
@@ -107,4 +107,3 @@ progressbar progress {
 .osd-muted scale highlight {
     background-color: @urgent;
 }
-

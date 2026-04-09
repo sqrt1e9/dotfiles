@@ -1,7 +1,7 @@
 [user]
 	email = barvind.dev@outlook.com
     name = Arvind Badri
-    signingkey = 00DBF0860F091983
+    signingkey = 437A175A9496DAFB
 
 [core]
     editor = /usr/bin/nvim

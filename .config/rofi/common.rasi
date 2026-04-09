@@ -5,7 +5,7 @@
 
 configuration {
     modi:                       "drun,filebrowser,window,run";
-    font:                       "Monolisa 11";
+    font:                       "Monolisa 10";
     show-icons:                 false;
     display-drun:               " ";
     display-run:                " ";
@@ -34,7 +34,7 @@ window {
     location:                   center;
     anchor:                     center;
     border:                     0.1em;
-    border-radius:              0.1em;
+    border-radius:              0.5em;
 }
 
 /* -------- Shared inputbar (arrow prompt + entry) -------- */
@@ -43,7 +43,7 @@ inputbar {
     background-color:           transparent;
     text-color:                 @text;
     children:                   [ "textbox-prompt-colon", "entry" ];
-    border-radius:              0.1em;
+    border-radius:              0.5em;
     color:                      white;
 }
 
@@ -94,7 +94,7 @@ element {
     cursor:                     pointer;
     background-color:           transparent;
     text-color:                 @text;
-    border-radius:              0.1em;
+    border-radius:              0.5em;
 }
 
 element-icon {

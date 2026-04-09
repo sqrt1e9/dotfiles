@@ -1,5 +1,4 @@
-/* Waybar (Mocha + liquid glass) */
-/* @import '../../.cache/wal/colors-waybar.css'; */
+/* Waybar (Mocha + liquid glass - Inverse Block Style) */
 
 /* ===== Mocha palette ===== */
 @define-color rosewater   #f5e0dc;
@@ -31,124 +30,90 @@
 @define-color mantle      #181825;
 @define-color crust       #11111b;
 
-/* ===== Liquid glass tokens (keep your look) ===== */
-@define-color bg              @crust;
-@define-color border          rgba(255, 255, 255, .24);
-@define-color hover           rgba(180, 190, 254, .22);
-@define-color selected        rgba(137, 180, 250, .22);
+/* ===== Liquid glass tokens ===== */
+@define-color border          rgba(255, 255, 255, .1);
+@define-color hover           rgba(255, 255, 255, 0.2);
 @define-color urgent          @red;
-@define-color background-alt  rgba(137, 180, 250, .18);
 
 * {
-	border: none;
-	border-radius: 0;
-	font-family: "Symbols Nerd Font", "Monolisa";
-	font-weight: normal;
-	font-size: 1rem;
-	min-height: 0;
-	transition: 0.3s;
-	margin: 0 0.12em;
-	background: transparent;
+    border: none;
+    border-radius: 0;
+    font-family: "Symbols Nerd Font", "Monolisa";
+    font-weight: bold; /* Bolded for better readability on colored backgrounds */
+    font-size: .85rem;
+    min-height: 0;
+    transition: 0.3s;
+    margin: 0 0.12em;
 }
 
 window#waybar {
-	color: @text;
-	padding: 0.5em;
+    background: transparent;
+    color: @text;
 }
 
 tooltip {
-	border-radius: 0.1em;
-	border: 0.0625em solid @border;
-	transition: 0.3s;
-	background: @border;
+    border-radius: 0.5em;
+    border: 0.0625em solid @border;
+    background: @mantle;
+    color: @text;
 }
 
-/* Modules (glass background) */
-#custom-pomodoro,
-#custom-power_profile,
-#custom-weather,
-#custom-swaync,
-#custom-todo,
-#window,
-#clock,
-#battery,
-#pulseaudio,
-#network,
-#bluetooth,
-#temperature,
-#tray,
-#disk,
-#memory,
-#cpu,
-#workspaces,
-#custom-expand-center-ext,
-#custom-expand-right-ext,
-#custom-todo,
-#custom-countdown,
-#custom-stopwatch,
-#backlight {
-	color: @text;
-	opacity: 0.9;
-	padding: 0 0.625em;
-	background: @bg;
+/* Base module styling - Default text color is now dark to contrast with bright backgrounds */
+#custom-pomodoro, #custom-power_profile, #custom-weather, #custom-swaync,
+#custom-todo, #window, #clock, #battery, #pulseaudio, #network, #bluetooth,
+#temperature, #tray, #disk, #memory, #cpu, #workspaces, #backlight,
+#custom-countdown, #custom-stopwatch, #custom-expand-center-ext {
+    color: @base; 
+    padding: 0 0.85em;
+    margin: 3px 0.2em;
+    border-radius: 0.5em;
 }
 
-#temperature.critical { color: @urgent; }
+/* Individual Widget Backgrounds */
+#workspaces { background: @overlay0; color: @text; }
+#workspaces button { color: @subtext0; padding: 0 0.4em; }
+#workspaces button.active { background: @overlay0; color: @base; border-radius: 0.5em; }
+#workspaces button.urgent { background: @overlay0; color: @base; }
+#workspaces button:hover { background: @overlay0; color: @text; }
 
-#tray {
-	border-radius: 0.1em;
-	margin-right: 0.3125em;
-}
+#window { background: @lavender; color: @base; }
 
-#workspaces {
-    border-radius: 0 0.1em 0.1em 0;
-}
+#clock { background: @blue; color: @base; border-radius: 0.5em 0 0 0.5em; margin-left: 0.3em; }
 
-/* Hover/active tint (single layer) */
-#workspaces button:hover {
-}
+#pulseaudio { background: @teal; }
+#network { background: @sky; }
+#bluetooth { background: @sapphire; }
+#backlight { background: @yellow; }
 
-#workspaces button.active {
-}
+#battery { background: @green; }
+#battery.charging { background: @green; }
+#battery.warning { background: @peach; }
+#battery.critical { background: @red; color: @text; }
 
-#workspaces button.urgent {
-}
+#cpu { background: @mauve; }
+#memory { background: @pink; }
+#disk { background: @maroon; }
+#temperature { background: @teal; }
+#temperature.critical { background: @red; color: @text; }
 
-#window {
-	border-radius: 0.1em;
-	margin-left: 0.3125em;
-	margin-right: 0.3125em;
-}
+#tray { background: @surface1; color: @text; }
 
-#clock {
-	margin-left: 0.3125em;
-	border-radius: 0.1em 0em 0em 0.1em;
-	background: @bg;
-}
-
+#custom-swaync { background: @flamingo; }
+#custom-weather { background: @rosewater; }
+#custom-stopwatch { border-radius: 0; }
 #custom-expand-center-ext {
-	border-radius: 0em 0.1em 0.1em 0em;
-	background: @bg;
-	padding: 0em 1em;
+    background: @overlay0;
+    border-radius: 0 0.5em 0.5em 0;
+    color: @text;
+    padding: 0 0.85em;
 }
 
-#memory { border-radius: 0; }
-#battery { border-left: 0; }
-#cpu { border: 0em; }
-
-#custom-swaync,
-#custom-expand-right-ext {
-	border-radius: 0.1em 0 0 0.1em;
-	padding: 0 1em;
-}
-
-/* Stopwatch (Mocha-specific) */
 #custom-expand-center-ext.running,
-#custom-stopwatch.running { color: @red; }
+#custom-stopwatch.running { background: @red; color: @base; }
 
 #custom-expand-center-ext.paused,
-#custom-stopwatch.paused { color: @yellow; }
+#custom-stopwatch.paused  { background: @yellow; color: @base; }
 
 #custom-expand-center-ext.idle,
-#custom-stopwatch.idle { color: @text; }
+#custom-stopwatch.idle    { background: @overlay0; color: @text; }
 

@@ -97,6 +97,11 @@
             "type": "cursor"
         },
         {
+            "type": "battery",
+            "key": "│  battery │",
+            "keycolor": "red"
+        },
+        {
             "key": "├───────────┤",
             "type": "custom"
         },

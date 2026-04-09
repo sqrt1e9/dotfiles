@@ -14,6 +14,15 @@
 	box-shadow: none !important;
 }
 
+/* Global toolbar + tab icons */
+toolbarbutton,
+.toolbarbutton-1,
+#TabsToolbar,
+#nav-bar {
+    color: var(--mocha-text) !important;
+    fill: var(--mocha-text) !important;
+}
+
 #main-window, #tabbrowser-tabpanels { 
     background: var(--uc-base-colour) !important; 
 }

@@ -42,7 +42,7 @@ mode-switcher {
     padding:          0.5em;
     spacing:          1em;
     background-color: transparent;
-    border-radius:    0.1em;
+    border-radius:    0.5em;
 }
 
 button { 
@@ -51,7 +51,7 @@ button {
     cursor: pointer; 
     background-color: black / 10%; 
     text-color: @text; 
-    border-radius: 0.1em;
+    border-radius: 0.5em;
 }
 
 button selected {

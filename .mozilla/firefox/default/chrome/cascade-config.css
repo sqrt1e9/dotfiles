@@ -1,40 +1,54 @@
 :root {
     --uc-urlbar-min-width: 20vw;
-	--uc-urlbar-max-width: 20vw;
+    --uc-urlbar-max-width: 20vw;
 
     --uc-toolbar-position: 0;
-	--uc-urlbar-position: 1;
+    --uc-urlbar-position: 1;
     --uc-urlbar-top-spacing: 1px;
 
-    /* ===== Mocha (from your Neovim palette) ===== */
-    --mocha-crust:   #11111B;
-    --mocha-mantle:  #181825;
-    --mocha-base:    #1E1E2E;
+    /* ===== Mocha / Waybar-aligned palette ===== */
+    --mocha-rosewater: #f5e0dc;
+    --mocha-flamingo:  #f2cdcd;
+    --mocha-pink:      #f5c2e7;
+    --mocha-mauve:     #cba6f7;
+    --mocha-red:       #f38ba8;
+    --mocha-maroon:    #eba0ac;
+    --mocha-peach:     #fab387;
+    --mocha-yellow:    #f9e2af;
+    --mocha-green:     #a6e3a1;
+    --mocha-teal:      #94e2d5;
+    --mocha-sky:       #89dceb;
+    --mocha-sapphire:  #74c7ec;
+    --mocha-blue:      #89b4fa;
+    --mocha-lav:       #b4befe;
 
-    --mocha-text:    #CDD6F4;
-    --mocha-subtext: #BAC2DE;
-    --mocha-muted:   #6C7086;
+    --mocha-crust:     #11111b;
+    --mocha-mantle:    #181825;
+    --mocha-base:      #1e1e2e;
+    --mocha-surface0:  #313244;
+    --mocha-surface1:  #45475a;
 
-    --mocha-blue:    #89B4FA;  /* selection-ish */
-    --mocha-lav:     #B4BEFE;  /* hover-ish */
+    --mocha-text:      #cdd6f4;
+    --mocha-subtext:   #bac2de;
+    --mocha-muted:     #6c7086;
 
-    /* ===== Your theme tokens (now Mocha-aligned) ===== */
-    /* Main surfaces */
-    --uc-base-colour:          var(--mocha-crust);   /* was white glass */
-    --uc-tab-base-colour:      rgba(30, 30, 46, .92);/* crust with slight depth */
-    --uc-inactive-tab-colour:  rgba(17, 17, 27, .65);
+    /* ===== Firefox theme tokens aligned to SwayNC / Waybar ===== */
+    --uc-base-colour:          var(--mocha-crust);
+    --uc-tab-base-colour:      var(--mocha-lav);
+    --uc-inactive-tab-colour:  rgba(49, 50, 68, .92);
 
-    /* Focus/active panels */
-    --uc-highlight-colour:     rgba(30, 30, 46, .92); /* base */
-    --uc-hover-colour:         rgba(180, 190, 254, .18); /* lavender hover */
-    --uc-accent-colour:        rgba(137, 180, 250, .22); /* blue accent */
-    --uc-muted-colour:         rgba(166, 173, 200, .28); /* subtext0-ish */
+    --uc-highlight-colour:     var(--mocha-mantle);
+    --uc-hover-colour:         rgba(180, 190, 254, .18);
+    --uc-accent-colour:        rgba(137, 180, 250, .22);
+    --uc-muted-colour:         rgba(166, 173, 200, .22);
 
-    /* Text */
     --uc-inverted-colour:      var(--mocha-text);
+    --uc-active-tab-text:      var(--mocha-crust);
+    --uc-urlbar-selected-text: var(--mocha-crust);
+    --uc-urlbar-hover-text:    var(--mocha-crust);
 
-    --uc-border-radius: .1em;
-    --uc-tab-border-radius: .1em;
+    --uc-border-radius: .5em;
+    --uc-tab-border-radius: .5em;
     --uc-page-action-margin: 7px;
     --uc-active-tab-width: 250px;
     --uc-inactive-tab-width: 250px;
@@ -62,18 +76,18 @@
 
     --toolbar-field-focus-color: var(--uc-inverted-colour) !important;
     --toolbar-field-focus-background-color: var(--uc-highlight-colour) !important;
-    --toolbar-field-focus-border-color: var(--uc-accent-colour) !important;
+    --toolbar-field-focus-border-color: var(--mocha-blue) !important;
 
     --toolbar-field-background-color: var(--lwt-frame) !important;
-    --lwt-toolbar-field-highlight: var(--uc-inverted-colour) !important;
+    --lwt-toolbar-field-highlight: var(--mocha-blue) !important;
     --lwt-toolbar-field-highlight-text: var(--mocha-crust) !important;
 
     /* URL dropdown URL color */
-    --urlbar-popup-url-color: var(--uc-accent-colour) !important;
+    --urlbar-popup-url-color: var(--mocha-blue) !important;
 
     /* Tabs */
     --lwt-tab-text: var(--lwt-text-color) !important;
-    --lwt-selected-tab-background-color: var(--uc-highlight-colour) !important;
+    --lwt-selected-tab-background-color: var(--uc-tab-base-colour) !important;
 
     --toolbar-bgcolor: var(--lwt-frame) !important;
     --toolbar-color: var(--lwt-text-color) !important;
@@ -94,4 +108,3 @@
     --urlbar-box-hover-text-color: var(--uc-inverted-colour) !important;
     --urlbar-box-focus-bgcolor: var(--uc-highlight-colour) !important;
 }
-
