@@ -1,37 +1,50 @@
 #!/usr/bin/env bash
 
-# Power menu script using wofi --dmenu
+action="$1"
 
-options=" Lock
-☾ Suspend
-   Logout
-   Reboot
- Shutdown
-   Hibernate"
+swaync-client -cp
+sleep 0.5
 
-# Run wofi synchronously; it exits after selection
-choice=$(echo -e "$options" \
-    | rofi -dmenu --prompt "Power")
-
-case "$choice" in
-    " Lock")
-        sleep 0.2
-        hyprlock
-        ;;
-    "☾ Suspend")
-        systemctl suspend
-        ;;
-    "   Logout")
-        hyprctl dispatch exit 0
-        ;;
-    "   Reboot")
-        systemctl reboot
-        ;;
-    " Shutdown")
-        shutdown
-        ;;
-    "   Hibernate")
-        systemctl hibernate
-        ;;
+case "$action" in
+  shutdown)
+    prompt="Shut down?"
+    run_cmd="systemctl poweroff"
+    cancel_cmd="shutdown -c 2>/dev/null || true"
+    ;;
+  reboot)
+    prompt="Reboot?"
+    run_cmd="systemctl reboot"
+    cancel_cmd="shutdown -c 2>/dev/null || true"
+    ;;
+  logout)
+    prompt="Log out?"
+    run_cmd="hyprctl dispatch exit 0"
+    cancel_cmd="true"
+    ;;
+  lock)
+    prompt="Lock screen?"
+    run_cmd="hyprlock"
+    cancel_cmd="true"
+    ;;
+  suspend)
+    prompt="Suspend?"
+    run_cmd="systemctl suspend"
+    cancel_cmd="true"
+    ;;
+  *)
+    exit 1
+    ;;
 esac
 
+choice="$(printf 'Confirm\nCancel\n' | rofi -dmenu -i -p "$prompt")"
+
+case "$choice" in
+  Confirm)
+      killall rofi
+      sleep 1
+    eval "$run_cmd"
+    ;;
+  Cancel|"")
+    eval "$cancel_cmd"
+    ;;
+esac

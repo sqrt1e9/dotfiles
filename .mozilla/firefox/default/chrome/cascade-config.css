@@ -47,6 +47,22 @@
     --uc-urlbar-selected-text: var(--mocha-crust);
     --uc-urlbar-hover-text:    var(--mocha-crust);
 
+    /* ===== Funky button tokens ===== */
+    --uc-menu-btn-bg:          var(--mocha-lav);
+    --uc-menu-btn-hover:       var(--mocha-blue);
+
+    --uc-widget-btn-1:         var(--mocha-teal);
+    --uc-widget-btn-2:         var(--mocha-green);
+    --uc-widget-btn-3:         var(--mocha-yellow);
+    --uc-widget-btn-4:         var(--mocha-peach);
+    --uc-widget-btn-5:         var(--mocha-pink);
+    --uc-widget-btn-6:         var(--mocha-maroon);
+    --uc-widget-btn-7:         var(--mocha-rosewater);
+    --uc-widget-btn-8:         var(--mocha-flamingo);
+
+    --uc-widget-label:         var(--mocha-surface0);
+    --uc-widget-label-soft:    var(--mocha-subtext);
+
     --uc-border-radius: .5em;
     --uc-tab-border-radius: .5em;
     --uc-page-action-margin: 7px;

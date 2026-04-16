@@ -68,9 +68,6 @@ else
     echo "Random image chosen: $IMG"
 fi
 
-CACHE_DIR="$HOME/.cache/wal"
-COLORS_FILE="$CACHE_DIR/colors.json"
-
 echo "Final image path: $IMG"
 
 wait_for_hyprctl() {
@@ -103,24 +100,6 @@ wait_for_hyprpaper() {
     return 0
 }
 
-echo "Clearing old Pywal cache..."
-rm -rf "$CACHE_DIR"
-
-echo "Running pywal..."
-wal -n -i "$IMG" || echo "wal failed"
-
-echo "Waiting for Pywal colors.json..."
-for i in {1..40}; do
-    [ -f "$COLORS_FILE" ] && break
-    sleep 0.1
-done
-
-if [ -f "$COLORS_FILE" ]; then
-    echo "Pywal ready: $COLORS_FILE"
-else
-    echo "Warning: colors.json not found; continuing anyway"
-fi
-
 # Ensure Hyprland + hyprpaper
 wait_for_hyprctl || echo "Warning: hyprctl not confirmed."
 if ! pgrep -x hyprpaper >/dev/null 2>&1; then
@@ -142,6 +121,8 @@ else
 
     hyprctl hyprpaper unload all 2>/dev/null || true
     hyprctl hyprpaper preload "$IMG"
+
+    cp "$IMG" ~/.local/share/backgrounds/default.jpg
 
     while read -r MON; do
         [ -z "$MON" ] && continue
@@ -168,4 +149,3 @@ else
 fi
 
 echo "--- hypr-refresh-all end $(date) ---"
-

@@ -33,10 +33,10 @@
         "tooltip": false,
         "format": "{icon}",
         "format-icons": {
-            "notification": "<span foreground='red'><sup></sup></span>",
-            "none": "",
-            "dnd-notification": "<span foreground='red'><sup></sup></span>",
-            "dnd-none": ""
+            "notification": "<span foreground='red'><sup></sup></span>",
+            "none": "",
+            "dnd-notification": "<span color='#ff5555'></span><span foreground='red'><sup></sup></span>",
+            "dnd-none": "<span color='#ff5555'></span>"
         },
         "return-type": "json",
         "exec-if": "which swaync-client",
@@ -156,7 +156,7 @@
     },
     "bluetooth": {
 	    "format": "  {status}",
-	    "format-disabled": "", // an empty format will hide the module
+	    "format-disabled": "",
 	    "format-connected": "  {num_connections}",
 	    "tooltip-format": "{device_alias}",
 	    "tooltip-format-connected": " {device_enumerate}",

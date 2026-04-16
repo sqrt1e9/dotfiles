@@ -38,6 +38,7 @@
  * --------------------------------------------------------------- */
 @define-color fg_dark         @crust;
 @define-color fg_body         @base;
+@define-color fg_soft         @subtext1;
 
 @define-color bg              @crust;
 @define-color panel_bg        rgba(17, 17, 27, 0.78);
@@ -59,6 +60,19 @@
 
 @define-color progress_track  rgba(17, 17, 27, 0.18);
 @define-color progress_fill   @sapphire;
+
+/* colorful button tokens */
+@define-color menu_btn_bg     @lavender;
+@define-color menu_btn_hover  @blue;
+
+@define-color widget_btn_1    @teal;
+@define-color widget_btn_2    @green;
+@define-color widget_btn_3    @yellow;
+@define-color widget_btn_4    @peach;
+@define-color widget_btn_5    @pink;
+@define-color widget_btn_6    @maroon;
+@define-color widget_btn_7    @rosewater;
+@define-color widget_btn_8    @flamingo;
 
 /* ---------------------------------------------------------------
  *  Global defaults
@@ -334,16 +348,20 @@ progressbar {
  * --------------------------------------------------------------- */
 .notification-group-collapse-button,
 .notification-group-close-all-button {
-    background:    rgba(255, 255, 255, 0.08);
-    color:         @text;
+    background:    @menu_btn_bg;
+    color:         @fg_dark;
     margin:        0.25em;
     border-radius: 0.5em;
-    padding:       0.25em;
+    padding:       0.25em 0.55em;
+}
+
+.notification-group-close-all-button {
+    background: @menu_btn_bg;
 }
 
 .notification-group-collapse-button:hover,
 .notification-group-close-all-button:hover {
-    background: @hover;
+    background: @menu_btn_hover;
     color:      @fg_dark;
 }
 
@@ -358,24 +376,26 @@ progressbar {
 .menu-button-bar wallpaper-switcher text-button,
 .menu-button-bar text-button,
 .menu-button-bar button {
-    padding:       0.3em 1.5em;
-    background:    @secondary_container;
-    border:        1px solid @secondary_container_border;
+    padding:       0.3em 1.1em;
+    border:        none;
     border-radius: 0.5em;
     margin:        .35em;
+    color:         @fg_dark;
+    background:    @menu_btn_bg;
 }
 
 .wallpaper-switcher text-button label,
 .menu-button-bar text-button label,
 .menu-button-bar button label {
     font-size:  0.9rem;
-    color:      @text;
+    color:      @fg_dark;
     transition: all .7s ease;
 }
 
 .menu-button-bar text-button:hover,
-.menu-button-bar button:hover {
-    background: @hover;
+.menu-button-bar button:hover,
+.menu-button-bar wallpaper-switcher text-button:hover {
+    background: @menu_btn_hover;
     color:      @fg_dark;
     box-shadow: none;
     transition: all .5s ease;
@@ -388,32 +408,47 @@ progressbar {
 .powermode-buttons {
     padding:       .5em;
     margin:        .5em;
-    border-radius: .8em;
-    background:    @secondary_container;
+    border-radius: .5em;
+    background:    @lavender;
     border:        1px solid @secondary_container_border;
 }
 
 .powermode-buttons button,
 .power-buttons button {
     padding:       8px;
-    margin:        8px 0;
     border-radius: .5em;
+    border:        none;
+    color:         @fg_soft;
+}
+
+.powermode-buttons button,
+.power-buttons button {
+    background: @lavender;
 }
 
 .powermode-buttons button label,
 .power-buttons > button label {
     font-size: 1em;
-    color:     @text;
+    color:     @surface0;
 }
 
 .powermode-buttons > button:hover,
 .power-buttons > button:hover {
-    background: @hover;
-    color:      @fg_dark;
+    background: @red;
+    color:      @surface0;
     box-shadow: none;
     transition: all .5s ease;
 }
 
+.powermode-buttons > button:hover label,
+.power-buttons > button:hover label {
+    color: @surface0;
+}
+
+.powermodes button.toggle:checked {
+    background: @red;
+    border: 1px solid rgba(180, 190, 254, 0.65);
+}
 /* ---------------------------------------------------------------
  *  Widget titles
  * --------------------------------------------------------------- */
@@ -423,14 +458,15 @@ progressbar {
 }
 
 .widget-title button {
-    background:    rgba(255, 255, 255, 0.08);
+    background:    @menu_btn_bg;
+    color:         @fg_dark;
     border-radius: 0.5em;
     padding:       0.25em 1em;
 }
 
 .widget-title button:hover,
 .widget-title button:active {
-    background-color: @hover;
+    background-color: @menu_btn_hover;
     color:            @fg_dark;
 }
 
@@ -489,7 +525,7 @@ progressbar {
 .widget-backlight scale trough progress {
     min-height:       0.125em;
     border-radius:    0.5em;
-    background-color: @progress_fill;
+    background-color: @red;
 }
 
 .widget-volume scale slider,
@@ -513,26 +549,36 @@ progressbar {
 
 .widget-buttons-grid > flowbox > flowboxchild > button {
     padding:       0.5em 0.85em;
-    background:    @secondary_container;
-    border:        1px solid @secondary_container_border;
+    border:        none;
     border-radius: 0.5em;
     margin:        .35em;
+    color:         @fg_soft;
+}
+
+.widget-buttons-grid > flowbox > flowboxchild > button { background: @lavender; }
+
+.widget-buttons-grid > flowbox > flowboxchild > button label {
+    color: @surface0;
 }
 
 .widget-buttons-grid > flowbox > flowboxchild > button:hover {
-    background: @hover;
-    color:      @fg_dark;
+    background: @sapphire;
+    color:      @surface0;
     box-shadow: none;
     transition: all .5s ease;
 }
 
+.widget-buttons-grid > flowbox > flowboxchild > button:hover label {
+    color: @surface0;
+}
+
 .widget-buttons-grid > flowbox > flowboxchild > button.toggle:checked,
 .widget-buttons-grid > flowbox > flowboxchild > button:selected {
-    background: @urgent;
+    background: @red;
 }
 
 .widget-buttons-grid > flowbox > flowboxchild > button.toggle:checked label {
-    color: @fg_dark;
+    color: @surface0;
 }
 
 /* ---------------------------------------------------------------
