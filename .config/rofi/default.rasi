@@ -1,117 +1,113 @@
-/* ~/.config/rofi/default.rasi (Mocha hover + selection only) */
+/* ~/.config/rofi/default.rasi — macOS Light + Catppuccin Latte Lavender */
 
 * {
-	/* Mocha core */
-	text:			#CDD6F4;
-	foreground:		#CDD6F4;
+    text:                       #4C4F69;
+    foreground:                 #4C4F69;
+    subtext:                    #6C6F85;
 
-	/* Keep your existing glass language */
-	shade-shadow:	white / 6%;
-	shade-border:	white / 24%;
-	border-color:	white / 10%;
+    pill:                       white / 82%;
+    pill-soft:                  white / 68%;
 
-	/* ONLY: hover + selection (solid, because your rofi build rejects alpha for hex/vars) */
-	hover-bg:		#89B4FA;	/* Mocha blue */
-	select-bg:		#B4BEFE;	/* Mocha lavender */
-	select-border:	#B4BEFE;	/* Mocha lavender */
+    lavender:                   #7287FD;
+    lavender-soft:              #E7E9FF;
 
-	/* Preserve your existing tokens */
-	shade-bg:		white / 12%;
-	background-alt:	@shade-bg;
-	selected:		@shade-bg;
+    hover-bg:                   @lavender-soft;
+    select-bg:                  @lavender;
 
-	active:			@hover-bg;
-	urgent:			@hover-bg;
+    text-selected:              #FFFFFF;
+    placeholder-color:          #6C6F85;
 
-	selected-normal-background:	@shade-bg;
-	selected-active-background:	@shade-bg;
-	selected-urgent-background:	@shade-bg;
+    background-alt:             @pill;
+    selected:                   @select-bg;
 
-    placeholder-color:  #444444;
+    active:                     @hover-bg;
+    urgent:                     @hover-bg;
 
-	text-selected:	#11111B;
-    crust:          #11111B;
+    selected-normal-background: @select-bg;
+    selected-active-background: @select-bg;
+    selected-urgent-background: @select-bg;
 }
 
 window {
-	fullscreen:			false;
-	transparency:		"real";
-	cursor:				"default";
-
-	/* Liquid glass (restore your original) */
-	background-color:	@crust;
-
-	border:				0em;
-	border-color:		@border-color;
+    fullscreen:                 false;
+    transparency:               "real";
+    cursor:                     "default";
+    background-color:           @pill;
+    border:                     0em;
+    border-radius:              1.2em;
+    padding:                    1em;
 }
 
-/* Elements ----------------------------------------------------- */
 element normal.normal,
 element alternate.normal {
-	background-color:	transparent;
-	text-color:			@text;
+    background-color:           transparent;
+    text-color:                 @text;
+    border-radius:              0.75em;
+    padding:                    0.6em 1em;
+    margin:                     0.1em 0;
 }
 
-/* Hover */
 element normal.active,
 element alternate.active {
-	background-color:	@hover-bg;
-	text-color:			@text-selected;
-	border:				0.0625em solid;
-	border-color:		@select-border;
+    background-color:           @hover-bg;
+    text-color:                 @lavender;
+    border:                     0em;
+    border-radius:              0.75em;
+    padding:                    0.6em 1em;
+    margin:                     0.1em 0;
 }
 
-/* Selected */
 element selected.normal {
-	background-color:	@select-bg;
-	text-color:			@text-selected;
-	border:				0.0625em solid;
-	border-color:		@select-border;
+    background-color:           @select-bg;
+    text-color:                 @text-selected;
+    border:                     0em;
+    border-radius:              0.75em;
+    padding:                    0.6em 1em;
+    margin:                     0.1em 0;
 }
 
 element-text {
-	background-color:	transparent;
-	text-color:			inherit;
-	highlight:			inherit;
-	cursor:				inherit;
-	vertical-align:		0.5;
-	horizontal-align:	0.5;
+    background-color:           transparent;
+    text-color:                 inherit;
+    highlight:                  inherit;
+    cursor:                     inherit;
+    vertical-align:             0.5;
+    horizontal-align:           0.0;
+    padding:                    0.1em 0.25em;
 }
 
-/* Listview ---------------------------------------------------- */
 listview {
-	border:				0em;
+    border:                     0em;
+    padding:                    0.45em;
+    spacing:                    0.25em;
 }
 
-/* Scrollbar ---------------------------------------------------- */
 scrollbar {
-	margin:				0 0.25em;
-	handle-width:		0.5em;
-	handle-color:		white;
-	background-color:	@shade-shadow;
+    margin:                     0 0.25em;
+    handle-width:               0.5em;
+    handle-color:               @lavender;
+    background-color:           transparent;
 }
 
-/* Message ------------------------------------------------------ */
 message {
-	/* Liquid glass (restore your original style) */
-	background-color:	@crust;
-	border:				0.0625em solid;
-	border-color:		transparent;
-	padding:			1.5em;
+    background-color:           @pill-soft;
+    border:                     0em;
+    border-radius:              0.8em;
+    padding:                    1em;
 }
 
 error-message {
-	padding:			6.25em;
-	border:				0em solid;
-	background-color:	@crust;
-	text-color:			@text;
+    padding:                    6.25em;
+    border:                     0em;
+    background-color:           @pill;
+    text-color:                 @text;
+    border-radius:              1.2em;
 }
 
 textbox {
-	background-color:	transparent;
-	text-color:			@text;
-	vertical-align:		0.5;
-	horizontal-align:	0.5;
-	highlight:			none;
+    background-color:           transparent;
+    text-color:                 @text;
+    vertical-align:             0.5;
+    horizontal-align:           0.5;
+    highlight:                  none;
 }
-

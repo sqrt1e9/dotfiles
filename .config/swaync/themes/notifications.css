@@ -1,24 +1,24 @@
 /* ---------------------------------------------------------------
- *  Floating Notifications — Mocha Inverse Block Style
+ *  Floating Notifications — Catppuccin Latte Light Block Style
  *  Colors applied to backgrounds, text set to dark contrast.
  * --------------------------------------------------------------- */
 
-/* ---- Mocha palette ---- */
-@define-color text            #cdd6f4;
-@define-color subtext0        #a6adc8;
-@define-color crust           #11111b;
-@define-color base            #1e1e2e;
+/* ---- Latte palette ---- */
+@define-color text            #4c4f69;
+@define-color subtext0        #6c6f85;
+@define-color crust           #eff1f5;
+@define-color base            #5c5f77;
 
 /* Accents for backgrounds */
-@define-color mauve           #cba6f7;
-@define-color blue            #89b4fa;
-@define-color lavender        #b4befe;
-@define-color red             #f38ba8;
-@define-color sapphire        #74c7ec;
+@define-color mauve           #8839ef;
+@define-color blue            #1e66f5;
+@define-color lavender        #7287fd;
+@define-color red             #d20f39;
+@define-color sapphire        #209fb5;
 
 /* Liquid Glass / UI Tokens */
 @define-color bg              @crust;
-@define-color border          rgba(255, 255, 255, .1);
+@define-color border          rgba(76, 79, 105, .1);
 
 /* ---------------------------------------------------------------
  *  Global defaults
@@ -36,7 +36,6 @@ blankwindow {
     background-color: transparent !important;
 }
 
-/* This targets the container that often holds the secondary color */
 .notification-row {
     background: transparent !important;
     background-color: transparent !important;
@@ -59,8 +58,8 @@ blankwindow {
  *  Notification card
  * --------------------------------------------------------------- */
 .floating-notifications.background .notification-row .notification-background {
-    background:    @lavender; /* Main card background */
-    color:         @crust;    /* Dark text on light background */
+    background:    rgba(255, 255, 255, 0.82);
+    color:         @text;
     border-radius: 0.8em;
     padding:       10px;
     margin-top:    10px;
@@ -69,19 +68,19 @@ blankwindow {
 
 /* Critical Notifications */
 .floating-notifications.background .notification-row .notification-background .notification.critical {
-    background:    @red;
-    color:         @crust;
+    background:    rgba(210, 15, 57, 0.12);
+    color:         @red;
 }
 
 /* Content Text Styling */
 .floating-notifications.background .notification-row .notification-background .notification .notification-content .summary {
     font-weight: 800;
     font-size:   1rem;
-    color:       @crust;
+    color:       @text;
 }
 
 .floating-notifications.background .notification-row .notification-background .notification .notification-content .body {
-    color:       @base; /* Slightly lighter dark for body text */
+    color:       @base;
 }
 
 /* ---------------------------------------------------------------
@@ -89,16 +88,16 @@ blankwindow {
  * --------------------------------------------------------------- */
 .floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action {
     border-radius:     0.5em;
-    background-color:  @sapphire; /* Distinct button color */
-    color:             @crust;
+    background-color:  rgba(114, 135, 253, 0.14);
+    color:             @lavender;
     margin:            4px;
     padding:           4px 8px;
     font-weight:       bold;
 }
 
 .floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action:hover {
-    background-color:  @blue;
-    color:             @crust;
+    background-color:  @lavender;
+    color:             #ffffff;
 }
 
 /* ---------------------------------------------------------------
@@ -108,24 +107,24 @@ blankwindow {
     margin:           4px;
     padding:          4px;
     border-radius:    0.5em;
-    background-color: rgba(0, 0, 0, 0.1); /* Subtle dark overlay */
-    color:            @crust;
+    background-color: rgba(114, 135, 253, 0.14);
+    color:            @lavender;
 }
 
 .floating-notifications.background .notification-row .notification-background .close-button:hover {
-    background-color: @red;
-    color:            @text;
+    background-color: rgba(210, 15, 57, 0.12);
+    color:            @red;
 }
 
 /* ---------------------------------------------------------------
  *  Progress bars
  * --------------------------------------------------------------- */
 .notification progress {
-    background-color: @crust; /* Darker track */
+    background-color: @lavender;
 }
 
 .notification.critical progress {
-    background-color: @base;
+    background-color: @red;
 }
 
 .image {

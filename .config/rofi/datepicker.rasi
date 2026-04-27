@@ -17,7 +17,7 @@ mainbox {
 
 message {
     enabled:          true;
-    background-color: black / 10%;
+    background-color: @shade-bg;
     margin:           0.5em 0em 0.5em 0em;
     padding:          0.5em 1em;
     text-color:       @text;
@@ -29,10 +29,9 @@ textbox {
     text-color:       @text;
     horizontal-align: 0.5;
     vertical-align:   0.5;
-    padding:          0em;     /* no padding change */
+    padding:          0em;
 }
 
-/* (rest of your file unchanged) */
 inputbar {
     enabled:                    true;
     background-color:           transparent;
@@ -58,7 +57,7 @@ entry {
     cursor:                     text;
     placeholder:                "Type to Search";
     background-color:           transparent;
-    placeholder-color:          @text;
+    placeholder-color:          var(placeholder-color);
     text-color:                 @text;
 }
 
@@ -83,8 +82,8 @@ element {
 }
 
 element selected {
-    background-color: @shade-bg;
-    text-color:       @text;
+    background-color: @select-bg;
+    text-color:       @text-selected;
 }
 
 element.normal {
@@ -100,4 +99,3 @@ element-text {
 element-icon {
     font: "Symbols Nerd Font 16";
 }
-
