@@ -1,5 +1,3 @@
-/* ~/.config/rofi/default.rasi — macOS Light + Catppuccin Latte Lavender */
-
 * {
     text:                       #4C4F69;
     foreground:                 #4C4F69;
@@ -26,6 +24,10 @@
     selected-normal-background: @select-bg;
     selected-active-background: @select-bg;
     selected-urgent-background: @select-bg;
+
+    padding:                    0;
+    spacing:                    0;
+    border:                     0;
 }
 
 window {
@@ -33,81 +35,133 @@ window {
     transparency:               "real";
     cursor:                     "default";
     background-color:           @pill;
-    border:                     0em;
+
+    border:                     0;
     border-radius:              1.2em;
-    padding:                    1em;
+
+    /* IMPORTANT: restore original feel */
+    padding:                    0;
 }
 
+mainbox {
+    background-color:           transparent;
+
+    /* FIX: prevents “split line” illusion */
+    spacing:                    0;
+}
+
+inputbar {
+    text-color:                 @foreground;
+
+    /* keep original geometry */
+    padding:                    12px 12px 4px 12px;
+
+    children:                   [ prompt, textbox-prompt-colon, entry, num-filtered-rows, textbox-num-sep, num-rows ];
+
+    background-color:           transparent;
+}
+
+listview {
+    border:                     0;
+
+    /* RESTORED original (important) */
+    padding:                    2px 0 8px 0;
+
+    spacing:                    0;
+
+    fixed-height:               true;
+    lines:                      12;
+    scrollbar:                  false;
+
+    background-color:           transparent;
+}
+
+element {
+    padding:                    3px 12px;
+    spacing:                    6px;
+}
+
+/* keep visuals unchanged */
 element normal.normal,
 element alternate.normal {
     background-color:           transparent;
     text-color:                 @text;
-    border-radius:              0.75em;
-    padding:                    0.6em 1em;
-    margin:                     0.1em 0;
 }
 
 element normal.active,
 element alternate.active {
     background-color:           @hover-bg;
     text-color:                 @lavender;
-    border:                     0em;
-    border-radius:              0.75em;
-    padding:                    0.6em 1em;
-    margin:                     0.1em 0;
 }
 
+/* FIX ONLY: radius consistency */
 element selected.normal {
     background-color:           @select-bg;
     text-color:                 @text-selected;
-    border:                     0em;
-    border-radius:              0.75em;
-    padding:                    0.6em 1em;
-    margin:                     0.1em 0;
+    border-radius:              1.2em;
 }
 
 element-text {
     background-color:           transparent;
     text-color:                 inherit;
-    highlight:                  inherit;
-    cursor:                     inherit;
-    vertical-align:             0.5;
-    horizontal-align:           0.0;
-    padding:                    0.1em 0.25em;
+    padding:                    0;
 }
 
-listview {
-    border:                     0em;
-    padding:                    0.45em;
-    spacing:                    0.25em;
+element-icon {
+    background-color:           transparent;
+    size:                       1em;
+    margin:                     0 4px 0 0;
 }
 
 scrollbar {
-    margin:                     0 0.25em;
-    handle-width:               0.5em;
     handle-color:               @lavender;
-    background-color:           transparent;
+    width:                      4px;
+    handle-width:               8px;
 }
 
 message {
     background-color:           @pill-soft;
-    border:                     0em;
-    border-radius:              0.8em;
-    padding:                    1em;
+    padding:                    2px 12px;
 }
 
 error-message {
-    padding:                    6.25em;
-    border:                     0em;
-    background-color:           @pill;
-    text-color:                 @text;
-    border-radius:              1.2em;
+    background-color:           transparent;
+    padding:                    2px 12px;
 }
 
 textbox {
     background-color:           transparent;
     text-color:                 @text;
-    vertical-align:             0.5;
-    horizontal-align:           0.5;
-    highlight:                  none;
+}
+
+prompt {
+    text-color:                 inherit;
+    background-color:           transparent;
+}
+
+textbox-prompt-colon {
+    text-color:                 inherit;
+    margin:                     0 6px 0 0;
+    expand:                     false;
+    str:                        ":";
+    background-color:           transparent;
+}
+
+entry {
+    text-color:                 inherit;
+    placeholder-color:          @placeholder-color;
+    placeholder:                "Type to filter";
+    background-color:           transparent;
+}
+
+num-filtered-rows,
+num-rows,
+textbox-num-sep {
+    text-color:                 inherit;
+    expand:                     false;
+    background-color:           transparent;
+}
+
+textbox-num-sep {
+    str:                        "/";
 }

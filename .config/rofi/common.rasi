@@ -2,63 +2,78 @@ configuration {
     modi:                       "drun,filebrowser,window,run";
     font:                       "Monolisa 10";
     show-icons:                 false;
-    display-drun:               " ";
-    display-run:                " ";
+
+    display-drun:               "";
+    display-run:                "";
     display-filebrowser:        "";
     display-window:             "";
+
     drun-display-format:        "{name}";
     hover-select:               false;
     scroll-method:              1;
+
     me-select-entry:            "";
-    me-accept-entry:            "MousePrimary";
+    me-accept-entry:            "";
+
     window-format:              "{w} · {c} · {t}";
     auto-select:                false;
 }
 
 @import "default.rasi"
 
+/* ===== WINDOW ===== */
 window {
     height:                     36em;
-    width:                      44em;
-    fullscreen:                 false;
-    enabled:                    true;
-    cursor:                     "default";
-    spacing:                    0em;
-    padding:                    1em;
+    width:                      25em;
+
+    padding:                    0.8em;
+    spacing:                    0;
+
+    border:                     0;
+    border-radius:              1.2em;
+
     location:                   center;
     anchor:                     center;
-    border:                     0em;
-    border-radius:              1.2em;
 }
 
+/* ===== MAIN LAYOUT ===== */
+mainbox {
+    spacing:                    0.4em;
+    background-color:           transparent;
+}
+
+/* ===== INPUT BAR ===== */
 inputbar {
-    enabled:                    true;
+    padding:                    0.6em 0.8em;
+    spacing:                    0.4em;
+
     background-color:           transparent;
     text-color:                 @text;
-    children:                   [ "textbox-prompt-colon", "entry" ];
-    border-radius:              1.2em;
-    padding:                    0.35em 0.7em;
+
+    children:                   [ prompt, textbox-prompt-colon, entry ];
 }
 
 textbox-prompt-colon {
-    enabled:                    true;
     expand:                     false;
     str:                        "";
-    padding:                    0.7em 0 0.7em 0;
-    text-color:                 @text;
+    margin:                     0 0.4em 0 0;
+
     background-color:           transparent;
+    text-color:                 @text;
 }
 
 entry {
-    enabled:                    true;
-    padding:                    0.7em 0 0.7em 0;
+    padding:                    0.2em 0;
+
     cursor:                     text;
     placeholder:                "Type to filter";
-    background-color:           transparent;
     placeholder-color:          var(placeholder-color);
+
+    background-color:           transparent;
     text-color:                 @text;
 }
 
+/* ===== LIST ===== */
 listbox {
     orientation:                horizontal;
     children:                   [ "listview" ];
@@ -66,58 +81,96 @@ listbox {
 }
 
 listview {
-    padding:                    0.45em;
-    enabled:                    true;
+    padding:                    0.6em 0.8em;
+    spacing:                    0.3em;
+
     columns:                    1;
     lines:                      10;
+
     cycle:                      true;
     dynamic:                    true;
-    scrollbar:                  false;
+
     layout:                     vertical;
-    reverse:                    false;
     fixed-height:               true;
     fixed-columns:              true;
-    cursor:                     "default";
+
+    scrollbar:                  false;
+    cursor:                     default;
+
     background-color:           transparent;
-    spacing:                    0.25em;
 }
 
+/* ===== ELEMENTS ===== */
 element {
-    enabled:                    true;
+    padding:                    0.5em 0.8em;
+    spacing:                    0.5em;
+
     cursor:                     pointer;
+
     background-color:           transparent;
     text-color:                 @text;
-    border-radius:              0.75em;
-    padding:                    0.6em 1em;
-    margin:                     0.1em 0;
+
+    border-radius:              0.6em;
+}
+
+/* normal rows */
+element normal.normal,
+element alternate.normal {
+    background-color:           transparent;
+    text-color:                 @text;
+}
+
+/* hover */
+element normal.active,
+element alternate.active {
+    background-color:           @hover-bg;
+    text-color:                 @lavender;
+}
+
+/* selected (IMPORTANT FIX) */
+element selected.normal {
+    background-color:           @select-bg;
+    text-color:                 @text-selected;
+
+    border-radius:              1.2em;   /* matches window */
 }
 
 element-icon {
+    size:                       1em;
+    margin:                     0 0.4em 0 0;
     enabled:                    false;
-    size:                       1.3em;
-    cursor:                     inherit;
-    background-color:           transparent;
-    text-color:                 @text;
-}
-
-element-text {
-    vertical-align:             0.5;
-    horizontal-align:           0.0;
-    padding:                    0.1em 0.25em;
-    cursor:                     inherit;
     background-color:           transparent;
     text-color:                 inherit;
 }
 
+element-text {
+    padding:                    0;
+
+    vertical-align:             0.5;
+    horizontal-align:           0.0;
+
+    background-color:           transparent;
+    text-color:                 inherit;
+}
+
+/* ===== MESSAGES ===== */
+message {
+    padding:                    0.4em 0.8em;
+}
+
 error-message {
+    padding:                    0.4em 0.8em;
     background-color:           transparent;
     text-transform:             capitalize;
+
     children:                   [ "textbox" ];
 }
 
+/* ===== TEXTBOX ===== */
 textbox {
     text-color:                 @text;
-    background-color:           inherit;
+    background-color:           transparent;
+
     vertical-align:             0.5;
     horizontal-align:           0.5;
 }

@@ -91,6 +91,7 @@ blankwindow {
 .control-center .notification-row .notification-background .notification-content {
     margin: .375em;
     padding: .35em;
+    color: @text;
 }
 
 .control-center .notification-row .notification-background .close-button {
@@ -340,6 +341,7 @@ blankwindow {
     padding: 10px;
     margin-top: 10px;
     border: 1px solid @card_border;
+    color: @text;
 }
 
 .floating-notifications.background .notification-row .notification-background .summary {
