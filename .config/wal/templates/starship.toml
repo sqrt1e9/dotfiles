@@ -1,0 +1,59 @@
+add_newline = true
+
+format = """$git_branch$git_status$directory$character"""
+
+palette = "dynamic"
+
+[directory]
+truncation_length = 255
+style = "accent bold"
+format = "[$read_only]($read_only_style)[$path]($style)"
+repo_root_format = "[$read_only]($read_only_style)[$before_root_path]($style)[$repo_root](blue bold)[$path]($style)"
+
+[character]
+success_symbol = " [❯](green)"
+error_symbol = " [❯](red)"
+vimcmd_symbol = " [❮](subtext1)"
+
+[package]
+disabled = true
+
+[battery]
+full_symbol = " "
+charging_symbol = " "
+discharging_symbol = " "
+unknown_symbol = " "
+empty_symbol = " "
+
+[[battery.display]]
+threshold = 100
+style = "bold red"
+
+[palettes.dynamic]
+# Light-background pywal mapping to fix spacing and text clipping
+accent = "{color1}"
+rosewater = "{color5}"
+flamingo = "{color5}"
+pink = "{color5}"
+mauve = "{color5}"
+red = "{color1}"
+maroon = "{color1}"
+peach = "{color3}"
+yellow = "{color3}"
+green = "{color2}"
+teal = "{color6}"
+sky = "{color6}"
+sapphire = "{color4}"
+blue = "{color4}"
+text = "{color7}"
+subtext1 = "{color8}"
+subtext0 = "{color8}"
+overlay2 = "{color8}"
+overlay1 = "{color7}"
+overlay0 = "{color7}"
+surface2 = "{color7}"
+surface1 = "{color7}"
+surface0 = "{color7}"
+base = "{color15}"
+mantle = "{color15}"
+crust = "{color15}"

@@ -1,129 +1,176 @@
-/* ===========================
-   0) New file: common.rasi
-   Put this in ~/.config/rofi/common.rasi
-   =========================== */
-
 configuration {
     modi:                       "drun,filebrowser,window,run";
-    font:                       "Monolisa 10";
+    font:                       "Monolisa 11";
     show-icons:                 false;
-    display-drun:               " ";
-    display-run:                " ";
+
+    display-drun:               "";
+    display-run:                "";
     display-filebrowser:        "";
     display-window:             "";
+
     drun-display-format:        "{name}";
     hover-select:               false;
     scroll-method:              1;
+
     me-select-entry:            "";
-    me-accept-entry:            "MousePrimary";
+    me-accept-entry:            "";
+
     window-format:              "{w} · {c} · {t}";
     auto-select:                false;
 }
 
 @import "default.rasi"
 
-/* -------- Shared window defaults (most of your themes) -------- */
+/* ===== WINDOW ===== */
 window {
-    height:                     30em;
-    width:                      36em;
-    fullscreen:                 false;
-    enabled:                    true;
-    cursor:                     "default";
-    spacing:                    0em;
-    padding:                    0em;
+    height:                     36em;
+    width:                      25em;
+
+    padding:                    0.8em;
+    spacing:                    0;
+
+    border:                     0;
+    border-radius:              1.2em;
+
     location:                   center;
     anchor:                     center;
-    border:                     0.1em;
-    border-radius:              0.5em;
 }
 
-/* -------- Shared inputbar (arrow prompt + entry) -------- */
+/* ===== MAIN LAYOUT ===== */
+mainbox {
+    spacing:                    0.4em;
+    background-color:           transparent;
+}
+
+/* ===== INPUT BAR ===== */
 inputbar {
-    enabled:                    true;
+    padding:                    0.6em 0.8em;
+    spacing:                    0.4em;
+
     background-color:           transparent;
     text-color:                 @text;
-    children:                   [ "textbox-prompt-colon", "entry" ];
-    border-radius:              0.5em;
-    color:                      white;
+
+    children:                   [ prompt, textbox-prompt-colon, entry ];
 }
 
 textbox-prompt-colon {
-    enabled:                    true;
     expand:                     false;
     str:                        "";
-    padding:                    1em 0 0.5em 0;
-    text-color:                 @text;
+    margin:                     0 0.4em 0 0;
+
     background-color:           transparent;
+    text-color:                 @text;
 }
 
 entry {
-    enabled:                    true;
-    padding:                    1em 0 0.5em 0;
+    padding:                    0.2em 0;
+
     cursor:                     text;
     placeholder:                "Type to filter";
+    placeholder-color:          @placeholder-color;
+
     background-color:           transparent;
-    placeholder-color:          var(placeholder-color);
     text-color:                 @text;
 }
 
-/* -------- Shared listview style (single column list) -------- */
+/* ===== LIST ===== */
 listbox {
-    orientation:      horizontal;
-    children:         [ "listview" ];
-    background-color: transparent;
+    orientation:                horizontal;
+    children:                   [ "listview" ];
+    background-color:           transparent;
 }
 
 listview {
-    padding:                    0em 0.1em;
-    enabled:                    true;
+    padding:                    0.6em 0.8em;
+    spacing:                    0.3em;
+
     columns:                    1;
     lines:                      10;
+
     cycle:                      true;
     dynamic:                    true;
-    scrollbar:                  false;
+
     layout:                     vertical;
-    reverse:                    false;
     fixed-height:               true;
     fixed-columns:              true;
-    cursor:                     "default";
+
+    scrollbar:                  false;
+    cursor:                     default;
+
     background-color:           transparent;
 }
 
+/* ===== ELEMENTS ===== */
 element {
-    enabled:                    true;
+    padding:                    0.5em 0.8em;
+    spacing:                    0.5em;
+
     cursor:                     pointer;
+
     background-color:           transparent;
     text-color:                 @text;
-    border-radius:              0.5em;
+
+    border-radius:              0.6em;
+}
+
+/* normal rows */
+element normal.normal,
+element alternate.normal {
+    background-color:           transparent;
+    text-color:                 @text;
+}
+
+/* hover */
+element normal.active,
+element alternate.active {
+    background-color:           @accent-soft;
+    text-color:                 @accent;
+}
+
+/* selected */
+element selected.normal {
+    background-color:           @accent;
+    text-color:                 @text-selected;
+
+    border-radius:              1.2em;
 }
 
 element-icon {
+    size:                       1em;
+    margin:                     0 0.4em 0 0;
     enabled:                    false;
-    size:                       1.3em;
-    cursor:                     inherit;
-    background-color:           transparent;
-    text-color:                 @text;
-}
-
-element-text {
-    vertical-align:             0.5;
-    horizontal-align:           0.0;
-    padding:                    0.3em;
-    cursor:                     inherit;
     background-color:           transparent;
     text-color:                 inherit;
 }
 
+element-text {
+    padding:                    0;
+
+    vertical-align:             0.5;
+    horizontal-align:           0.0;
+
+    background-color:           transparent;
+    text-color:                 inherit;
+}
+
+/* ===== MESSAGES ===== */
+message {
+    padding:                    0.4em 0.8em;
+}
+
 error-message {
+    padding:                    0.4em 0.8em;
     background-color:           transparent;
     text-transform:             capitalize;
+
     children:                   [ "textbox" ];
 }
 
+/* ===== TEXTBOX ===== */
 textbox {
     text-color:                 @text;
-    background-color:           inherit;
+    background-color:           transparent;
+
     vertical-align:             0.5;
     horizontal-align:           0.5;
 }
-

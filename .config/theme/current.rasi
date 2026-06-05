@@ -1,0 +1,5 @@
+* {
+    accent: #586996;
+    accent-soft: rgba(88, 105, 150, 0.20);
+    accent-hover: rgba(88, 105, 150, 0.32);
+}

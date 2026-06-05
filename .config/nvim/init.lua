@@ -11,8 +11,8 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	})
 end
 
+vim.cmd.colorscheme("wal")
 vim.opt.rtp:prepend(lazypath)
-
 vim.g.c_compiler   = "gcc"
 vim.g.cpp_compiler = "clang++"
 vim.o.scrolloff = 3
@@ -34,8 +34,6 @@ vim.cmd [[
     hi PmenuSbar     guibg=none	ctermbg=none
     hi PmenuThumb    guibg=none	ctermbg=none
 ]]
-vim.cmd.colorscheme("mocha-dark")
-
 
 local options = {
     defaults = {

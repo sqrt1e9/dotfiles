@@ -1,44 +1,52 @@
 #!/usr/bin/env bash
-set -euo pipefail
 
-PROFILE="${1:-}"
-CONFIG="$HOME/.config/swaync/config.json"
+PROFILE_FILE="/sys/devices/platform/tuxedo_keyboard/charging_profile/charging_profile"
+SWAYNC_CONFIG="$HOME/.config/swaync/config.json"
 
-case "$PROFILE" in
-  performance|balanced|power-saver) ;;
-  *)
-    exit 1
-    ;;
+profile="$1"
+
+case "$profile" in
+    stationary|balanced|high_capacity)
+        ;;
+    current)
+        cat "$PROFILE_FILE"
+        exit 0
+        ;;
+    *)
+        echo "Usage:"
+        echo "  set-power-profile current"
+        echo "  set-power-profile stationary"
+        echo "  set-power-profile balanced"
+        echo "  set-power-profile high_capacity"
+        exit 1
+        ;;
 esac
 
-powerprofilesctl set "$PROFILE"
+sudo /usr/local/bin/set-tuxedo-profile.sh "$profile" || exit 1
 
-python3 - "$CONFIG" "$PROFILE" <<'PY'
-import json, sys
+tmp="$(mktemp)"
 
-config_path = sys.argv[1]
-selected = sys.argv[2]
+jq --arg profile "$profile" '
+  .["widget-config"]["buttons-grid#powermodes"].actions |=
+  map(
+    if (.command | contains("high_capacity")) then
+      .active = ($profile == "high_capacity")
+    elif (.command | contains("balanced")) then
+      .active = ($profile == "balanced")
+    elif (.command | contains("stationary")) then
+      .active = ($profile == "stationary")
+    else
+      .
+    end
+  )
+' "$SWAYNC_CONFIG" > "$tmp" && mv "$tmp" "$SWAYNC_CONFIG"
 
-with open(config_path, "r", encoding="utf-8") as f:
-    data = json.load(f)
-
-actions = data["widget-config"]["buttons-grid#powermodes"]["actions"]
-
-mapping = {
-    0: "performance",
-    1: "balanced",
-    2: "power-saver",
-}
-
-for i, action in enumerate(actions):
-    action["active"] = (mapping[i] == selected)
-
-with open(config_path, "w", encoding="utf-8") as f:
-    json.dump(data, f, indent=4)
-    f.write("\n")
-PY
-
-swaync-client --reload-config
-swaync-client -cp
-sleep 0.5
+pkill -x swaync 2>/dev/null
+pkill -x swaync-client 2>/dev/null
+sleep 0.3
+nohup swaync >/dev/null 2>&1 &
+sleep 0.2
+nohup swaync-client >/dev/null 2>&1 &
 swaync-client -t
+
+echo "Battery profile set to: $profile"

@@ -13,13 +13,10 @@
         "format": "{}"
     },
     "hyprland/workspaces": {
-        "format": "󰍹  {icon}",
-        "active-only": true,
-        "format-icons": {
-            "1": "1",
-            "2": "2",
-            "3": "3",
-            "4": "4"
+        "format": "{icon}",
+        "active-only": false,
+        "persistent-workspaces": {
+            "*": 3
         }
     },
     "custom/expand-center-ext": {

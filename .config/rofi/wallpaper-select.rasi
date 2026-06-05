@@ -1,7 +1,4 @@
-/* ===========================
-   6) wallpaper-select.rasi (updated)
-   (Grid layout – overrides listview/element styles heavily)
-   =========================== */
+@import "common.rasi"
 
 configuration {
     modi:                       "drun,filebrowser,window,run";
@@ -20,34 +17,32 @@ configuration {
     auto-select:                false;
 }
 
-@import "default.rasi"
-
 window {
-    height:                     30em;
-    width:                      36em;
+    height:                     36em;
+    width:                      25em;
     fullscreen:                 false;
     enabled:                    true;
     cursor:                     "default";
     spacing:                    0em;
-    padding:                    0em;
+    padding:                    1em;
     location:                   center;
     anchor:                     center;
-    border:                     0.1em;
-    border-radius:              0.5em;
+    border:                     0em;
+    border-radius:              1.2em;
 }
 
-/* Override main layout */
 mainbox {
-    spacing:          0em;
-    padding:          0em;
-    children:         [ "imagebox" ];
+    spacing:                    0em;
+    padding:                    0em;
+    children:                   [ "imagebox" ];
+    background-color:           transparent;
 }
 
 imagebox {
-    padding:          0em 0.5em;
-    background-color: transparent;
-    orientation:      vertical;
-    children:         [ "inputbar", "listview" ];
+    padding:                    0em;
+    background-color:           transparent;
+    orientation:                vertical;
+    children:                   [ "inputbar", "listview" ];
 }
 
 inputbar {
@@ -55,79 +50,8 @@ inputbar {
     background-color:           transparent;
     text-color:                 @text;
     children:                   [ "textbox-prompt-colon", "entry" ];
-    border-radius:              0.1em;
-    color:                      @text;
-}
-
-/* Grid listview */
-listview {
-    padding:        1em;
-    spacing:        1em;
-    columns:        3;
-    fixed-columns:  true;
-    lines:          3;
-    fixed-height:   true;
-    dynamic:        true;
-    cycle:          true;
-    scrollbar:      true;
-    layout:         vertical;
-    background-color: transparent;
-}
-
-configuration {
-    modi:                       "drun,filebrowser,window,run";
-    font:                       "Monolisa 11";
-    show-icons:                 true;
-    display-drun:               " ";
-    display-run:                " ";
-    display-filebrowser:        "";
-    display-window:             "";
-    drun-display-format:        "{name}";
-    hover-select:               false;
-    scroll-method:              1;
-    me-select-entry:            "";
-    me-accept-entry:            "MousePrimary";
-    window-format:              "{w} · {c} · {t}";
-    auto-select:                false;
-}
-
-@import "default.rasi"
-
-window {
-    height:                     30em;
-    width:                      36em;
-    fullscreen:                 false;
-    enabled:                    true;
-    cursor:                     "default";
-    spacing:                    0em;
-    padding:                    0em;
-    location:                   center;
-    anchor:                     center;
-    border:                     0.1em;
-    border-radius:              0.5em;
-}
-
-/* Override main layout */
-mainbox {
-    spacing:          0em;
-    padding:          0em;
-    children:         [ "imagebox" ];
-    background-color: @crust;
-}
-
-imagebox {
-    padding:          0em 0.5em;
-    background-color: transparent;
-    orientation:      vertical;
-    children:         [ "inputbar", "listview" ];
-}
-
-inputbar {
-    enabled:                    true;
-    background-color:           transparent;
-    text-color:                 @text;
-    children:                   [ "textbox-prompt-colon", "entry" ];
-    border-radius:              0.5em;
+    border-radius:              0.8em;
+    padding:                    0.35em 0.7em;
     color:                      @text;
 }
 
@@ -135,99 +59,73 @@ textbox-prompt-colon {
     enabled:                    true;
     expand:                     false;
     str:                        "";
-    padding:                    1em 0 0.5em 0;
+    padding:                    0.7em 0 0.7em 0;
     text-color:                 @text;
     background-color:           transparent;
 }
 
 entry {
     enabled:                    true;
-    padding:                    1em 0 0.5em 0;
+    padding:                    0.7em 0 0.7em 0;
     cursor:                     text;
-    placeholder:                "Type to Search";
+    placeholder:                "Search wallpapers";
     background-color:           transparent;
     placeholder-color:          var(placeholder-color);
     text-color:                 @text;
 }
 
-/* Grid listview */
 listview {
-    padding:        1em;
-    spacing:        1em;
-    columns:        3;
-    fixed-columns:  true;
-    lines:          3;
-    fixed-height:   true;
-    dynamic:        true;
-    cycle:          false;
-    scrollbar:      false;
-    layout:         vertical;
-    background-color: transparent;
+    padding:                    0.45em;
+    spacing:                    0.25em;
+    columns:                    3;
+    fixed-columns:              true;
+    lines:                      3;
+    fixed-height:               true;
+    dynamic:                    true;
+    cycle:                      false;
+    scrollbar:                  false;
+    layout:                     vertical;
+    background-color:           transparent;
 }
 
 element {
-    padding:          0.5em;
-    spacing:          0.4em;
-    cursor:           pointer;
-    background-color: @shade-bg;
-    text-color:       @text;
-    orientation:      vertical;
+    spacing:                    0.05em;
+    cursor:                     pointer;
+    background-color:           @shade-bg;
+    text-color:                 @text;
+    orientation:                vertical;
+    border-radius:              0.75em;
+    padding:                    0.05em;
 }
 
-element selected {
-    background-color: @shade-bg;
-    text-color:       @text;
+element normal.active,
+element alternate.active {
+    background-color:           @hover-bg;
+    text-color:                 @accent;
+    border-radius:              0.75em;
 }
 
-element-icon {
-    size:            10em;
-    background-color: transparent;
-    text-color:      @text;
-}
-
-element-text {
-    padding:          0.2em;
-    background-color: transparent;
-    text-color:       @text;
-    horizontal-align: 0.5;
-    vertical-align:   0.5;
-}
-
-error-message {
-    background-color: transparent;
-    text-transform:   capitalize;
-}
-
-element {
-    padding:          0.5em;
-    spacing:          0.4em;
-    cursor:           pointer;
-    background-color: @shade-bg;
-    text-color:       @text;
-    orientation:      vertical;
-}
-
-element selected {
-    background-color: @shade-bg;
-    text-color:       @text;
+element selected.normal,
+element selected.active,
+element selected.urgent {
+    background-color:           @accent;
+    text-color:                 @text-selected;
+    border-radius:              0.75em;
+    padding:                    0.05em;
 }
 
 element-icon {
-    size:            8em;
-    background-color: transparent;
-    text-color:      @text;
+    enabled:                    true;
+    size:                       6em;
+    background-color:           transparent;
+    text-color:                 inherit;
 }
 
 element-text {
-    padding:          0.2em;
-    background-color: transparent;
-    text-color:       @text;
-    horizontal-align: 0.5;
-    vertical-align:   0.5;
+    enabled:                    false;
 }
 
 error-message {
-    background-color: transparent;
-    text-transform:   capitalize;
+    background-color:           transparent;
+    text-transform:             capitalize;
 }
-

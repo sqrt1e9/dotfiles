@@ -1,117 +1,159 @@
-/* ~/.config/rofi/default.rasi (Mocha hover + selection only) */
+@import "~/.config/theme/current.rasi"
 
 * {
-	/* Mocha core */
-	text:			#CDD6F4;
-	foreground:		#CDD6F4;
+    text:                       #4C4F69;
+    foreground:                 #4C4F69;
+    subtext:                    #6C6F85;
 
-	/* Keep your existing glass language */
-	shade-shadow:	white / 6%;
-	shade-border:	white / 24%;
-	border-color:	white / 10%;
+    pill:                       white/85%;
+    pill-soft:                  white/68%;
 
-	/* ONLY: hover + selection (solid, because your rofi build rejects alpha for hex/vars) */
-	hover-bg:		#89B4FA;	/* Mocha blue */
-	select-bg:		#B4BEFE;	/* Mocha lavender */
-	select-border:	#B4BEFE;	/* Mocha lavender */
+    hover-bg:                   @accent-soft;
+    select-bg:                  @accent;
 
-	/* Preserve your existing tokens */
-	shade-bg:		white / 12%;
-	background-alt:	@shade-bg;
-	selected:		@shade-bg;
+    text-selected:              #FFFFFF;
+    placeholder-color:          #6C6F85;
 
-	active:			@hover-bg;
-	urgent:			@hover-bg;
+    background-alt:             @pill;
+    selected:                   @select-bg;
 
-	selected-normal-background:	@shade-bg;
-	selected-active-background:	@shade-bg;
-	selected-urgent-background:	@shade-bg;
+    active:                     @hover-bg;
+    urgent:                     @hover-bg;
 
-    placeholder-color:  #444444;
+    selected-normal-background: @select-bg;
+    selected-active-background: @select-bg;
+    selected-urgent-background: @select-bg;
 
-	text-selected:	#11111B;
-    crust:          #11111B;
+    padding:                    0;
+    spacing:                    0;
+    border:                     0;
 }
 
 window {
-	fullscreen:			false;
-	transparency:		"real";
-	cursor:				"default";
+    fullscreen:                 false;
+    transparency:               "real";
+    cursor:                     "default";
+    background-color:           @pill;
 
-	/* Liquid glass (restore your original) */
-	background-color:	@crust;
+    border:                     0;
+    border-radius:              1.2em;
 
-	border:				0em;
-	border-color:		@border-color;
+    padding:                    0;
 }
 
-/* Elements ----------------------------------------------------- */
+mainbox {
+    background-color:           transparent;
+    spacing:                    0;
+}
+
+inputbar {
+    text-color:                 @foreground;
+
+    padding:                    12px 12px 4px 12px;
+
+    children:                   [ prompt, textbox-prompt-colon, entry, num-filtered-rows, textbox-num-sep, num-rows ];
+
+    background-color:           transparent;
+}
+
+listview {
+    border:                     0;
+
+    padding:                    2px 0 8px 0;
+
+    spacing:                    0;
+
+    fixed-height:               true;
+    lines:                      12;
+    scrollbar:                  false;
+
+    background-color:           transparent;
+}
+
+element {
+    padding:                    3px 12px;
+    spacing:                    6px;
+}
+
 element normal.normal,
 element alternate.normal {
-	background-color:	transparent;
-	text-color:			@text;
+    background-color:           transparent;
+    text-color:                 @text;
 }
 
-/* Hover */
 element normal.active,
 element alternate.active {
-	background-color:	@hover-bg;
-	text-color:			@text-selected;
-	border:				0.0625em solid;
-	border-color:		@select-border;
+    background-color:           @hover-bg;
+    text-color:                 @accent;
 }
 
-/* Selected */
 element selected.normal {
-	background-color:	@select-bg;
-	text-color:			@text-selected;
-	border:				0.0625em solid;
-	border-color:		@select-border;
+    background-color:           @select-bg;
+    text-color:                 @text-selected;
+    border-radius:              1.2em;
 }
 
 element-text {
-	background-color:	transparent;
-	text-color:			inherit;
-	highlight:			inherit;
-	cursor:				inherit;
-	vertical-align:		0.5;
-	horizontal-align:	0.5;
+    background-color:           transparent;
+    text-color:                 inherit;
+    padding:                    0;
 }
 
-/* Listview ---------------------------------------------------- */
-listview {
-	border:				0em;
+element-icon {
+    background-color:           transparent;
+    size:                       1em;
+    margin:                     0 4px 0 0;
 }
 
-/* Scrollbar ---------------------------------------------------- */
 scrollbar {
-	margin:				0 0.25em;
-	handle-width:		0.5em;
-	handle-color:		white;
-	background-color:	@shade-shadow;
+    handle-color:               @accent;
+    width:                      4px;
+    handle-width:               8px;
 }
 
-/* Message ------------------------------------------------------ */
 message {
-	/* Liquid glass (restore your original style) */
-	background-color:	@crust;
-	border:				0.0625em solid;
-	border-color:		transparent;
-	padding:			1.5em;
+    background-color:           @pill-soft;
+    padding:                    2px 12px;
 }
 
 error-message {
-	padding:			6.25em;
-	border:				0em solid;
-	background-color:	@crust;
-	text-color:			@text;
+    background-color:           transparent;
+    padding:                    2px 12px;
 }
 
 textbox {
-	background-color:	transparent;
-	text-color:			@text;
-	vertical-align:		0.5;
-	horizontal-align:	0.5;
-	highlight:			none;
+    background-color:           transparent;
+    text-color:                 @text;
 }
 
+prompt {
+    text-color:                 inherit;
+    background-color:           transparent;
+}
+
+textbox-prompt-colon {
+    text-color:                 inherit;
+    margin:                     0 6px 0 0;
+    expand:                     false;
+    str:                        ":";
+    background-color:           transparent;
+}
+
+entry {
+    text-color:                 inherit;
+    placeholder-color:          @placeholder-color;
+    placeholder:                "Type to filter";
+    background-color:           transparent;
+}
+
+num-filtered-rows,
+num-rows,
+textbox-num-sep {
+    text-color:                 inherit;
+    expand:                     false;
+    background-color:           transparent;
+}
+
+textbox-num-sep {
+    str:                        "/";
+}

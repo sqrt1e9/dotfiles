@@ -1,130 +1,130 @@
 {
-    "$schema": "/etc/xdg/swaync/configSchema.json",
-    "positionX": "right",
-    "positionY": "top",
-    "cssPriority": "user",
-    "control-center-width": 300,
-    "control-center-height": 700,
-    "control-center-margin-top": 2,
-    "control-center-margin-bottom": 2,
-    "control-center-margin-right": 2,
-    "control-center-margin-left": 0,
-    "notification-window-width": 350,
-    "notification-icon-size": 48,
-    "notification-body-image-height": 160,
-    "notification-body-image-width": 200,
-    "notification-inline-replies": true,
-    "notification-2fa-action": true,
-    "timeout": 3,
-    "timeout-low": 1,
-    "timeout-critical": 1,
-    "fit-to-screen": false,
-    "keyboard-shortcuts": true,
-    "image-visibility": "when available",
-    "transition-time": 200,
-    "hide-on-clear": false,
-    "hide-on-action": true,
-    "script-fail-notify": true,
-    "widgets": [
-        "menubar#label",
-        "buttons-grid#powermodes",
-        "volume",
-        "backlight",
-        "buttons-grid"
-    ],
-    "widget-config": {
-        "mpris": {
-            "image-size": 80,
-            "image-radius": 0
+  "$schema": "/etc/xdg/swaync/configSchema.json",
+  "positionX": "right",
+  "positionY": "top",
+  "cssPriority": "user",
+  "control-center-width": 300,
+  "control-center-height": 700,
+  "control-center-margin-top": 2,
+  "control-center-margin-bottom": 2,
+  "control-center-margin-right": 2,
+  "control-center-margin-left": 0,
+  "notification-window-width": 350,
+  "notification-icon-size": 48,
+  "notification-body-image-height": 160,
+  "notification-body-image-width": 200,
+  "notification-inline-replies": true,
+  "notification-2fa-action": true,
+  "timeout": 3,
+  "timeout-low": 1,
+  "timeout-critical": 1,
+  "fit-to-screen": false,
+  "keyboard-shortcuts": true,
+  "image-visibility": "when available",
+  "transition-time": 200,
+  "hide-on-clear": false,
+  "hide-on-action": true,
+  "script-fail-notify": true,
+  "widgets": [
+    "menubar#label",
+    "buttons-grid#powermodes",
+    "volume",
+    "backlight",
+    "buttons-grid"
+  ],
+  "widget-config": {
+    "mpris": {
+      "image-size": 80,
+      "image-radius": 0
+    },
+    "volume": {
+      "label": "󰕾 "
+    },
+    "backlight": {
+      "label": "󰃟 "
+    },
+    "menubar#label": {
+      "menu#power-buttons": {
+        "label": "",
+        "position": "right",
+        "actions": [
+          {
+            "label": "  Reboot",
+            "command": "~/.local/bin/power-options.sh reboot"
+          },
+          {
+            "label": "  Lock",
+            "command": "~/.local/bin/power-options.sh lock"
+          },
+          {
+            "label": "  Logout",
+            "command": "~/.local/bin/power-options.sh logout"
+          },
+          {
+            "label": "  Shut down",
+            "command": "~/.local/bin/power-options.sh shutdown"
+          }
+        ]
+      },
+      "buttons#wallpaper-switcher": {
+        "position": "left",
+        "actions": [
+          {
+            "label": "󱄄",
+            "command": "~/.local/bin/hyprwall-init.sh"
+          }
+        ]
+      }
+    },
+    "buttons-grid#powermodes": {
+      "buttons-per-row": 3,
+      "actions": [
+        {
+          "label": "󰓅 ",
+          "type": "toggle",
+          "active": false,
+          "command": "~/.local/bin/set-power-profile.sh high_capacity"
         },
-        "volume": {
-            "label": "\udb81\udd7e "
+        {
+          "label": "󰾅 ",
+          "type": "toggle",
+          "active": false,
+          "command": "~/.local/bin/set-power-profile.sh balanced"
         },
-        "backlight": {
-            "label": "\udb80\udcdf "
-        },
-        "menubar#label": {
-            "menu#power-buttons": {
-                "label": "\uf011",
-                "position": "right",
-                "actions": [
-                    {
-                        "label": "\uf021  Reboot",
-                        "command": "~/.local/bin/power-options.sh reboot"
-                    },
-                    {
-                        "label": "\uf456  Lock",
-                        "command": "~/.local/bin/power-options.sh lock"
-                    },
-                    {
-                        "label": "\uf08b  Logout",
-                        "command": "~/.local/bin/power-options.sh logout"
-                    },
-                    {
-                        "label": "\uf011  Shut down",
-                        "command": "~/.local/bin/power-options.sh shutdown"
-                    }
-                ]
-            },
-            "buttons#wallpaper-switcher": {
-                "position": "left",
-                "actions": [
-                    {
-                        "label": "\udb84\udd04",
-                        "command": "~/.local/bin/hyprwall-init.sh"
-                    }
-                ]
-            }
-        },
-        "buttons-grid#powermodes": {
-            "buttons-per-row": 3,
-            "actions": [
-                {
-                    "label": "\udb81\udcc5 ",
-                    "type": "toggle",
-                    "active": false,
-                    "command": "~/.local/bin/set-power-profile.sh performance"
-                },
-                {
-                    "label": "\udb83\udf85 ",
-                    "type": "toggle",
-                    "active": true,
-                    "command": "~/.local/bin/set-power-profile.sh balanced"
-                },
-                {
-                    "label": "\udb83\udf86 ",
-                    "type": "toggle",
-                    "active": false,
-                    "command": "~/.local/bin/set-power-profile.sh power-saver"
-                }
-            ]
-        },
-        "buttons-grid": {
-            "actions": [
-                {
-                    "label": "\uf1fb",
-                    "type": "button",
-                    "command": "sh -c 'swaync-client --close-panel; sleep 0.7; color=$(hyprpicker -a -f hex); notify-send -a \"Hyprpicker\" \"\ud83c\udfa8 Color copied!\" \"$color\"'"
-                },
-                {
-                    "label": "\udb80\udf6d",
-                    "command": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
-                    "type": "toggle"
-                },
-                {
-                    "label": "\udb82\udd04",
-                    "command": "swaync-client -d",
-                    "type": "toggle"
-                },
-                {
-                    "label": "\uf419",
-                    "command": "~/.local/bin/sync-dotfiles.sh"
-                },
-                {
-                    "label": "\uebe2",
-                    "command": "kitty bash -i -c 'tasks'"
-                }
-            ]
+        {
+          "label": "󰾆 ",
+          "type": "toggle",
+          "active": true,
+          "command": "~/.local/bin/set-power-profile.sh stationary"
         }
+      ]
+    },
+    "buttons-grid": {
+      "actions": [
+        {
+          "label": "",
+          "type": "button",
+          "command": "sh -c 'swaync-client --close-panel; sleep 0.7; color=$(hyprpicker -a -f hex); notify-send -a \"Hyprpicker\" \"🎨 Color copied!\" \"$color\"'"
+        },
+        {
+          "label": "󰍭",
+          "command": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
+          "type": "toggle"
+        },
+        {
+          "label": "󰤄",
+          "command": "swaync-client -d",
+          "type": "toggle"
+        },
+        {
+          "label": "",
+          "command": "~/.local/bin/sync-dotfiles.sh"
+        },
+        {
+          "label": "",
+          "command": "kitty bash -i -c 'tasks'"
+        }
+      ]
     }
+  }
 }

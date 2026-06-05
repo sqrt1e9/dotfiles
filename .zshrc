@@ -12,7 +12,7 @@ alias neofetch="fastfetch"
 alias ls='ls -lah --color=auto'
 alias dotfiles="/usr/bin/git --git-dir=$HOME/Devworx/dotfiles --work-tree=$HOME"
 alias vim="/usr/bin/nvim"
-alias vi="/usr/bin/nvim"
+alias vi="/usr/bin/vim"
 alias tlp-stat="sudo tlp-stat"
 alias matrix="cmatrix"
 alias yt="yt-dlp"
@@ -28,7 +28,7 @@ alias fire="cacafire"
 alias sl="sl -le"
 alias fc-scan='fc-scan --format "%{family}\n"'
 alias gpg-refresh='export GPG_TTY=$(tty) && gpg-connect-agent updatestartuptty /bye'
-alias hyprsync="hyprwall-init.sh"
+alias hyprsync="hyprsync.sh"
 
 # mvnc function turned into proper zsh function
 mvnc() {
@@ -81,7 +81,11 @@ SAVEHIST=5000
 setopt HIST_IGNORE_ALL_DUPS
 setopt SHARE_HISTORY
 
-# Enable completion system
+# Enable completion system securely
 autoload -Uz compinit
-compinit
+if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qN.m+1) ]]; then
+    compinit
+else
+    compinit -C
+fi
 

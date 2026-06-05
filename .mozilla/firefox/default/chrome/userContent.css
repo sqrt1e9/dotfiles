@@ -1,6 +1,7 @@
 @-moz-document url("about:home"), url("about:newtab") {
 	* {
 		background-color: var(--uc-base-colour) !important;
+		color: var(--latte-text) !important;
 	}
 
 	html:root {
@@ -17,12 +18,12 @@
 }
 
 /* Popovers / Menus */
-	[role="menu"],
-	[data-radix-popper-content-wrapper] > div,
-	[class*="popover"],
-	[class*="dropdown"] {
-		background: rgba(0, 0, 0, .85) !important;
-		border-radius: 0.5em !important;
+[role="menu"],
+[data-radix-popper-content-wrapper] > div,
+[class*="popover"],
+[class*="dropdown"] {
+	background: var(--uc-tab-base-colour) !important;
+	color: var(--latte-text) !important;
+	border: 1px solid var(--accent-soft) !important;
+	border-radius: var(--uc-border-radius) !important;
 }
-
-

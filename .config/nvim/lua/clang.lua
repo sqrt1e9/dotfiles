@@ -1,17 +1,14 @@
--- Split-terminal helper: opens a terminal in a horizontal split (used for RUN and for compile errors).
-local function open_split_terminal()
-	vim.cmd("split")
-	vim.cmd("terminal")
-	vim.cmd("startinsert")
-	return vim.b.terminal_job_id
-end
-
-local function send_to_terminal(job_id, cmd)
-	if not job_id then
-		print("Could not get terminal job id")
-		return
-	end
-	vim.fn.chansend(job_id, cmd .. "\n")
+local function run_in_split_terminal(cmd)
+	vim.cmd('split')
+	vim.cmd('terminal')
+	vim.defer_fn(function()
+		local job_id = vim.b.terminal_job_id
+		if not job_id then
+			print("Could not get terminal job id")
+			return
+		end
+		vim.fn.chansend(job_id, cmd .. "\n")
+	end, 100)
 end
 
 local function resolve_compiler(ft)
@@ -19,155 +16,81 @@ local function resolve_compiler(ft)
 		return vim.b.c_compiler or vim.g.c_compiler or "gcc"
 	elseif ft == "cpp" then
 		return vim.b.cpp_compiler or vim.g.cpp_compiler or "g++"
+	else
+		return nil
 	end
-	return nil
 end
 
 local function default_std_flag(ft)
 	return (ft == "c") and "-std=c11" or "-std=c++20"
 end
 
-local function get_paths()
-	local filename	= vim.fn.expand("%:t:r")
-	local out_dir	= ".out"
-	local output	= out_dir .. "/" .. filename
-	local filepath	= vim.fn.expand("%:p")
-	return out_dir, output, filepath
-end
-
-local function ensure_out_dir(out_dir)
-	vim.fn.mkdir(out_dir, "p")
-end
-
--- Returns: compile_cmd, output_path, err
-local function build_compile_cmd()
-	local ft = vim.bo.filetype
-	if ft ~= "c" and ft ~= "cpp" then
-		return nil, nil, "Not a C or C++ file!"
-	end
-
-	local compiler = resolve_compiler(ft)
-	if not compiler or compiler == "" then
-		return nil, nil, "No compiler resolved for filetype: " .. tostring(ft)
-	end
-
-	local out_dir, output, filepath = get_paths()
-	ensure_out_dir(out_dir)
-
-	local stdflag	= default_std_flag(ft)
-	local warnflags	= "-Wall -Wextra -Wpedantic"
-
-	local src = vim.fn.shellescape(filepath)
-	local out = vim.fn.shellescape(output)
-
-	local compile_cmd = table.concat({
-		compiler,
-		stdflag,
-		warnflags,
-		src,
-		"-o",
-		out,
-	}, " ")
-
-	return compile_cmd, output, nil
-end
-
--- Option 1: compile only
--- success: no terminal, show message
--- fail: open terminal and show errors (without shell prompt between lines)
-_G.compile_c_cpp = function()
-	local compile_cmd, output, err = build_compile_cmd()
-	if err then
-		print(err)
-		return
-	end
-
-	local lines = {}
-
-	local function collect(data)
-		if not data then return end
-		for _, line in ipairs(data) do
-			if line and line ~= "" then
-				table.insert(lines, line)
-			end
-		end
-	end
-
-	vim.fn.jobstart(compile_cmd, {
-		stdout_buffered = true,
-		stderr_buffered = true,
-		on_stdout = function(_, data, _)
-			collect(data)
-		end,
-		on_stderr = function(_, data, _)
-			collect(data)
-		end,
-		on_exit = function(_, code, _)
-			vim.schedule(function()
-				if code == 0 then
-					print("Compiled OK -> " .. output)
-					return
-				end
-
-				-- Failed: open terminal and dump everything in ONE heredoc command
-				local job_id = open_split_terminal()
-
-				local header = {
-					"=== COMPILE FAILED ===",
-					"CMD: " .. compile_cmd,
-					"----------------------",
-				}
-
-				local all = {}
-				for _, h in ipairs(header) do table.insert(all, h) end
-				for _, l in ipairs(lines) do table.insert(all, l) end
-				table.insert(all, "----------------------")
-
-				local heredoc = "cat <<'__NVIM_COMPILE__'\n"
-					.. table.concat(all, "\n")
-					.. "\n__NVIM_COMPILE__"
-
-				vim.defer_fn(function()
-					send_to_terminal(job_id, heredoc)
-				end, 50)
-			end)
-		end,
-	})
-end
-
--- Option 2: run only (assumes you've already compiled)
--- terminal is required for stdin
-_G.run_c_cpp = function()
+local function compile_run_core(use_openmp)
 	local ft = vim.bo.filetype
 	if ft ~= "c" and ft ~= "cpp" then
 		print("Not a C or C++ file!")
 		return
 	end
 
-	local _, output, _ = get_paths()
-	local run_cmd = "./" .. vim.fn.shellescape(output)
-
-	local job_id = open_split_terminal()
-	vim.defer_fn(function()
-		send_to_terminal(job_id, run_cmd)
-	end, 50)
-end
-
--- Optional: convenience function (compile then run)
-_G.compile_and_run_c_cpp = function()
-	local compile_cmd, output, err = build_compile_cmd()
-	if err then
-		print(err)
+	local compiler	= resolve_compiler(ft)
+	if not compiler or compiler == "" then
+		print("No compiler resolved for filetype: " .. tostring(ft))
 		return
 	end
 
-	local run_cmd = "./" .. vim.fn.shellescape(output)
+	local filename	= vim.fn.expand("%:t:r")
+	local out_dir	= ".out"
+	local output	= out_dir .. "/" .. filename
+	local filepath	= vim.fn.expand("%:p")
+
+	local stdflag	= default_std_flag(ft)
+	local warnflags	= "-Wall -Wextra -Wpedantic"
+	local ompflag	= use_openmp and "-fopenmp" or ""
+	local envpref	= use_openmp and "OMP_NUM_THREADS=${OMP_NUM_THREADS:-8} " or ""
+
+	os.execute("mkdir -p " .. out_dir)
+
+	local compile_cmd = compiler .. " " .. stdflag .. " " .. warnflags
+	if ompflag ~= "" then compile_cmd = compile_cmd .. " " .. ompflag end
+	compile_cmd = compile_cmd .. " '" .. filepath .. "' -o '" .. output .. "'"
+
+	local run_cmd = envpref .. "./'" .. output .. "'"
+
 	local cmd = compile_cmd .. " && " .. run_cmd
 
-	local job_id = open_split_terminal()
-	vim.defer_fn(function()
-		send_to_terminal(job_id, cmd)
-	end, 50)
+	run_in_split_terminal(cmd)
+end
+
+_G.compile_run_cpp = function()
+	if vim.bo.filetype ~= "cpp" then
+		print("Not a C++ file!")
+		return
+	end
+	compile_run_core(false)
+end
+
+_G.compile_run_cpp_omp = function()
+	if vim.bo.filetype ~= "cpp" then
+		print("Not a C++ file!")
+		return
+	end
+	compile_run_core(true)
+end
+
+_G.compile_run_c = function()
+	if vim.bo.filetype ~= "c" then
+		print("Not a C file!")
+		return
+	end
+	compile_run_core(false)
+end
+
+_G.compile_run_c_omp = function()
+	if vim.bo.filetype ~= "c" then
+		print("Not a C file!")
+		return
+	end
+	compile_run_core(true)
 end
 
 vim.api.nvim_create_user_command("SetCCompiler", function(opts)

@@ -32,27 +32,32 @@
 
 /* URL bar background */
 #urlbar-background {
-    background: var(--uc-base-colour) !important;
+    background: var(--uc-tab-base-colour) !important;
+    border: 1px solid var(--latte-surface1) !important;
+    border-radius: var(--uc-border-radius) !important;
 }
 
-/* Focused URL bar background */
+/* Focused / default */
 #urlbar[focused="true"] > #urlbar-background,
 #urlbar:not([open]) > #urlbar-background {
-    background: var(--uc-highlight-colour) !important;
+    background: var(--uc-tab-base-colour) !important;
 }
 
-/* Open URL bar background */
+/* Open URL bar */
 #urlbar[open] > #urlbar-background {
-    background: var(--uc-highlight-colour) !important;
+    background: var(--uc-tab-base-colour) !important;
+    border-color: var(--accent) !important;
 }
 
 /* Popup panel */
 .urlbarView {
-    background: var(--mocha-mantle) !important;
-    color: var(--mocha-text) !important;
+    background: var(--uc-tab-base-colour) !important;
+    color: var(--uc-inverted-colour) !important;
+    border: 1px solid var(--accent-soft) !important;
+    border-radius: var(--uc-border-radius) !important;
 }
 
-/* Dropdown rows */
+/* Rows */
 .urlbarView-row {
     background: transparent !important;
     border-radius: 0.5em;
@@ -62,19 +67,19 @@
     border-radius: 0.5em !important;
 }
 
-/* Hover row */
+/* Hover */
 .urlbarView-row:hover > .urlbarView-row-inner {
-    background: var(--mocha-lav) !important;
+    background: var(--uc-hover-colour) !important;
     color: var(--uc-urlbar-hover-text) !important;
 }
 
-/* Selected row */
+/* Selected */
 .urlbarView-row[selected] > .urlbarView-row-inner {
-    background: var(--mocha-blue) !important;
+    background: var(--accent-hover) !important;
     color: var(--uc-urlbar-selected-text) !important;
 }
 
-/* Make hover/selected text readable */
+/* Text consistency */
 .urlbarView-row:hover,
 .urlbarView-row[selected],
 .urlbarView-row:hover .urlbarView-title,
@@ -84,11 +89,11 @@
     color: inherit !important;
 }
 
-/* Secondary text inside normal rows */
+/* Secondary text */
 .urlbarView-title-separator,
 .urlbarView-row:not([selected]):not(:hover) .urlbarView-url,
 .urlbarView-row:not([selected]):not(:hover) .urlbarView-title {
-    color: var(--mocha-subtext) !important;
+    color: var(--latte-subtext) !important;
 }
 
 .urlbar-icon,

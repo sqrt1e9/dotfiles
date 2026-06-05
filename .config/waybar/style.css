@@ -1,49 +1,29 @@
-/* Waybar (Mocha + liquid glass - Inverse Block Style) */
+@import "../theme/current.css";
 
-/* ===== Mocha palette ===== */
-@define-color rosewater   #f5e0dc;
-@define-color flamingo    #f2cdcd;
-@define-color pink        #f5c2e7;
-@define-color mauve       #cba6f7;
-@define-color red         #f38ba8;
-@define-color maroon      #eba0ac;
-@define-color peach       #fab387;
-@define-color yellow      #f9e2af;
-@define-color green       #a6e3a1;
-@define-color teal        #94e2d5;
-@define-color sky         #89dceb;
-@define-color sapphire    #74c7ec;
-@define-color blue        #89b4fa;
-@define-color lavender    #b4befe;
+@define-color text              #4c4f69;
+@define-color subtext0          #6c6f85;
 
-@define-color text        #cdd6f4;
-@define-color subtext0    #a6adc8;
-@define-color overlay0    #6c7086;
-@define-color overlay1    #7f849c;
-@define-color overlay2    #9399b2;
+@define-color pill              rgba(255,255,255,0.78);
+@define-color pill-soft         rgba(255,255,255,0.65);
+@define-color pill-hover        @accent_soft;
 
-@define-color surface0    #313244;
-@define-color surface1    #45475a;
-@define-color surface2    #585b70;
+@define-color green             #40a02b;
+@define-color yellow            #df8e1d;
+@define-color red               #d20f39;
 
-@define-color base        #1e1e2e;
-@define-color mantle      #181825;
-@define-color crust       #11111b;
-
-/* ===== Liquid glass tokens ===== */
-@define-color border          rgba(255, 255, 255, .1);
-@define-color hover           rgba(255, 255, 255, 0.2);
-@define-color urgent          @red;
+@define-color green-soft        rgba(64,160,43,0.16);
+@define-color yellow-soft       rgba(223,142,29,0.18);
+@define-color red-soft          rgba(210,15,57,0.15);
 
 * {
     border: none;
     border-radius: 0;
     font-family: "Symbols Nerd Font", "Monolisa";
-    font-weight: bold; /* Bolded for better readability on colored backgrounds */
-    font-size: .85rem;
+    font-size: 0.85rem;
+    font-weight: bold;
     min-height: 0;
-    transition: 0.3s;
-    margin: 0 0.12em;
+    margin: 0;
+    padding: 0;
 }
 
 window#waybar {
@@ -52,68 +32,114 @@ window#waybar {
 }
 
 tooltip {
-    border-radius: 0.5em;
-    border: 0.0625em solid @border;
-    background: @mantle;
+    background: @pill;
     color: @text;
+    border-radius: 0.75rem;
 }
 
-/* Base module styling - Default text color is now dark to contrast with bright backgrounds */
-#custom-pomodoro, #custom-power_profile, #custom-weather, #custom-swaync,
-#custom-todo, #window, #clock, #battery, #pulseaudio, #network, #bluetooth,
-#temperature, #tray, #disk, #memory, #cpu, #workspaces, #backlight,
-#custom-countdown, #custom-stopwatch, #custom-expand-center-ext {
-    color: @base; 
-    padding: 0 0.85em;
-    margin: 3px 0.2em;
-    border-radius: 0.5em;
+#battery,
+#cpu,
+#memory,
+#network,
+#bluetooth,
+#pulseaudio,
+#tray,
+#window,
+#workspaces,
+#backlight,
+#temperature,
+#disk,
+#custom-weather,
+#custom-swaync,
+#custom-power_profile {
+    background: @pill;
+    color: @text;
+    border-radius: 999rem;
+    margin: 0.375rem 0.25rem;
+    padding: 0.4375rem 0.875rem;
 }
 
-/* Individual Widget Backgrounds */
-#workspaces { background: @overlay0; color: @text; }
-#workspaces button { color: @subtext0; padding: 0 0.4em; }
-#workspaces button.active { background: @overlay0; color: @base; border-radius: 0.5em; }
-#workspaces button.urgent { background: @overlay0; color: @base; }
-#workspaces button:hover { background: @overlay0; color: @text; }
+#custom-swaync {
+    padding: 0.6rem 1rem;
+}
 
-#window { background: @lavender; color: @base; }
+#clock {
+    background: @accent;
+    color: white;
+    border-radius: 999rem 0 0 999rem;
+    margin: 0.375rem 0;
+    padding: 0.4375rem 1rem;
+}
 
-#clock { background: @blue; color: @base; border-radius: 0.5em 0 0 0.5em; margin-left: 0.3em; }
+#custom-stopwatch {
+    background: @pill;
+    color: @text;
+    border-radius: 0;
+    margin: 0.375rem 0;
+    padding: 0.4375rem 0.75rem;
+}
 
-#pulseaudio { background: @teal; }
-#network { background: @sky; }
-#bluetooth { background: @sapphire; }
-#backlight { background: @yellow; }
-
-#battery { background: @green; }
-#battery.charging { background: @green; }
-#battery.warning { background: @peach; }
-#battery.critical { background: @red; color: @text; }
-
-#cpu { background: @mauve; }
-#memory { background: @pink; }
-#disk { background: @maroon; }
-#temperature { background: @teal; }
-#temperature.critical { background: @red; color: @text; }
-
-#tray { background: @surface1; color: @text; }
-
-#custom-swaync { background: @flamingo; }
-#custom-weather { background: @rosewater; }
-#custom-stopwatch { border-radius: 0; }
 #custom-expand-center-ext {
-    background: @overlay0;
-    border-radius: 0 0.5em 0.5em 0;
+    background: @pill;
     color: @text;
-    padding: 0 0.85em;
+    border-radius: 0 999rem 999rem 0;
+    margin: 0.375rem 0.25rem 0.375rem 0;
+    padding: 0.4375rem 0.875rem 0.4375rem 0.75rem;
 }
 
-#custom-expand-center-ext.running,
-#custom-stopwatch.running { background: @red; color: @base; }
+#custom-stopwatch.running,
+#custom-expand-center-ext.running {
+    color: @red;
+}
 
-#custom-expand-center-ext.paused,
-#custom-stopwatch.paused  { background: @yellow; color: @base; }
+#custom-stopwatch.paused,
+#custom-expand-center-ext.paused {
+    color: @yellow;
+}
 
-#custom-expand-center-ext.idle,
-#custom-stopwatch.idle    { background: @overlay0; color: @text; }
+#custom-stopwatch.idle,
+#custom-expand-center-ext.idle {
+    background: @pill;
+    color: @text;
+}
 
+#workspaces {
+    padding: 0.25rem 0.375rem;
+}
+
+#workspaces button {
+    color: @subtext0;
+    border-radius: 999rem;
+    padding: 0.1875rem 0.625rem;
+    margin: 0 0.125rem;
+}
+
+#workspaces button.active {
+    background: @accent;
+    color: white;
+}
+
+#workspaces button:hover {
+    background: @accent_soft;
+    color: @accent;
+}
+
+#battery.charging {
+    background: @green-soft;
+    color: @green;
+}
+
+#battery.warning {
+    background: @yellow-soft;
+    color: @yellow;
+}
+
+#battery.critical {
+    background: @red-soft;
+    color: @red;
+}
+
+#tray,
+#window {
+    background: @pill-soft;
+}

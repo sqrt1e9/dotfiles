@@ -2,49 +2,27 @@
 
 action="$1"
 
+# Close notification center
 swaync-client -cp
 sleep 0.5
 
 case "$action" in
   shutdown)
-    prompt="Shut down?"
-    run_cmd="systemctl poweroff"
-    cancel_cmd="shutdown -c 2>/dev/null || true"
+    systemctl poweroff
     ;;
   reboot)
-    prompt="Reboot?"
-    run_cmd="systemctl reboot"
-    cancel_cmd="shutdown -c 2>/dev/null || true"
+    systemctl reboot
     ;;
   logout)
-    prompt="Log out?"
-    run_cmd="hyprctl dispatch exit 0"
-    cancel_cmd="true"
+    hyprctl dispatch exit 0
     ;;
   lock)
-    prompt="Lock screen?"
-    run_cmd="hyprlock"
-    cancel_cmd="true"
+    hyprlock
     ;;
   suspend)
-    prompt="Suspend?"
-    run_cmd="systemctl suspend"
-    cancel_cmd="true"
+    systemctl suspend
     ;;
   *)
     exit 1
-    ;;
-esac
-
-choice="$(printf 'Confirm\nCancel\n' | rofi -dmenu -i -p "$prompt")"
-
-case "$choice" in
-  Confirm)
-      killall rofi
-      sleep 1
-    eval "$run_cmd"
-    ;;
-  Cancel|"")
-    eval "$cancel_cmd"
     ;;
 esac
