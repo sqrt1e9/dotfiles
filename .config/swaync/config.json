@@ -83,19 +83,19 @@
           "label": "󰓅 ",
           "type": "toggle",
           "active": false,
-          "command": "~/.local/bin/set-power-profile.sh high_capacity"
+          "command": "~/.local/bin/power-profiles.sh high_capacity"
         },
         {
           "label": "󰾅 ",
           "type": "toggle",
           "active": false,
-          "command": "~/.local/bin/set-power-profile.sh balanced"
+          "command": "~/.local/bin/power-profiles.sh balanced"
         },
         {
           "label": "󰾆 ",
           "type": "toggle",
           "active": true,
-          "command": "~/.local/bin/set-power-profile.sh stationary"
+          "command": "~/.local/bin/power-profiles.sh stationary"
         }
       ]
     },

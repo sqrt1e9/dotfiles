@@ -29,6 +29,7 @@ alias sl="sl -le"
 alias fc-scan='fc-scan --format "%{family}\n"'
 alias gpg-refresh='export GPG_TTY=$(tty) && gpg-connect-agent updatestartuptty /bye'
 alias hyprsync="hyprsync.sh"
+alias battery="battery.sh"
 
 # mvnc function turned into proper zsh function
 mvnc() {

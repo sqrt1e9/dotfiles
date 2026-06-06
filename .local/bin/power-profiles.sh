@@ -41,12 +41,8 @@ jq --arg profile "$profile" '
   )
 ' "$SWAYNC_CONFIG" > "$tmp" && mv "$tmp" "$SWAYNC_CONFIG"
 
-pkill -x swaync 2>/dev/null
-pkill -x swaync-client 2>/dev/null
-sleep 0.3
-nohup swaync >/dev/null 2>&1 &
-sleep 0.2
-nohup swaync-client >/dev/null 2>&1 &
+killall swaync
+killall swaync-client
+sleep 0.5
 swaync-client -t
 
-echo "Battery profile set to: $profile"

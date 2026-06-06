@@ -30,7 +30,7 @@ user_pref("app.update.auto", false);
 user_pref("font.name.monospace.x-western", "Monolisa");
 user_pref("font.name.sans-serif.x-western", "Monolisa");
 user_pref("font.name.serif.x-western", "Monolisa");
-user_pref("layout.css.devPixelsPerPx", "1.10");
+user_pref("layout.css.devPixelsPerPx", "1.15");
 user_pref("gfx.webrender.enabled", true);
 user_pref("layers.acceleration.force-enabled", true);
 user_pref("network.cookie.cookieBehavior", 1);

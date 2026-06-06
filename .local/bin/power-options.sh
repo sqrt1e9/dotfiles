@@ -8,7 +8,7 @@ sleep 0.5
 
 case "$action" in
   shutdown)
-    systemctl poweroff
+    shutdown
     ;;
   reboot)
     systemctl reboot
