@@ -1,19 +1,9 @@
 [user]
-	email = barvind.dev@outlook.com
+    email = barvind.dev@outlook.com
     name = Arvind Badri
-    signingkey = 00DBF0860F091983
 
 [core]
     editor = /usr/bin/nvim
-
-[gpg]
-    program = gpg
-
-[commit]
-    gpgsign = true
-
-[tag]
-    gpgsign = true
 
 [pull]
     rebase = true
