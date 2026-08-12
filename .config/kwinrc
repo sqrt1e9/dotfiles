@@ -1,0 +1,14 @@
+[Desktops]
+Id_1=07043a5a-1fd9-4b65-8b8d-0c2d12192466
+Number=1
+Rows=1
+
+[Tiling][07043a5a-1fd9-4b65-8b8d-0c2d12192466][cc4075d1-9ec7-4418-b08a-7dfbdcc90181]
+padding=4
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
+
+[Xwayland]
+Scale=1.5
+
+[org.kde.kdecoration2]
+ButtonsOnRight=IAX

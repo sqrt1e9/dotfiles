@@ -10,7 +10,7 @@ eval "$(starship init zsh)"
 # ===== Aliases =====
 alias neofetch="fastfetch"
 alias ls='ls -lah --color=auto'
-alias dotfiles="/usr/bin/git --git-dir=$HOME/Devworx/dotfiles --work-tree=$HOME"
+alias dotfiles="/usr/bin/git --git-dir=$HOME/Devworx/dotfiles.git --work-tree=$HOME"
 alias vi="/usr/bin/vim"
 alias tlp-stat="sudo tlp-stat"
 alias matrix="cmatrix"
@@ -29,7 +29,6 @@ alias fc-scan='fc-scan --format "%{family}\n"'
 alias gpg-refresh='export GPG_TTY=$(tty) && gpg-connect-agent updatestartuptty /bye'
 alias hyprsync="hyprsync.sh"
 alias power-manager="power-manager.sh"
-alias gnomesync="gnome-sync.sh"
 
 # ===== Environment Variables =====
 export CACA_DRIVER=ncurses cacafire

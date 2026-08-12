@@ -1,0 +1,19 @@
+MenuBar=Disabled
+
+[General]
+ConfigVersion=1
+
+[KonsoleWindow]
+RemoveWindowTitleBarAndFrame=true
+
+[MainWindow]
+ToolBarsMovable=Enabled
+
+[MainWindow][Toolbar mainToolBar]
+IconSize=16
+
+[Toolbar mainToolBar]
+IconSize=16
+
+[UiSettings]
+ColorScheme=
