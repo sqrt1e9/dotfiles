@@ -1,0 +1,14 @@
+{
+    "window.zoomLevel": 1,
+    "editor.fontSize": 14,
+    "terminal.integrated.fontSize": 13,
+    "editor.lineHeight": 1.7,
+    "editor.fontFamily": "MonoLisaCode",
+    "editor.fontLigatures": true,
+    "workbench.colorTheme": "Islands Light",
+    "window.title": "${fileDirnameBasename} ${separator} ${folderName} ${separator} ${activeEditorShort}",
+    "editor.lineNumbers": "relative",
+    "vim.useSystemClipboard": true,
+    "C_Cpp.codeAnalysis.clangTidy.enabled": true,
+    "C_Cpp.codeAnalysis.runAutomatically": true
+}

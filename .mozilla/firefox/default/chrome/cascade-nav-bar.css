@@ -1,77 +1,106 @@
 #urlbar-container {
-	min-width: 0px !important;
-	flex: auto !important;
+    min-width: 0px !important;
+    flex: auto !important;
 }
 
 #navigator-toolbox {
-	background-color: var(--uc-base-colour) !important;
+    background-color: var(--uc-base-colour) !important;
 }
 
 #nav-bar {
-	padding-block-start: 0px !important;
-	border: none !important;
-	box-shadow: none !important;
-	background: var(--uc-base-colour) !important;
-	margin-right: calc(
-		100vw - calc(1325px / 100 * var(--NavbarWidth))
-	) !important;
-	vertical-align: center !important;
-	margin-top: calc(var(--TabsHeight) * -1px - var(--TabsBorder) * 1px) !important;
-	height: calc(var(--TabsHeight) * 1px + var(--TabsBorder) * 1px);
+    padding-block-start: 0px !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: var(--uc-base-colour) !important;
+    margin-right: calc(
+        100vw - calc(1325px / 100 * var(--NavbarWidth))
+    ) !important;
+    vertical-align: center !important;
+    margin-top: calc(var(--TabsHeight) * -1px - var(--TabsBorder) * 1px) !important;
+    height: calc(var(--TabsHeight) * 1px + var(--TabsBorder) * 1px);
 }
 
 #urlbar,
 #urlbar * {
-	outline: none !important;
-	box-shadow: none !important;
+    outline: none !important;
+    box-shadow: none !important;
 }
 
 #urlbar-input::placeholder {
-	opacity: 0 !important;
+    opacity: 0 !important;
 }
 
-/* URL bar background (uses your Mocha base token) */
+/* URL bar background */
 #urlbar-background {
-	background: var(--uc-base-colour) !important;
+    background: var(--uc-tab-base-colour) !important;
+    border: 1px solid var(--latte-surface1) !important;
+    border-radius: var(--uc-border-radius) !important;
 }
 
-/* Focused URL bar background (COLORS ONLY -> Mocha highlight) */
+/* Focused / default */
 #urlbar[focused="true"] > #urlbar-background,
 #urlbar:not([open]) > #urlbar-background {
-	background: var(--uc-highlight-colour) !important;
+    background: var(--uc-tab-base-colour) !important;
 }
 
+/* Open URL bar */
 #urlbar[open] > #urlbar-background {
-	background: var(--uc-highlight-colour) !important;
+    background: var(--uc-tab-base-colour) !important;
+    border-color: var(--accent) !important;
 }
 
-/* Dropdown row base background (COLORS ONLY -> Mocha surface) */
+/* Popup panel */
+.urlbarView {
+    background: var(--uc-tab-base-colour) !important;
+    color: var(--uc-inverted-colour) !important;
+    border: 1px solid var(--accent-soft) !important;
+    border-radius: var(--uc-border-radius) !important;
+}
+
+/* Rows */
 .urlbarView-row {
-	background: var(--uc-highlight-colour) !important;
-	border-radius: 0.5em;
+    background: transparent !important;
+    border-radius: 0.5em;
 }
 
-/* Dropdown row hover/selected (COLORS ONLY -> match rofi/waybar selection tint) */
+.urlbarView-row > .urlbarView-row-inner {
+    border-radius: 0.5em !important;
+}
+
+/* Hover */
 .urlbarView-row:hover > .urlbarView-row-inner {
-	background: var(--uc-hover-colour) !important;   /* lavender-ish */
+    background: var(--uc-hover-colour) !important;
+    color: var(--uc-urlbar-hover-text) !important;
 }
 
+/* Selected */
 .urlbarView-row[selected] > .urlbarView-row-inner {
-	background: var(--uc-accent-colour) !important;  /* blue-ish */
+    background: var(--accent-hover) !important;
+    color: var(--uc-urlbar-selected-text) !important;
 }
 
-/* Ensure selected row text is readable (COLORS ONLY) */
+/* Text consistency */
 .urlbarView-row:hover,
-.urlbarView-row[selected] {
-	color: var(--lwt-text-color) !important;
+.urlbarView-row[selected],
+.urlbarView-row:hover .urlbarView-title,
+.urlbarView-row[selected] .urlbarView-title,
+.urlbarView-row:hover .urlbarView-url,
+.urlbarView-row[selected] .urlbarView-url {
+    color: inherit !important;
+}
+
+/* Secondary text */
+.urlbarView-title-separator,
+.urlbarView-row:not([selected]):not(:hover) .urlbarView-url,
+.urlbarView-row:not([selected]):not(:hover) .urlbarView-title {
+    color: var(--latte-subtext) !important;
 }
 
 .urlbar-icon,
 #urlbar-go-button {
-	margin: auto;
+    margin: auto;
 }
 
 .urlbar-page-action {
-	padding: 0 inherit !important;
+    padding: 0 inherit !important;
 }
-

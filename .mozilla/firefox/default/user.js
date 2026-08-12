@@ -27,10 +27,11 @@ user_pref("browser.bookmarks.addedImportButton", false);
 user_pref("signon.rememberSignons", false);
 user_pref("app.update.enabled", false);
 user_pref("app.update.auto", false);
-user_pref("font.name.monospace.x-western", "MonoLisa");
-user_pref("font.name.sans-serif.x-western", "MonoLisa");
-user_pref("font.name.serif.x-western", "MonoLisa");
+user_pref("layout.css.devPixelsPerPx", "1.25");
 user_pref("gfx.webrender.enabled", true);
+user_pref("gfx.font_rendering.cleartype_params.rendering_mode", 5)
+user_perf("gfx.font_rendering.cleartype_params.pixel_structure", 5)
+user_pref("gfx.font_rendering.cleartype_params.gamma", 1500) 
 user_pref("layers.acceleration.force-enabled", true);
 user_pref("network.cookie.cookieBehavior", 1);
 user_pref("browser.privatebrowsing.allowScreenshots", false);
@@ -44,4 +45,6 @@ user_pref("browser.startup.homepage_override.mstone", "146.0");
 user_pref("browser.startup.lastColdStartupCheck", 1765765553);
 user_pref("browser.urlbar.placeholderName", "Google");
 user_pref("browser.urlbar.placeholderName.private", "Google");
-
+user_pref("widget.transparent-windows", true);
+user_pref("browser.tabs.allow_transparent_browser", true);
+user_pref("widget.wayland.opaque-region.enabled", false);

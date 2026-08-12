@@ -1,0 +1,11 @@
+"" Enable relative line numbers
+set relativenumber
+
+"" Enable hybrid line numbers (Optional)
+"" This shows the absolute line number for your current line 
+"" and relative numbers for all other lines.
+set number
+set clipboard+=unnamed
+set clipboard+=ideaput
+
+

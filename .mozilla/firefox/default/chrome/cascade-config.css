@@ -1,37 +1,67 @@
 :root {
     --uc-urlbar-min-width: 20vw;
-	--uc-urlbar-max-width: 20vw;
+    --uc-urlbar-max-width: 20vw;
 
     --uc-toolbar-position: 0;
-	--uc-urlbar-position: 1;
+    --uc-urlbar-position: 1;
     --uc-urlbar-top-spacing: 1px;
 
-    /* ===== Mocha (from your Neovim palette) ===== */
-    --mocha-crust:   #11111B;
-    --mocha-mantle:  #181825;
-    --mocha-base:    #1E1E2E;
+    /* ===== Periwinkle Light-Darkened palette ===== */
+    --latte-rosewater: #C66E5C;
+    --latte-flamingo:  #C66E5C;
+    --latte-pink:      #D156B4;
+    --latte-mauve:     #752EDB;
+    --latte-red:       #B30D34;
+    --latte-maroon:    #B30D34;
+    --latte-peach:     #C06E0C;
+    --latte-yellow:    #C27A1A;
+    --latte-green:     #359823;
+    --latte-teal:      #18879A;
+    --latte-sky:       #5E6CFA;
+    --latte-sapphire:  #11767F;
+    --latte-blue:      var(--accent);
+    --latte-lav:       var(--accent);
 
-    --mocha-text:    #CDD6F4;
-    --mocha-subtext: #BAC2DE;
-    --mocha-muted:   #6C7086;
+    --latte-crust:     #DCE0E8;
+    --latte-mantle:    #E6E9EF;
+    --latte-base:      #F5F5F7;
+    --latte-surface0:  #BCC0CC;
+    --latte-surface1:  #A0A3AF;
 
-    --mocha-blue:    #89B4FA;  /* selection-ish */
-    --mocha-lav:     #B4BEFE;  /* hover-ish */
+    --latte-text:      #3B3E54;
+    --latte-subtext:   #5C5F77;
+    --latte-muted:     #6B6E83;
 
-    /* ===== Your theme tokens (now Mocha-aligned) ===== */
-    /* Main surfaces */
-    --uc-base-colour:          var(--mocha-crust);   /* was white glass */
-    --uc-tab-base-colour:      rgba(137, 180, 250, .22);/* crust with slight depth */
-    --uc-inactive-tab-colour:  rgba(17, 17, 27, .65);
+    /* ===== Firefox theme tokens ===== */
+    --uc-base-colour:          var(--latte-base);
+    --uc-tab-base-colour:      rgba(255, 255, 255, .78);
+    --uc-inactive-tab-colour:  var(--latte-mantle);
 
-    /* Focus/active panels */
-    --uc-highlight-colour:     rgba(30, 30, 46, .92); /* base */
-    --uc-hover-colour:         rgba(180, 190, 254, .18); /* lavender hover */
-    --uc-accent-colour:        rgba(137, 180, 250, .22); /* blue accent */
-    --uc-muted-colour:         rgba(166, 173, 200, .28); /* subtext0-ish */
+    --uc-highlight-colour:     #FFFFFF;
+    --uc-hover-colour:         var(--accent-soft);
+    --uc-accent-colour:        var(--accent-hover);
+    --uc-muted-colour:         rgba(107, 110, 131, .22);
 
-    /* Text */
-    --uc-inverted-colour:      var(--mocha-text);
+    --uc-inverted-colour:      var(--latte-text);
+    --uc-active-tab-text:      var(--latte-text);
+    --uc-urlbar-selected-text: var(--latte-text);
+    --uc-urlbar-hover-text:    var(--latte-text);
+
+    /* ===== Button tokens ===== */
+    --uc-menu-btn-bg:          var(--latte-lav);
+    --uc-menu-btn-hover:       var(--latte-blue);
+
+    --uc-widget-btn-1:         var(--latte-teal);
+    --uc-widget-btn-2:         var(--latte-green);
+    --uc-widget-btn-3:         var(--latte-yellow);
+    --uc-widget-btn-4:         var(--latte-peach);
+    --uc-widget-btn-5:         var(--latte-pink);
+    --uc-widget-btn-6:         var(--latte-maroon);
+    --uc-widget-btn-7:         var(--latte-rosewater);
+    --uc-widget-btn-8:         var(--latte-flamingo);
+
+    --uc-widget-label:         var(--latte-text);
+    --uc-widget-label-soft:    var(--latte-subtext);
 
     --uc-border-radius: .5em;
     --uc-tab-border-radius: .5em;
@@ -47,10 +77,10 @@
     --container-tabs-indicator-margin: 10px;
     --uc-identity-glow: 0 1px 10px 1px;
 
-    --NavbarWidth: 43; /*  Default values: 36 - 43  */
-    --TabsHeight: 36; /*  Minimum: 30  *//*  Default: 36  */
-    --TabsBorder: 8; /*  Doesnt do anything on small layout  *//*  Default: 8  */
-    --NavbarHeightSmall: calc(var(--TabsHeight) + var(--TabsBorder))
+    --NavbarWidth: 43;
+    --TabsHeight: 36;
+    --TabsBorder: 8;
+    --NavbarHeightSmall: calc(var(--TabsHeight) + var(--TabsBorder));
 }
 
 :root {
@@ -62,18 +92,18 @@
 
     --toolbar-field-focus-color: var(--uc-inverted-colour) !important;
     --toolbar-field-focus-background-color: var(--uc-highlight-colour) !important;
-    --toolbar-field-focus-border-color: var(--uc-accent-colour) !important;
+    --toolbar-field-focus-border-color: var(--latte-blue) !important;
 
-    --toolbar-field-background-color: var(--lwt-frame) !important;
-    --lwt-toolbar-field-highlight: var(--uc-inverted-colour) !important;
-    --lwt-toolbar-field-highlight-text: var(--mocha-crust) !important;
+    --toolbar-field-background-color: #FFFFFF !important;
+    --lwt-toolbar-field-highlight: var(--latte-blue) !important;
+    --lwt-toolbar-field-highlight-text: #FFFFFF !important;
 
     /* URL dropdown URL color */
-    --urlbar-popup-url-color: var(--uc-accent-colour) !important;
+    --urlbar-popup-url-color: var(--latte-blue) !important;
 
     /* Tabs */
     --lwt-tab-text: var(--lwt-text-color) !important;
-    --lwt-selected-tab-background-color: var(--uc-highlight-colour) !important;
+    --lwt-selected-tab-background-color: var(--uc-tab-base-colour) !important;
 
     --toolbar-bgcolor: var(--lwt-frame) !important;
     --toolbar-color: var(--lwt-text-color) !important;
@@ -87,11 +117,10 @@
     --lwt-sidebar-background-color: var(--lwt-frame) !important;
     --sidebar-background-color: var(--lwt-sidebar-background-color) !important;
 
-    /* URLbar “box” buttons (extensions, etc) */
-    --urlbar-box-bgcolor: var(--uc-highlight-colour) !important;
-    --urlbar-box-text-color: rgba(166, 173, 200, .70) !important;
+    /* URLbar “box” buttons */
+    --urlbar-box-bgcolor: #FFFFFF !important;
+    --urlbar-box-text-color: var(--latte-subtext) !important;
     --urlbar-box-hover-bgcolor: var(--uc-hover-colour) !important;
     --urlbar-box-hover-text-color: var(--uc-inverted-colour) !important;
-    --urlbar-box-focus-bgcolor: var(--uc-highlight-colour) !important;
+    --urlbar-box-focus-bgcolor: #FFFFFF !important;
 }
-
